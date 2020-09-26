@@ -3,6 +3,8 @@ from abc import ABC, abstractmethod
 
 
 class AbstractRepository(ABC):
+    batches = set()
+
     @abstractmethod
     def add(self, entity):
         pass
@@ -16,5 +18,5 @@ class AbstractRepository(ABC):
         pass
 
     @abstractmethod
-    def search(self, entity):
+    def search(self, **fields):
         pass

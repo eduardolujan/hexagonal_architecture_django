@@ -7,8 +7,7 @@ from django.db.models import Model
 
 
 class DjangoRepository(AbstractRepository):
-    def __init__(self):
-        self.model = Model
+    model = Model
 
     def add(self, entity):
         pass
@@ -17,4 +16,7 @@ class DjangoRepository(AbstractRepository):
         pass
 
     def delete(self, entity):
+        pass
+
+    def search(self, **fields):
         pass

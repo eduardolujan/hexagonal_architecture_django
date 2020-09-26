@@ -1,8 +1,16 @@
-from src.shared.domain.repository import
+# -*- coding: utf8 -*-
+
+
+from django.db import transaction
+
+from .django_repository import DjangoRepository
+from src.shared.domain.repository import AbstractUnitOfWork
+
+
 class DjangoUnitOfWork(AbstractUnitOfWork):
 
     def __enter__(self):
-        self.batches = repository.DjangoRepository()
+        self.batches = DjangoRepository()
         transaction.set_autocommit(False)
         return super().__enter__()
 
