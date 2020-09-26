@@ -10,3 +10,11 @@ class AbstractRepository(ABC):
     @abstractmethod
     def edit(self, entity):
         pass
+
+    @abstractmethod
+    def delete(self, entity):
+        pass
+
+    @abstractmethod
+    def search(self, entity):
+        pass

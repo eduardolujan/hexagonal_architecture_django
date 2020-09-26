@@ -1,15 +1,20 @@
 # -*- coding: utf8 -*-
 
 
+from src.shared.domain.repository import AbstractRepository
+
 from django.db.models import Model
 
 
-class DjangoRepository:
+class DjangoRepository(AbstractRepository):
     def __init__(self):
         self.model = Model
 
     def add(self, entity):
-        self.model.save()
+        pass
 
     def edit(self, entity):
+        pass
+
+    def delete(self, entity):
         pass
