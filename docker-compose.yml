@@ -1,0 +1,15 @@
+  postgres:
+    env_file:
+      - .env
+    container_name: had_postgres
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: had_postgres
+    volumes:
+      - ${POSTGRES_DATA}:/var/lib/postgresql/data
+      - ${POSTGRES_BACKUPS}:/backups
+    ports:
+      - "${POSTGRES_EXTERNAL_PORT}:5432"
+
+

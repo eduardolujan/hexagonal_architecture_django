@@ -7,7 +7,7 @@ import environ
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # hexagonal_architecture_django/
-APPS_DIR = ROOT_DIR / "hag"
+APPS_DIR = ROOT_DIR / "had"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
@@ -72,7 +72,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "hexagonal_architecture_django.models.apps.UsersConfig",
+    "had.models.apps.HadConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
