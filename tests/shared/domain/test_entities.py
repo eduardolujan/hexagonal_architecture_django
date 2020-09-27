@@ -2,7 +2,6 @@
 from dataclasses import asdict
 from uuid import uuid4, uuid1, UUID
 
-
 import pytest
 
 from src.shared.domain.entity import EntityID
