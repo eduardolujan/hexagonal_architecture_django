@@ -1,5 +1,5 @@
-from .entity import Entity
+from .entity import EntityID
 
 __all__ = (
-    'Entity',
+    'EntityID',
 )

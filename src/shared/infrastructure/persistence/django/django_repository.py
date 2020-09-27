@@ -1,6 +1,5 @@
 # -*- coding: utf8 -*-
 
-
 from src.shared.domain.repository import AbstractRepository
 
 from django.db.models import Model
