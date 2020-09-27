@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class AppUser(models.AbstractUser):
-    """Default user for hexagonal_architecture_django."""
+    """Default user for had."""
     #: First and last name do not cover name patterns around the globe
     class Meta:
         db_table = "app_user"

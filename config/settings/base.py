@@ -77,7 +77,7 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "had.app.apps.HadConfig",
+    "had.app.apps.AppConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -86,7 +86,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
-MIGRATION_MODULES = {"sites": "hexagonal_architecture_django.contrib.sites.migrations"}
+MIGRATION_MODULES = {"sites": "had.contrib.sites.migrations"}
 
 # AUTHENTICATION
 # ------------------------------------------------------------------------------
@@ -184,7 +184,7 @@ TEMPLATES = [
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-                "hexagonal_architecture_django.utils.context_processors.settings_context",
+                "had.utils.context_processors.settings_context",
             ],
         },
     }
@@ -294,9 +294,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = "hexagonal_architecture_django.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "had.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "hexagonal_architecture_django.users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "had.users.adapters.SocialAccountAdapter"
 
 
 # Your stuff...

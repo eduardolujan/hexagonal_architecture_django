@@ -1,7 +1,7 @@
 import pytest
 
-from hexagonal_architecture_django.users.models import User
-from hexagonal_architecture_django.users.tests.factories import UserFactory
+from had.users.models import User
+from had.users.tests.factories import UserFactory
 
 
 @pytest.fixture(autouse=True)

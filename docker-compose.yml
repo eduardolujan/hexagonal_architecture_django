@@ -15,4 +15,14 @@ services:
     ports:
       - "${POSTGRES_EXTERNAL_PORT}:5432"
 
+  redis:
+    env_file: .env
+    container_name: had_redis
+    image: redis:5.0
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - ${REDIS_DATA}:/data
+
 
