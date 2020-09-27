@@ -11,7 +11,20 @@ SECRET_KEY = env(
     default="R1Eut2L6OkcFpGmPY2WCZtMHAHg5eY3DALdSyPtTEt1bp8aBrHxtktlXy3BUPQkC",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"],
+
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env.str("POSTGRES_DB"),
+        "USER": env.str("POSTGRES_USER"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD", default="5432"),
+        "HOST": env.str("POSTGRES_LOCALHOST", default="127.0.0.1"),
+        "PORT": env.str("POSTGRES_PORT"),
+        "ATOMIC_REQUESTS": env.bool("POSTGRES_ATOMIC_REQUESTS", default=True)
+    }
+}
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -43,11 +56,11 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
-if env("USE_DOCKER") == "yes":
-    import socket
-
-    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
+# if env("USE_DOCKER") == "yes":
+#     import socket
+#
+#     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+#     INTERNAL_IPS += [".".join(ip.split(".")[:-1] + ["1"]) for ip in ips]
 
 # django-extensions
 # ------------------------------------------------------------------------------

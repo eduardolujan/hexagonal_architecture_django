@@ -31,8 +31,8 @@ class Person(models.Model):
     last_name = models.CharField(max_length=200, null=True)
     last_name = models.CharField(max_length=200, null=True)
     second_last_name = models.CharField(max_length=200, null=True)
-    address = models.ForeignObject(Address, null=True)
-    phone = models.ForeignObject(Phone, null=True)
+    address = models.ForeignKey(Address, null=True, on_delete=models.CASCADE)
+    phone = models.ForeignKey(Phone, null=True, on_delete=models.CASCADE)
 
     class Meta:
         db_table = "person"

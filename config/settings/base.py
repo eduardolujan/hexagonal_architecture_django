@@ -1,19 +1,25 @@
 """
 Base settings to build other settings files upon.
 """
+
+import os
 from pathlib import Path
+
 
 import environ
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # hexagonal_architecture_django/
-APPS_DIR = ROOT_DIR / "had"
+APPS_DIR = ROOT_DIR / "app"
 env = environ.Env()
 
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
+ENV_PATH = str(ROOT_DIR / ".env")
+
+
+if READ_DOT_ENV_FILE or os.path.exists(ENV_PATH):
     # OS environment variables take precedence over variables from .env
-    env.read_env(str(ROOT_DIR / ".env"))
+    env.read_env(ENV_PATH)
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -40,8 +46,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {"default": env.db("DATABASE_URL")}
-DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES = {}
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -59,20 +64,20 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
+    "django.contrib.humanize",  # Handy template tags
     "django.contrib.admin",
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
+    # "allauth",
+    # "allauth.account",
+    # "allauth.socialaccount",
     "django_celery_beat",
 ]
 
 LOCAL_APPS = [
-    "had.models.apps.HadConfig",
+    "had.app.apps.HadConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -91,7 +96,7 @@ AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
-AUTH_USER_MODEL = "models.User"
+AUTH_USER_MODEL = "app.AppUser"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
@@ -255,7 +260,14 @@ if USE_TZ:
     # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-timezone
     CELERY_TIMEZONE = TIME_ZONE
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
-CELERY_BROKER_URL = env("CELERY_BROKER_URL")
+
+
+# REDIS_HOST = env("REDIS_HOST", default="localhost")
+# REDIS_PORT = env("REDIS_PORT", default="6379")
+# REDIS_DATABASE = env("REDIS_DATABASE", default="0")
+# REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/0")
+
+CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://localhost:6379/0")
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-accept_content
