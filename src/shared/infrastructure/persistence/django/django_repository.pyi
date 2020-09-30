@@ -1,8 +1,3 @@
-
-
-from typing import List
-
-from src.shared.domain.entity import Entity
 from src.shared.domain.repository import AbstractRepository
 
 

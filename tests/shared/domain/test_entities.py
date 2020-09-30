@@ -1,6 +1,4 @@
-
-from dataclasses import asdict
-from uuid import uuid4, uuid1, UUID
+from uuid import uuid4
 
 import pytest
 
