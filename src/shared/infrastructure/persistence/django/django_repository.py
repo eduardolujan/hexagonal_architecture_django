@@ -5,37 +5,34 @@ from django.db.models import Model
 
 from src.shared.domain.repository import AbstractRepository
 from .django_orm_manager import DjangoOrmManager
-from src.shared.domain.entities import Entity
 
 
 class DjangoRepository(DjangoOrmManager, AbstractRepository):
-    model = Model
+    def __init__(self):
+        super(DjangoRepository, self).__init__(self.entity, self.model)
 
     def get(self, entity):
         """
-        Get instance by fields
+        Get instance by fields dict
         """
         if not entity:
             raise ValueError('Entity is null')
-        self.django_read(entity.as_dict())
+        return self.get_orm(**entity.as_dict())
 
-    def create(self, **fields):
-        try:
-            model_instance = self.model()
-            for field, value in fields.items():
-                setattr(model_instance, field, value)
-            model_instance.save()
-        except Exception as err:
-            message = str(err)
-
-    def update(self, **fields):
+    def create(self, entity):
         pass
 
-    def delete(self, **fields):
+    def update(self, entity):
         pass
 
-    def search(self, **fields):
+    def delete(self, entity):
+        pass
+
+    def search(self, entity):
         pass
 
     def all(self):
-        pass
+        """
+        Get all instances
+        """
+        return self.orm_all()
