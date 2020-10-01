@@ -1,22 +1,26 @@
-
 from abc import ABC, abstractmethod
+from typing import Optional, List
+from src.shared.domain.entities import Entity
 
 
 class AbstractRepository(ABC):
-    batches = set()
+
+    def __setattr__(self, key, value): ...
 
     @abstractmethod
-    def add(self, entity):
-        pass
+    def get(self, entity: Entity) -> Optional[Entity]: ...
 
     @abstractmethod
-    def edit(self, entity):
-        pass
+    def create(self, entity: Entity) -> Optional[bool]: ...
 
     @abstractmethod
-    def delete(self, entity):
-        pass
+    def update(self, entity: Entity) -> Optional[bool]: ...
 
     @abstractmethod
-    def search(self, **fields):
-        pass
+    def delete(self, entity: Entity) -> Optional[bool]: ...
+
+    @abstractmethod
+    def search(self, entity: Entity) -> List[Entity]: ...
+
+    @abstractmethod
+    def all(self) -> List[Entity]: ...
