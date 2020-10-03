@@ -40,7 +40,6 @@ class Command(BaseCommand):
         application = options.get('application')
         enviroment = options.get('enviroment')
         fixtures_path = self.get_path()
-        print(fixtures_path)
 
         if not application:
             raise CommandError(f'Application param is empty')

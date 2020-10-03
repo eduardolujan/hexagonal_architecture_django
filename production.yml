@@ -1,4 +1,4 @@
-version: '3'
+deversion: '3'
 
 volumes:
   production_postgres_data: {}
@@ -62,4 +62,4 @@ services:
     image: hexagonal_architecture_django_production_flower
     command: /start-flower
 
-  
+

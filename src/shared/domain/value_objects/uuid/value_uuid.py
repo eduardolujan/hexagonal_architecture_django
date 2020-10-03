@@ -1,14 +1,15 @@
 # -*- utf-8  -*-
 
 
-from abc import ABC
 from uuid import UUID
 
 
-class Uuid(ABC):
+class Uuid:
     """
     UUID 4
     """
+    _slots__ = ['__value']
+
     def __init__(self, value, field_name='id'):
         self.__value = UUID(value, version=4)
         self.__field_name = field_name
@@ -20,10 +21,20 @@ class Uuid(ABC):
         return str(self.__value)
 
     @property
-    def uuid(self):
-        return self.__value
+    def value(self):
+        return str(self.__value)
+
+    @value.setter
+    def value(self):
+        raise ValueError("You can't assign value")
 
     def as_dict(self):
         _dict = dict()
         _dict[self.__field_name] = self.__value
         return _dict
+
+
+
+
+
+
