@@ -14,11 +14,31 @@ level and facilitates test automation.
 
 
 ## Setup
+Setup
 
-### Local
+###Local
+Local setup
+  
+
 ### Docker
 
 ```
 docker-compose up -d
 ```
+
+### Task List 
+- [x] Django orm models
+- [x] Django rest framework
+- [x] Cors
+- [x] Repository pattern 
+- [x] Entities 
+- [x] Mapped orm entities 
+- [x] Bundle context 
+- [ ] Abstract unit of work
+- [ ] Event 
+- [ ] Commands
+- [ ] CQS
+- [ ] CQRS pattern
+- [ ] Event bus handlers
+
 
