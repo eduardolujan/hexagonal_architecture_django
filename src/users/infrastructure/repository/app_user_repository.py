@@ -2,7 +2,7 @@
 
 from had.app.models import AppUser
 from src.users.domain.entities import AppUser as AppUserEntity
-from src.shared.infrastructure.persistence.django import DjangoRepository, DjangoOrmManager
+from src.shared.infrastructure.persistence.django import DjangoRepository
 
 
 class AppUserRepository(DjangoRepository):
