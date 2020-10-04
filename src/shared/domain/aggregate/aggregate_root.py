@@ -11,6 +11,6 @@ class AggregateRoot:
         self.__domain_events = []
         return domain_events
 
-    def record(self, domain_event={}):
+    def record(self, domain_event):
         self.__domain_events.append(domain_event)
 

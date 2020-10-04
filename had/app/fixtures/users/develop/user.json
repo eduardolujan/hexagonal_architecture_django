@@ -1,0 +1,13 @@
+[
+  {
+    "model": "app.appuser",
+    "fields": {
+      "id": "46e56435-e427-48ef-8d59-c128b54475b6",
+      "username": "root",
+      "password": "argon2$argon2i$v=19$m=512,t=2,p=2$NHhpZ1Y5SHNCanVh$cGIuIqyLZ3ybTJcOQX3JXg",
+      "is_superuser": true,
+      "is_staff": true,
+      "is_active": true
+    }
+  }
+]
