@@ -11,7 +11,10 @@ class String:
         return self.__value
 
     def __repr__(self):
-        return str(self.__value)
+        return self
+
+    def __str__(self):
+        return self
 
     @property
     def value(self):

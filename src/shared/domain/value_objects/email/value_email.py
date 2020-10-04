@@ -4,7 +4,7 @@ from validate_email import validate_email
 
 
 class ValidateEmail(ABC):
-    @classmethod
+    @abstractmethod
     def validate_email(self, email):
         raise NotImplementedError("Not implemented error")
 
@@ -22,10 +22,13 @@ class Py3ValidateEmail(ValidateEmail):
 
 
 class Email:
+    validate_email = Py3ValidateEmail()
 
     __slots__ = ['__value']
 
     def __init__(self, value):
+        if not self.validate_email():
+            raise Exception('Algo mal')
         self.__value = value
 
     def __deepcopy__(self, memodict={}):
@@ -42,7 +45,3 @@ class Email:
     def value(self):
         raise ValueError("You can't assign value")
 
-
-
-is_valid = Py3ValidateEmail().validate_email('kako')
-pass

@@ -52,7 +52,7 @@ class DjangoOrmManager:
         mapper = Mapper(self.entity, self.model)
         model_instances = self.__all()
 
-        @mapper.reader.iterable
+        @mapper.reader.sequence
         def reader_entity(entity):
             return entity
 
