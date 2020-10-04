@@ -1,14 +1,24 @@
 # Hexagonal Architecture 
 
 
-La Arquitectura Hexagonal, dada a conocer por Alistair Cockburn — y también conocida como arquitectura de puertos y 
-adaptadores, tiene como principal motivación separar nuestra aplicación en distintas capas o regiones con su 
-propia responsabilidad. De esta manera consigue desacoplar capas de nuestra aplicación permitiendo que evolucionen de 
-manera aislada. Además, tener el sistema separado por responsabilidades nos facilitará la reutilización.
+The hexagonal architecture, or ports and adapters architecture, is an architectural pattern used in 
+software design. It aims at creating loosely coupled application components that can be easily connected 
+to their software environment by means of ports and adapters. This makes components exchangeable at any 
+level and facilitates test automation.
 
 ![Hexagonal Architecture](./docs/imgs/hexagonal_diagram1.png)
 
 ## Hexagonal Architecture Django
 
 ![Hexagonal Architecture Django](./docs/imgs/hexagonal_diagram2.png)
+
+
+## Setup
+
+### Local
+### Docker
+
+```
+docker-compose up -d
+```
 
