@@ -4,7 +4,7 @@
 from abc import ABC, abstractmethod
 
 
-class EntitiesSerializer(ABC):
+class EntitySerializer(ABC):
     @abstractmethod
-    def get_entities(self, entities):
+    def get_entity(self, en):
         raise NotImplementedError("Not implemented yet")
