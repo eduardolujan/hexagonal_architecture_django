@@ -1,38 +1,53 @@
-# -*- coding: utf8 -*-
+
+from abc import ABC, abstractmethod
+import mappers
 
 
-from django.db.models import Model
+class DjangoRepository(ABC):
 
-from src.shared.domain.repository import AbstractRepository
-from .django_orm_manager import DjangoOrmManager
+    def get_orm(self, **fields):
+        try:
+            model_instance = self.model.objects.get(**fields)
+        except Exception as err:
+            model_instance = None
+        return model_instance
 
+    def get_all_orm(self):
+        model_instances = self.model.objects.all()
+        return model_instances
 
-class DjangoRepository(DjangoOrmManager, AbstractRepository):
-    def __init__(self):
-        super(DjangoRepository, self).__init__(self.entity, self.model)
+    def get_entity(self, **fields):
+        mapper = mappers.Mapper(self.entity, self.model)
+        model_instance = self.get_orm(**fields)
 
-    def get(self, entity):
-        """
-        Get instance by fields dict
-        """
-        if not entity:
-            raise ValueError('Entity is null')
-        return self.get_orm(**entity.as_dict())
+        @mapper.reader.optional
+        def reader_entity(_model_instance):
+            return _model_instance
 
-    def create(self, entity):
-        pass
+        if model_instance:
+            return reader_entity(model_instance)
 
-    def update(self, entity):
-        pass
+        return model_instance
 
-    def delete(self, entity):
-        pass
+    def create_entity(self, **fields):
+        model_instance = self.model()
+        for field, value in fields.items():
+            if hasattr(model_instance, field):
+                setattr(model_instance, field, value)
+            else:
+                raise Exception('Field not found')
+        try:
+            model_instance.save()
+        except Exception as err:
+            # Log this error
+            raise Exception(f'Error when try to save {self.model}')
 
-    def search(self, entity):
-        pass
+    def _all_entities(self):
+        mapper = mappers.Mapper(self.entity, self.model)
+        model_instances = self.get_all_orm()
 
-    def all(self):
-        """
-        Get all instances
-        """
-        return self.orm_all()
+        @mapper.reader.sequence
+        def reader_entity(entity):
+            return entity
+
+        return reader_entity(model_instances)
