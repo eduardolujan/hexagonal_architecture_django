@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
-
+from typing import Set
 
 class AbstractRepository(ABC):
-    batches = set()
 
     def __setattr__(self, key, value):
         if 'model' == key:
@@ -10,24 +9,24 @@ class AbstractRepository(ABC):
 
     @abstractmethod
     def get(self, entity):
-        pass
+        raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
     def create(self, entity):
-        pass
+        raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
     def update(self, entity):
-        pass
+        raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
     def delete(self, entity):
-        pass
+        raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
     def search(self, entity):
-        pass
+        raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
     def all(self):
-        pass
+        raise NotImplementedError("Not implemented yet")

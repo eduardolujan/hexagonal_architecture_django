@@ -41,12 +41,17 @@ class DjangoOrmManager:
             if hasattr(model_instance, field):
                 setattr(model_instance, field, value)
             else:
-                raise Exception('Field not found')
-        try:
-            model_instance.save()
-        except Exception as err:
-            # Log this error
-            raise Exception(f'Error when try to save {self.model}')
+                raise ValueError('Field not found')
+        return model_instance
+
+    def orm_update(self, **fields):
+        model_instance = self.model()
+        for field, value in fields.items():
+            if hasattr(model_instance, field):
+                setattr(model_instance, field, value)
+            else:
+                raise ValueError('Field not found')
+        return model_instance
 
     def orm_all(self):
         mapper = Mapper(self.entity, self.model)

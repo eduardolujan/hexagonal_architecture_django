@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 
 
@@ -9,21 +10,20 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from drf_yasg.utils import swagger_auto_schema
 
-from src.shared.infrastructure.logs import get_logger, cls_logger_decorator
+from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
 from src.users.infrastructure.repository import AppUserRepository
 from src.users.infrastructure.serializers.django import AppUserEntitySerializer
 from src.users.application import AppUsersSerializedService
 
-log = get_logger(__file__)
 
-
-@cls_logger_decorator(file_name=__file__)
-class UserListApi(APIView):
+@LoggerDecorator(logger=PyLoggerService(file_path=__file__))
+class CreateUserApi(APIView):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [AllowAny]
 
     def get(self, request):
         user_repository = AppUserRepository()
+        user_repository.create()
         user_entity_serializer = AppUserEntitySerializer()
         user_serialized_service = AppUsersSerializedService(user_repository, user_entity_serializer)
         serialized_users = user_serialized_service.all()
