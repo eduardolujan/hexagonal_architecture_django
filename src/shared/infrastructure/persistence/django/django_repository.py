@@ -16,7 +16,7 @@ class DjangoRepository(ABC):
         model_instances = self.model.objects.all()
         return model_instances
 
-    def get_entity(self, **fields):
+    def _get_entity(self, **fields):
         mapper = mappers.Mapper(self.entity, self.model)
         model_instance = self.get_orm(**fields)
 
@@ -29,7 +29,7 @@ class DjangoRepository(ABC):
 
         return model_instance
 
-    def create_entity(self, **fields):
+    def _create_entity(self, **fields):
         model_instance = self.model()
         for field, value in fields.items():
             if hasattr(model_instance, field):
