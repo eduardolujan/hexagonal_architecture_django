@@ -1,4 +1,4 @@
-from src.users.domain.entities import (
+from src.users.domain.app_user import (
     AppUser as AppUserEntity,
     AppUserId as AppUserIdEntity
 )
