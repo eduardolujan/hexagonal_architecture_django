@@ -1,12 +1,13 @@
 
-from django.db.models import Model
 from mappers import Mapper, Evaluated
 
 
 class DjangoOrmManager:
-    def __init__(self, entity, model):
+
+    def __init__(self, model=None, entity=None):
         self.entity = entity
         self.model = model
+        pass
 
     def __get(self, **fields):
         try:

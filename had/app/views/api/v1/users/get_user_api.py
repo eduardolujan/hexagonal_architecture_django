@@ -1,3 +1,5 @@
+
+
 # -*- coding: utf-8 -*-
 
 
@@ -7,17 +9,17 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
-from src.users.infrastructure.repository.django import UserRepository
+from src.users.infrastructure.repository import AppUserRepository
 from src.users.infrastructure.serializers.django import AppUserEntitySerializer
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class ListUsersApi(APIView):
+class GetUserApi(APIView):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [AllowAny]
 
-    def get(self, request):
-        user_repository = UserRepository()
+    def get(self, request, id):
+        user_repository = AppUserRepository()
         entity_serializer = AppUserEntitySerializer()
         response_data = dict(
             success=True,

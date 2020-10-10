@@ -3,6 +3,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass, asdict
 from uuid import UUID as UUID4
 
+from src.shared.domain.aggregate import AggregateRoot
+
 
 class UUIDEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -11,8 +13,7 @@ class UUIDEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-class Entity(ABC):
-
+class Entity(AggregateRoot, ABC):
     def as_str(self):
         _dict = asdict(self)
         parsed_dict = json.dumps(_dict, cls=UUIDEncoder)
@@ -21,6 +22,3 @@ class Entity(ABC):
     def as_dict(self):
         parsed_dict = json.loads(self.as_str())
         return parsed_dict
-
-
-

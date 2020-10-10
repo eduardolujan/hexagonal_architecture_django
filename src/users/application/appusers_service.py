@@ -2,11 +2,11 @@
 
 
 from src.shared.domain.serializers import EntitiesSerializer
-from src.shared.domain.repository import AbstractRepository
+from src.users.domain.repository import UserRepository
 
 
 class AppUsersSerializedService:
-    def __init__(self, user_repository: AbstractRepository, entity_serializer: EntitiesSerializer):
+    def __init__(self, user_repository: UserRepository, entity_serializer: EntitiesSerializer):
         self.user_repository = user_repository
         self.entity_serializer = entity_serializer
 
