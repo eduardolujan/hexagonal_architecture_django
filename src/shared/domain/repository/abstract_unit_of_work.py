@@ -7,7 +7,6 @@ from src.shared.domain.repository import AbstractRepository
 
 
 class AbstractUnitOfWork(ABC):
-    repository: AbstractRepository = None
 
     def __enter__(self) -> AbstractUnitOfWork:
         """
@@ -38,3 +37,19 @@ class AbstractUnitOfWork(ABC):
         Rollback transaction
         """
         raise NotImplementedError("Not implemented yet")
+
+    @abstractmethod
+    def add(self, entity):
+        raise NotImplementedError("Not implemented yet")
+
+    @abstractmethod
+    def flush(self):
+        raise NotImplementedError("Not implemented yet")
+
+    @property
+    def session(self):
+        class HelperClass:
+            @classmethod
+            def add(cls, entity):
+                self.add(entity)
+        return HelperClass

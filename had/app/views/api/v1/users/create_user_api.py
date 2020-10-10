@@ -1,19 +1,20 @@
-
 # -*- coding: utf-8 -*-
 
 
-from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from drf_yasg.utils import swagger_auto_schema
+from rest_framework.permissions import AllowAny
 
+from src.shared.infrastructure.persistence.django import DjangoUnitOfWork
+from src.shared.infrastructure.passwords import DjangoPasswordGenerator
 from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
-from src.users.infrastructure.repository import AppUserRepository
-from src.users.infrastructure.serializers.django import AppUserEntitySerializer
-from src.users.application import AppUsersSerializedService
+from src.users.infrastructure.repository.django import UserRepository
+from src.users.infrastructure.serializers.django import (
+    AppUserEntitySerializer,
+    AppUserSerializer as DjangoUserSerializer
+)
+from src.users.application.create import CreateUser
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -21,18 +22,29 @@ class CreateUserApi(APIView):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [AllowAny]
 
-    def get(self, request):
-        user_repository = AppUserRepository()
-        user_repository.create()
-        user_entity_serializer = AppUserEntitySerializer()
-        user_serialized_service = AppUsersSerializedService(user_repository, user_entity_serializer)
-        serialized_users = user_serialized_service.all()
-        response_data = dict(
-            success=True,
-            message='All ok',
-            data=serialized_users
-        )
-        self.log.info('Called')
-        return Response(response_data, status=status.HTTP_200_OK)
+    def post(self, request):
+        try:
+            user_data = request.data
+            user_entity_serializer = AppUserEntitySerializer(DjangoUserSerializer)
+            user_dto = user_entity_serializer.get_dto(user_data)
+            user_repository = UserRepository()
+            django_password_generator = DjangoPasswordGenerator()
+            django_unit_of_work = DjangoUnitOfWork()
+            create_user = CreateUser(user_repository, django_password_generator, django_unit_of_work)
+            create_user(**user_dto)
+            response_data = dict(
+                success=True,
+                message='All ok',
+            )
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        except Exception as err:
+            self.log.exception(f"Error in {__class__}::post, err:{err}")
+            response_data = dict(
+                success=False,
+                message=f"{err}"
+            )
+            if hasattr(err, 'errors'):
+                response_data.update(errors=err.errors)
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 

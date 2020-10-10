@@ -11,7 +11,7 @@ urlpatterns = [
         name="list_users"
     ),
     re_path(
-        "users/?",
+        "user/?",
         api_users.CreateUserApi.as_view(),
         name="create_user"
     )

@@ -1,12 +1,14 @@
 
 
 from had.app.models import AppUser
-from src.users.domain.entities import AppUser as AppUserEntity
-from src.shared.infrastructure.persistence.django import DjangoRepository
+from src.users.domain.app_user import AppUser as AppUserEntity
+from src.users.domain.repository import UserRepository
+from src.shared.infrastructure.persistence.django import DjangoOrmManager
 
 
-class AppUserRepository(DjangoRepository):
+class AppUserRepository(DjangoOrmManager, UserRepository):
     model = AppUser
     entity = AppUserEntity
 
-
+    def all(self):
+        return self._all_entities()

@@ -22,7 +22,7 @@ DATABASES = {
         "PASSWORD": env.str("POSTGRES_PASSWORD", default="5432"),
         "HOST": env.str("POSTGRES_LOCALHOST", default="127.0.0.1"),
         "PORT": env.str("POSTGRES_PORT"),
-        "ATOMIC_REQUESTS": env.bool("POSTGRES_ATOMIC_REQUESTS", default=True)
+        "ATOMIC_REQUESTS": env.bool("POSTGRES_ATOMIC_REQUESTS", default=False)
     }
 }
 
