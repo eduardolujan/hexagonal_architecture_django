@@ -1,16 +1,22 @@
 # -*- coding: utf8 -*-
 
+import os
+import sys
+import inspect
 
 from django.db import transaction
 
-from .django_repository import DjangoRepository
-from src.shared.domain.repository import AbstractUnitOfWork
+from src.shared.domain.repository import AbstractUnitOfWork, AbstractRepository
+from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
 
 
+@LoggerDecorator(logger=PyLoggerService(__file__))
 class DjangoUnitOfWork(AbstractUnitOfWork):
+    def __init__(self):
+        self.entities = set()
+        self.save_point = None
 
     def __enter__(self):
-        self.batches = DjangoRepository()
         transaction.set_autocommit(False)
         return super().__enter__()
 
@@ -19,9 +25,25 @@ class DjangoUnitOfWork(AbstractUnitOfWork):
         transaction.set_autocommit(True)
 
     def commit(self):
-        for batch in self.batches.seen:
-            self.batches.update(batch)
-        transaction.commit()
+
+        try:
+            for entity in self.entities:
+                entity.save()
+
+        except Exception as err:
+            transaction.rollback()
+
+        else:
+            transaction.commit()
+
+        finally:
+            pass
 
     def rollback(self):
         transaction.rollback()
+
+    def add(self, entity):
+        self.entities.add(entity)
+
+    def flush(self):
+        self.entities = set()

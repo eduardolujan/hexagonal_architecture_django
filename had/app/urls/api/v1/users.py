@@ -7,7 +7,12 @@ app_name = "users"
 urlpatterns = [
     re_path(
         "users/?",
-        api_users.UserListApi.as_view(),
-        name="users"
+        api_users.ListUsersApi.as_view(),
+        name="list_users"
+    ),
+    re_path(
+        "user/?",
+        api_users.CreateUserApi.as_view(),
+        name="create_user"
     )
 ]
