@@ -1,15 +1,24 @@
 from abc import ABC, abstractmethod
 
 
-from src.shared.domain.repository import AbstractRepository
-
-
 class UserRepository(ABC):
     @abstractmethod
-    def all(self):
+    def create(self, entity):
         raise NotImplementedError("Not implemented error")
 
     @abstractmethod
-    def create(self, entity):
+    def get(self, entity):
+        raise NotImplementedError("Not implemented error")
+
+    @abstractmethod
+    def update(self, entity):
+        raise NotImplementedError("Not implemented error")
+
+    @abstractmethod
+    def delete(self, entity):
+        raise NotImplementedError("Not implemented error")
+
+    @abstractmethod
+    def all(self):
         raise NotImplementedError("Not implemented error")
 

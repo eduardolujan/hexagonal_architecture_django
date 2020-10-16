@@ -8,7 +8,7 @@ from rest_framework.permissions import AllowAny
 
 from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
 from src.users.infrastructure.repository.django import UserRepository
-from src.users.infrastructure.serializers.django import AppUserEntitySerializer
+from src.users.infrastructure.serializers.django import UserEntitySerializer
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -18,7 +18,7 @@ class ListUsersApi(APIView):
 
     def get(self, request):
         user_repository = UserRepository()
-        entity_serializer = AppUserEntitySerializer()
+        entity_serializer = UserEntitySerializer()
         response_data = dict(
             success=True,
             message='All ok',

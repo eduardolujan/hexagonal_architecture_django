@@ -30,15 +30,19 @@ docker-compose up -d
 - [x] Django orm models
 - [x] Django rest framework
 - [x] Cors
-- [x] Repository pattern 
+- [x] Repository pattern
+- [x] Repository Create, Get, Update, Delete, All, Search (Criteria/Specification pattern )
 - [x] Entities 
 - [x] Mapped orm entities 
 - [x] Bundle context 
-- [ ] Abstract unit of work
-- [ ] Event 
+- [x] Abstract unit of work
+- [ ] Domain Events 
+- [ ] Domain bus events
+- [ ] Domain event handlers
 - [ ] Commands
 - [ ] CQS
 - [ ] CQRS pattern
-- [ ] Event bus handlers
+- [ ] Command bus handlers
+- [ ] Command handlers
 
 

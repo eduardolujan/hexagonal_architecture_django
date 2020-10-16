@@ -4,7 +4,7 @@
 from rest_framework import serializers
 
 
-class AppUserSerializer(serializers.Serializer):
+class UserSerializer(serializers.Serializer):
     id = serializers.UUIDField(required=True)
     username = serializers.CharField(required=True)
     password = serializers.CharField(required=True)

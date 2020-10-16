@@ -11,17 +11,20 @@ class UserRepository(DjangoOrmManager, UserRepository):
     def __init__(self, model=AppUserModel, entity=AppUserEntity):
         super(UserRepository, self).__init__(model, entity)
 
-    def get(self, entity: AppUserEntity):
-        model_instance = self.get_orm(**entity.as_dict())
+    def get(self, entity):
+        model_instance = self.orm_get(**entity.as_dict())
         return model_instance
 
-    def create(self, entity: AppUserEntity):
+    def create(self, entity):
         model_instance = self.orm_create(**entity.as_dict())
         return model_instance
 
-    def update(self, entity: AppUserEntity):
+    def update(self, entity):
         model_instance = self.orm_create(**entity.as_dict())
         return model_instance
+
+    def delete(self, entity):
+        return self.orm_delete()
 
     def all(self):
         return self.orm_all()

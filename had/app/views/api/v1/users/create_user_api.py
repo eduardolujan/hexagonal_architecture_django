@@ -11,8 +11,7 @@ from src.shared.infrastructure.passwords import DjangoPasswordGenerator
 from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
 from src.users.infrastructure.repository.django import UserRepository
 from src.users.infrastructure.serializers.django import (
-    AppUserEntitySerializer,
-    AppUserSerializer as DjangoUserSerializer
+    UserEntitySerializer,
 )
 from src.users.application.create import CreateUser
 
@@ -25,7 +24,7 @@ class CreateUserApi(APIView):
     def post(self, request):
         try:
             user_data = request.data
-            user_entity_serializer = AppUserEntitySerializer(DjangoUserSerializer)
+            user_entity_serializer = UserEntitySerializer()
             user_dto = user_entity_serializer.get_dto(user_data)
             user_repository = UserRepository()
             django_password_generator = DjangoPasswordGenerator()

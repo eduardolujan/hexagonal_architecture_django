@@ -31,3 +31,6 @@ nameko==2.12.0
 
 # Extra apps
 py3-validate-email==0.2.9
+
+# Mappers
+mappers==2.1.0

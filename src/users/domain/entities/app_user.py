@@ -13,3 +13,8 @@ class AppUser(Entity):
     username: Username
     password: UserPassword
     email: UserEmail
+
+
+@dataclass(frozen=True)
+class GetUser(Entity):
+    id: AppUserId
