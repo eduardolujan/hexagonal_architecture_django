@@ -9,10 +9,9 @@ from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UserEntitySerializer(EntitySerializer, EntitiesSerializer):
-    user_serializer = DjangoUserSerializer
 
-    def __init__(self):
-        pass
+    def __init__(self, user_serializer=None):
+        self.user_serializer = user_serializer or DjangoUserSerializer
 
     def get_dto(self, data):
         """

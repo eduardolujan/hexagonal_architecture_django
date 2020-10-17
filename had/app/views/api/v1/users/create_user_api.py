@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 from src.shared.infrastructure.persistence.django import DjangoUnitOfWork
-from src.shared.infrastructure.passwords import DjangoPasswordGenerator
+from src.shared.infrastructure.passwords import DjangoPasswordCreator
 from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
 from src.users.infrastructure.repository.django import UserRepository
 from src.users.infrastructure.serializers.django import (
@@ -27,7 +27,7 @@ class CreateUserApi(APIView):
             user_entity_serializer = UserEntitySerializer()
             user_dto = user_entity_serializer.get_dto(user_data)
             user_repository = UserRepository()
-            django_password_generator = DjangoPasswordGenerator()
+            django_password_generator = DjangoPasswordCreator()
             django_unit_of_work = DjangoUnitOfWork()
             create_user = CreateUser(user_repository, django_password_generator, django_unit_of_work)
             create_user(**user_dto)
