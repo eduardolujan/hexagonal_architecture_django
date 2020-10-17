@@ -1,44 +1,58 @@
 # -*- coding: utf-8 -*-
 
 
+from .django_user_serializer import UserSerializer as DjangoUserSerializer
+from src.users.domain.entities import AppUser as UserEntity
 from src.shared.domain.serializers import EntitySerializer, EntitiesSerializer
-from .django_user_serializer import AppUserSerializer
+from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
 
 
-class AppUserEntitySerializer(EntitySerializer, EntitiesSerializer):
-    def __init__(self, serializer_class=None):
-        if not serializer_class:
-            raise ValueError("Empty serializer_class")
-        self.serializer_class = serializer_class
+@LoggerDecorator(logger=PyLoggerService(file_path=__file__))
+class UserEntitySerializer(EntitySerializer, EntitiesSerializer):
+
+    def __init__(self, user_serializer=None):
+        self.user_serializer = user_serializer or DjangoUserSerializer
 
     def get_dto(self, data):
-        app_user_serializer = self.serializer_class(data=data)
-        is_valid_serializer = app_user_serializer.is_valid()
+        """
+        Gets dict of the entity using user_serializer::DjangoUserSerializer
+        @param data: data to serialize
+        @return:
+        """
+        user_serializer = self.user_serializer(data=data)
+        is_valid_serializer = user_serializer.is_valid()
         if not is_valid_serializer:
+            self.log.error(f"Serializer is not valid err:{user_serializer.errors}")
             exception = Exception(f"Not valid data")
-            exception.errors = app_user_serializer.errors
+            exception.errors = user_serializer.errors
             raise exception
 
-        serialized_data = app_user_serializer.data
+        serialized_data = user_serializer.data
         return serialized_data
 
-    def get_entity(self, entity):
-        app_user_serializer = AppUserSerializer(entity)
-        serialized_data = app_user_serializer
+    def get_dto_from_entity(self, entity):
+        """
+        Gets entity
+        @param entity:
+        @return:
+        """
+        user_serializer = self.user_serializer(entity)
+        serialized_data = user_serializer.data
         return serialized_data
 
     def get_dtos(self, data):
-        app_user_serializer = AppUserSerializer(data=data, many=True)
-        is_valid_serializer = app_user_serializer.is_valid()
+        user_serializer = self.user_serializer(data=data, many=True)
+        is_valid_serializer = user_serializer.is_valid()
         if not is_valid_serializer:
+            self.log.error(f"Serializer is not valid err:{user_serializer.errors}")
             exception = Exception(f"Not valid data")
-            exception.errors = app_user_serializer.errors
+            exception.errors = user_serializer.errors
             raise exception
-        serializer_data = app_user_serializer.data
+        serializer_data = user_serializer.data
         return serializer_data
 
-    def get_entities(self, entities):
-        app_user_serializer = AppUserSerializer(entities, many=True)
-        serializer_data = app_user_serializer.data
+    def get_dto_from_entities(self, entities):
+        user_serializer = self.user_serializer(entities, many=True)
+        serializer_data = user_serializer.data
         return serializer_data
 

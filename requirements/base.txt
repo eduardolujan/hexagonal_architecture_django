@@ -27,7 +27,10 @@ drf-yasg==1.17.0
 django-cors-headers==3.2.0
 
 # Nameko
-nameko==2.12.0
+nameko==3.0.0rc9
 
 # Extra apps
 py3-validate-email==0.2.9
+
+# Mappers
+mappers==2.1.0

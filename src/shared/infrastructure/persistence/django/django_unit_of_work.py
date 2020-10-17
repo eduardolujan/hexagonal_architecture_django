@@ -31,13 +31,13 @@ class DjangoUnitOfWork(AbstractUnitOfWork):
                 entity.save()
 
         except Exception as err:
-            transaction.rollback()
+            self.rollback()
 
         else:
             transaction.commit()
 
         finally:
-            pass
+            self.log.info(f"Finished transaction")
 
     def rollback(self):
         transaction.rollback()

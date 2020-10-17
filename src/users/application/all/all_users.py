@@ -5,7 +5,7 @@ from src.shared.domain.serializers import EntitiesSerializer
 from src.users.domain.repository import UserRepository
 
 
-class AppUsersSerializedService:
+class AllUser:
     def __init__(self, user_repository: UserRepository, entity_serializer: EntitiesSerializer):
         self.user_repository = user_repository
         self.entity_serializer = entity_serializer

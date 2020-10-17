@@ -10,5 +10,5 @@ class EntitiesSerializer(ABC):
         raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
-    def get_entities(self, data):
+    def get_dto_from_entities(self, data):
         raise NotImplementedError("Not implemented yet")

@@ -19,7 +19,7 @@ class CreateUser:
 
         app_user_id = AppUserId(id)
         username = Username(username)
-        encrypted_password = password_generator.make(password)
+        encrypted_password = password_generator.create(password)
         password = UserPassword(encrypted_password)
         email = UserEmail(email)
 
