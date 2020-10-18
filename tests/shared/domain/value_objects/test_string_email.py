@@ -47,5 +47,3 @@ def test_value_object_email_input_value(setup_email_validator_return_mock, subte
             with pytest.raises(ValueError, match="Email value not string"):
                 Email(value, email_validator=email_validator)
 
-
-
