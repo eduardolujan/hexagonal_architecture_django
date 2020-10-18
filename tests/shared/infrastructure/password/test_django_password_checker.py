@@ -7,7 +7,7 @@ from unittest.mock import Mock
 from src.shared.infrastructure.passwords import DjangoPasswordChecker
 
 
-def test_django_password_executed():
+def test_django_checker_executed():
     mock = Mock()
     mock.return_value = True
     password, encoded_password = (
@@ -19,7 +19,7 @@ def test_django_password_executed():
     mock.assert_called_with(password, encoded_password)
 
 
-def test_django_password_true():
+def test_django_checker_true():
     mock_return = True
     mock = Mock()
     mock.return_value = mock_return
@@ -32,7 +32,7 @@ def test_django_password_true():
     assert result == mock_return
 
 
-def test_django_password_false():
+def test_django_checker_false():
     mock_return = False
     mock = Mock()
     mock.return_value = mock_return
@@ -45,7 +45,7 @@ def test_django_password_false():
     assert result == mock_return
 
 
-def test_django_password_non_string_password():
+def test_django_checker_non_string_password():
     mock_return = False
     mock = Mock()
     mock.return_value = mock_return
@@ -58,7 +58,7 @@ def test_django_password_non_string_password():
         django_password_checker.check_password(password, encoded_password)
 
 
-def test_django_password_non_string_encoded_password():
+def test_django_checker_non_string_encoded_password():
     mock_return = False
     mock = Mock()
     mock.return_value = mock_return

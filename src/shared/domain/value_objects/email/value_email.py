@@ -3,13 +3,13 @@ from abc import ABC, abstractmethod
 from validate_email import validate_email
 
 
-class ValidateEmail(ABC):
+class EmailValidator(ABC):
     @abstractmethod
     def validate_email(self, email):
         raise NotImplementedError("Not implemented error")
 
 
-class Py3ValidateEmail(ValidateEmail):
+class Py3EmailValidator(EmailValidator):
     def __init__(self):
         pass
 
@@ -22,26 +22,27 @@ class Py3ValidateEmail(ValidateEmail):
 
 
 class Email:
-    validate_email = Py3ValidateEmail()
+    def __init__(self, value, email_validator=None):
+        if type(value) is not str:
+            raise ValueError("Email value not string")
 
-    __slots__ = ['__value']
+        self.email_validator = email_validator or Py3EmailValidator()
+        if not self.email_validator.validate_email(value):
+            raise ValueError("Is not a valid email")
 
-    def __init__(self, value):
-        if not self.validate_email():
-            raise Exception('Algo mal')
         self.__value = value
 
     def __deepcopy__(self, memodict={}):
         return self.__value
 
     def __repr__(self):
-        return str(self.__value)
+        return self.__value
 
     @property
     def value(self):
-        return str(self.__value)
+        return self.__value
 
     @value.setter
-    def value(self):
+    def value(self, value):
         raise ValueError("You can't assign value")
 

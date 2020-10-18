@@ -1,28 +1,36 @@
 # -*- utf-8  -*-
 
 
-from uuid import UUID
+from uuid import UUID as pyuuid_validator
 
 
 class Uuid:
     """
     UUID 4
     """
-    _slots__ = ['__value']
 
-    def __init__(self, value, field_name='id'):
-        self.__value = UUID(value, version=4)
-        self.__field_name = field_name
+    def __init__(self, value, field_name='id', uuid_generator=None):
+        self._field_name = field_name
+        self._uuid_generator = uuid_generator or pyuuid_validator
+        self._value = self.__validate(value)
 
     def __deepcopy__(self, memodict={}):
-        return self.__value
+        return self._value
 
     def __repr__(self):
-        return str(self.__value)
+        return str(self._value or 'None')
+
+    def __validate(self, value):
+        if type(value) is not str:
+            raise ValueError("Value is not string")
+        try:
+            return self._uuid_generator(value, version=4)
+        except Exception as err:
+            raise ValueError("Is invalid UUID v4")
 
     @property
     def value(self):
-        return str(self.__value)
+        return str(self._value)
 
     @value.setter
     def value(self):
@@ -30,7 +38,7 @@ class Uuid:
 
     def as_dict(self):
         _dict = dict()
-        _dict[self.__field_name] = self.__value
+        _dict[self._field_name] = self._value
         return _dict
 
 
