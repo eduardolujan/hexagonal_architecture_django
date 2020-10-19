@@ -3,7 +3,7 @@
 from had.app.models import User as AppUserModel
 from src.shared.infrastructure.persistence.django import DjangoOrmManager
 from src.users.domain.entities.app_user import AppUser as AppUserEntity
-from src.users.domain.repository import AbstractUserRepository
+from src.users.domain.repository import UserRepository as AbstractUserRepository
 
 
 class UserRepository(DjangoOrmManager, AbstractUserRepository):

@@ -1,5 +1,5 @@
 from functools import wraps
-from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
+from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
