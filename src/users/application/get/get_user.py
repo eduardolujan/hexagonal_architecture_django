@@ -3,7 +3,7 @@
 
 from uuid import UUID
 
-from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
+from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 from src.users.domain.repository import UserRepository
 from src.users.domain.services import GetUser as GetUserService

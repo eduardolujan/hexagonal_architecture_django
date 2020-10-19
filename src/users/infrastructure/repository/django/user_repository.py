@@ -1,12 +1,12 @@
 
 
-from had.app.models import AppUser as AppUserModel
+from had.app.models import User as AppUserModel
 from src.shared.infrastructure.persistence.django import DjangoOrmManager
 from src.users.domain.entities.app_user import AppUser as AppUserEntity
-from src.users.domain.repository import UserRepository
+from src.users.domain.repository import AbstractUserRepository
 
 
-class UserRepository(DjangoOrmManager, UserRepository):
+class UserRepository(DjangoOrmManager, AbstractUserRepository):
 
     def __init__(self, model=AppUserModel, entity=AppUserEntity):
         super(UserRepository, self).__init__(model, entity)
