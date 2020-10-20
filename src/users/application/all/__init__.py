@@ -1,4 +1,4 @@
-from .all_users import AllUser
+from .all_users import AllUsers
 
 
-__all__ = ('AllUser', )
+__all__ = ('AllUsers', )
