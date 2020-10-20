@@ -1,8 +1,8 @@
-from .django_orm_manager import DjangoOrmManager
-from .django_unit_of_work import DjangoUnitOfWork
+from .django_orm_manager import OrmManager
+from .django_unit_of_work import UnitOfWork
 
 __all__ = (
-    'DjangoOrmManager',
-    'DjangoUnitOfWork',
+    'OrmManager',
+    'UnitOfWork',
 )
 

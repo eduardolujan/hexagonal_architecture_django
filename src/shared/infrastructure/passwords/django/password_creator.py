@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password as django_make_password
 from src.shared.domain.passwords import PasswordGenerator
 
 
-class DjangoPasswordCreator(PasswordGenerator):
+class PasswordCreator(PasswordGenerator):
     def __init__(self, _make_password=None):
         self._make_password = _make_password or django_make_password
 

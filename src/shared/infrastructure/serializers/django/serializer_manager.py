@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from src.shared.domain.serializers import SerializerManager as AbstractSerializerManager
+from src.shared.domain.serializers import AbstractSerializerManager as AbstractSerializerManager
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 

@@ -11,7 +11,7 @@ from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 
 @LoggerDecorator(logger=PyLoggerService(__file__))
-class DjangoUnitOfWork(AbstractUnitOfWork):
+class UnitOfWork(AbstractUnitOfWork):
     def __init__(self):
         self.entities = set()
         self.save_point = None

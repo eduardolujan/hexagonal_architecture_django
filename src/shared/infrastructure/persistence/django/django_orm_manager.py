@@ -2,7 +2,7 @@
 from mappers import Mapper, Evaluated
 
 
-class DjangoOrmManager:
+class OrmManager:
 
     def __init__(self, model=None, entity=None):
         self.entity = entity

@@ -37,5 +37,3 @@ class CreateUser:
             user_model_instance = self.repository.create(user_entity)
             uow.session.add(user_model_instance)
             uow.commit()
-
-

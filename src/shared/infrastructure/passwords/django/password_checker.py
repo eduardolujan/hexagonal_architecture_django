@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import check_password as django_check_password_
 from src.shared.domain.passwords import PasswordChecker
 
 
-class DjangoPasswordChecker(PasswordChecker):
+class PasswordChecker(PasswordChecker):
     def __init__(self, password_checker=None):
         self._check_password_checker = password_checker or django_check_password_checker
 
