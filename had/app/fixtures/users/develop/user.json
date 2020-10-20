@@ -1,6 +1,6 @@
 [
   {
-    "model": "app.appuser",
+    "model": "app.user",
     "fields": {
       "id": "46e56435-e427-48ef-8d59-c128b54475b6",
       "username": "root",

@@ -1,17 +1,18 @@
-# -*- coding: utf-8 -*-
 
+
+from uuid import UUID
 
 from src.shared.domain.passwords import PasswordGenerator
 from src.users.domain.entities import User
 from src.users.domain.value_objects import UserId, Username, UserPassword, UserEmail
 
 
-class CreateUser:
+class DeleteUser:
     """
     Name constructors to create User
     """
     @staticmethod
-    def create_base_user(id: str, username: str, password: str, email: str,
+    def get_entity_by_id(id: str, username: str, password: str, email: str,
                          password_generator: PasswordGenerator = None):
 
         if not password_generator:

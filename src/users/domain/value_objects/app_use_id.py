@@ -4,5 +4,5 @@
 from src.shared.domain.value_objects import Uuid
 
 
-class AppUserId(Uuid):
+class UserId(Uuid):
     pass

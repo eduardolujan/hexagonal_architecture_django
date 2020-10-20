@@ -1,6 +1,6 @@
-from src.users.domain.entities.app_user import (
-    AppUser as AppUserEntity,
-    AppUserId as AppUserIdEntity
+from src.users.domain.entities.user import (
+    User as AppUserEntity,
+    UserId as AppUserIdEntity
 )
 from src.shared.domain.repository import AbstractRepository
 
