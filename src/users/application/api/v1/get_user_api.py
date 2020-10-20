@@ -11,29 +11,34 @@ from src.users.application.get import GetUser as GetUserService
 from src.shared.domain.serializers.serializer_manager import AbstractSerializerManager
 
 
-@LoggerDecorator(logger=PyLoggerService(file_path=__name__))
+@LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UserGetApi:
     def __init__(self,
                  request: AbstractRequest,
                  response: AbstractResponse,
                  repository: AbstractRepository,
-                 serializer_manager: AbstractSerializerManager):
+                 request_serializer_manager: AbstractSerializerManager,
+                 response_serializer_manager: AbstractSerializerManager):
         self.request = request
         self.response = response
         self.repository = repository
-        self.serializer_manager = serializer_manager
+        self.request_serializer_manager = request_serializer_manager
+        self.response_serializer_manager = response_serializer_manager
 
     def __call__(self, id: str):
         try:
             get_user_data = dict(id=id)
-            user_dto = self.serializer_manager.get_dto(get_user_data)
+            user_dto = self.request_serializer_manager.get_dto_from_dict(get_user_data)
             get_user_service = GetUserService(self.repository)
-            get_user_service(**user_dto)
+            user_entity = get_user_service(**user_dto)
+            user_entity_serialized = self.response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(
                 success=True,
                 message='All ok',
+                data=user_entity_serialized
             )
-            self.request(response_data, status=http_status.HTTP_201_CREATED)
+            response = self.response(response_data, status=http_status.HTTP_201_CREATED)
+            return response
 
         except Exception as err:
             self.log.exception(f"Error in {__class__}::get, err:{err}")
@@ -43,4 +48,6 @@ class UserGetApi:
             )
             if hasattr(err, 'errors'):
                 response_data.update(errors=err.errors)
-            return self.request(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+
+            respose = self.response(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+            return respose

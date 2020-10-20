@@ -1,3 +1,3 @@
-from .request import Request
+from .django_request import Request
 
-__all__ = ('Request', )
+__all__ = ('Request',)

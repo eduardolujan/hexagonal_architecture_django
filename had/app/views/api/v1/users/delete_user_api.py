@@ -7,7 +7,6 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 from src.shared.infrastructure.persistence.django import UnitOfWork
-from src.shared.infrastructure.passwords import DjangoPasswordCreator
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from src.users.infrastructure.repository.django import UserRepository
 from src.users.infrastructure.serializers.django import (

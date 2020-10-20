@@ -10,7 +10,7 @@ from src.shared.domain.repository import AbstractUnitOfWork, AbstractRepository
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 
-@LoggerDecorator(logger=PyLoggerService(__file__))
+@LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UnitOfWork(AbstractUnitOfWork):
     def __init__(self):
         self.entities = set()

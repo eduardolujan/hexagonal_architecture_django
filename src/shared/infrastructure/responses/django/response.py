@@ -10,7 +10,7 @@ class RestResponse(AbstractResponse):
         self.response = response or Response
 
     def __call__(self, *args, **kwargs):
-        self.get_response(*args, **kwargs)
+        return self.get_response(*args, **kwargs)
 
     def get_response(self, *args, **kwargs):
         return self.response(*args, **kwargs)
