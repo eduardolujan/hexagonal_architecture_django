@@ -7,8 +7,8 @@ from rest_framework import status
 from rest_framework.permissions import AllowAny
 
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from src.users.infrastructure.repository.django import UserRepository
 from src.shared.infrastructure.serializers.django import SerializerManager as DjangoSerializerManager
+from src.users.infrastructure.repository.django import UserRepository
 from src.users.infrastructure.serializers.django import UserSerializer as DjangoUserSerializer
 from src.users.application.get import GetUser as GetUserService
 
