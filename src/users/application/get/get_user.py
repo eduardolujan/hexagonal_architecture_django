@@ -11,8 +11,7 @@ from src.users.domain.services import GetUser as GetUserService
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class GetUser:
-    def __init__(self,
-                 user_repository: UserRepository = None):
+    def __init__(self, user_repository: UserRepository = None):
         """
         Get user service by id uuid v4
         @param user_repository:

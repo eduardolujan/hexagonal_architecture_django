@@ -1,5 +1,4 @@
-from .entity_serializer import EntitySerializer
-from .entities_serializer import EntitiesSerializer
+from .serializer_manager import SerializerManager
 
 
-__all__ = ('EntitySerializer', 'EntitiesSerializer', )
+__all__ = ('SerializerManager', )

@@ -1,6 +1,4 @@
-from .appuser_entity_serializer import UserEntitySerializer
-from .django_user_serializer import UserSerializer
+# -*- coding: utf-8 -*-
 
-
-__all__ = ('UserEntitySerializer', 'UserSerializer', )
-
+from .delete_user_serializer import DeleteUserSerializer
+from .user_serializer import UserSerializer

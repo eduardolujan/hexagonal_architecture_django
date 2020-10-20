@@ -8,7 +8,8 @@ from rest_framework.permissions import AllowAny
 
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from src.users.infrastructure.repository.django import UserRepository
-from src.users.infrastructure.serializers.django import UserEntitySerializer
+from src.shared.infrastructure.serializers.django import SerializerManager as DjangoSerializerManager
+from src.users.infrastructure.serializers.django import UserSerializer as DjangoUserSerializer
 from src.users.application.get import GetUser as GetUserService
 
 
@@ -19,7 +20,7 @@ class GetUserApi(APIView):
 
     def get(self, request, id):
         user_repository = UserRepository()
-        entity_serializer = UserEntitySerializer()
+        entity_serializer = DjangoSerializerManager(DjangoUserSerializer)
         get_user_service = GetUserService(user_repository)
         user_entity = get_user_service(id)
         user_data = entity_serializer.get_dto_from_entity(user_entity)
