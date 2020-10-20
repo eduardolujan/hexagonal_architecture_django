@@ -9,10 +9,11 @@ from rest_framework.permissions import AllowAny
 from src.shared.infrastructure.persistence.django import DjangoUnitOfWork
 from src.shared.infrastructure.passwords import DjangoPasswordCreator
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from src.shared.infrastructure.serializers.django import SerializerManager as DjangoSerializerManager
 from src.users.infrastructure.repository.django import UserRepository
-from src.users.infrastructure.serializers.django import UserSerializer as DjangoUserSerializer
-from src.users.application.create import CreateUser
+from src.users.infrastructure.serializers.django import (
+    UserEntitySerializer,
+)
+from src.users.application.delete import DeleteUser as DeleteUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -20,16 +21,14 @@ class CreateUserApi(APIView):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [AllowAny]
 
-    def post(self, request):
+    def post(self, request, id):
         try:
-            user_data = request.data
-            manager_serializer = DjangoSerializerManager(DjangoUserSerializer)
-            user_dto = manager_serializer.get_dto(user_data)
+            delete_user_data = dict(id=id)
+            user_entity_serializer = UserEntitySerializer()
+            delete_user_dto = user_entity_serializer.get_dto(delete_user_data)
             user_repository = UserRepository()
-            django_password_generator = DjangoPasswordCreator()
-            django_unit_of_work = DjangoUnitOfWork()
-            create_user = CreateUser(user_repository, django_password_generator, django_unit_of_work)
-            create_user(**user_dto)
+            delete_user = DeleteUserService(user_repository)
+            delete_user(**delete_user_dto)
             response_data = dict(
                 success=True,
                 message='All ok',
