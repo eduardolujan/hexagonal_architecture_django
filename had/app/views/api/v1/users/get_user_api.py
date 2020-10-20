@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
-from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
+from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from src.users.infrastructure.repository.django import UserRepository
 from src.users.infrastructure.serializers.django import UserEntitySerializer
 from src.users.application.get import GetUser as GetUserService

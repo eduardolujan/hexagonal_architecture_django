@@ -4,18 +4,18 @@
 from dataclasses import dataclass
 
 from src.shared.domain.entities import Entity
-from src.users.domain.value_objects import (AppUserId, Username, UserPassword, UserEmail)
+from src.users.domain.value_objects import (UserId, Username, UserPassword, UserEmail)
 
 
 @dataclass(frozen=True)
 class AppUser(Entity):
-    id: AppUserId
+    id: UserId
     username: Username
     password: UserPassword
     email: UserEmail
 
 
-app_user_id = AppUserId('f0aa2fd1-8d1a-4042-869e-03e03f9e2012')
+app_user_id = UserId('f0aa2fd1-8d1a-4042-869e-03e03f9e2012')
 username = Username('root')
 password = UserPassword('password')
 email = UserEmail('eduardo.lujan.p@gmail.com')

@@ -2,9 +2,8 @@
 
 
 from .django_user_serializer import UserSerializer as DjangoUserSerializer
-from src.users.domain.entities import AppUser as UserEntity
 from src.shared.domain.serializers import EntitySerializer, EntitiesSerializer
-from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
+from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))

@@ -1,6 +1,5 @@
+import logging
 from abc import ABC, abstractmethod
-
-from validate_email import validate_email
 
 
 class EmailValidator(ABC):
@@ -10,11 +9,12 @@ class EmailValidator(ABC):
 
 
 class Py3EmailValidator(EmailValidator):
-    def __init__(self):
-        pass
+    def __init__(self, email_validator=None):
+        from validate_email import validate_email
+        self.email_validator = email_validator or validate_email
 
     def validate_email(self, email):
-        is_valid = validate_email(email_address=email, check_regex=True, check_mx=False)
+        is_valid = self.email_validator(email_address=email, check_regex=True, check_mx=False)
         return is_valid
 
     def __call__(self, email):

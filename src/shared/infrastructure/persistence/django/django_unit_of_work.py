@@ -7,7 +7,7 @@ import inspect
 from django.db import transaction
 
 from src.shared.domain.repository import AbstractUnitOfWork, AbstractRepository
-from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
+from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 
 @LoggerDecorator(logger=PyLoggerService(__file__))

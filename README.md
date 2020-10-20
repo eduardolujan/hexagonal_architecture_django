@@ -46,3 +46,37 @@ docker-compose up -d
 - [ ] Command handlers
 
 
+
+### Env file content
+
+```
+DJANGO_READ_DOT_ENV_FILE=True
+
+
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=had_postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=hexagonal_django
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_DATA=~/Documents/Projects/docker/hexagonal_django/postgres
+POSTGRES_BACKUPS=~/Documents/Projects/docker/reports_bi/postgres_backups
+POSTGRES_EXTERNAL_PORT=5432
+POSTGRES_LOCALHOST=127.0.0.1
+
+
+# Redis
+# ------------------------------------------------------------------------------
+REDIS_PORT=6379
+REDIS_HOST=localhost
+REDIS_DATABASE=0
+REDIS_URL=redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DATABASE}
+REDIS_DATA=~/Documents/Projects/docker/reports_bi/redis
+
+
+# Celery
+CELERY_BROKER_URL=redis://localhost:6379/0
+```
+
+

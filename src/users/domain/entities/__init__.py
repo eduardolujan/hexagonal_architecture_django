@@ -1,4 +1,6 @@
-from .app_user import AppUser, AppUserId, GetUser
+from .user import User, UserId
+from .get_user import GetUser
+from .delete_user import DeleteUser
 
 
-__all__ = ('AppUser', 'AppUserId', 'GetUser',)
+__all__ = ('User', 'UserId', 'GetUser', 'DeleteUser', )

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from src.shared.infrastructure.logs import LoggerDecorator, PyLoggerService
+from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from src.shared.domain.repository import AbstractUnitOfWork
 from src.shared.domain.passwords import PasswordGenerator
 from src.users.domain.services import CreateUser as CreateUserService
