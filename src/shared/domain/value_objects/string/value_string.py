@@ -2,11 +2,10 @@
 
 
 class String:
-    __slots__ = ['__value']
 
     def __init__(self, value):
         if type(value) is not str:
-            raise ValueError("Is not string")
+            raise ValueError(f"Is not string value:{value} type:{type(value)}")
 
         self.__value = value
 

@@ -24,7 +24,7 @@ class StubDjangoUserSerializer:
 
     @data.setter
     def data(self, _data):
-        self._data = _data
+        raise Exception("You can't assign value to data")
 
 
 class TestUserSerializer(unittest.TestCase):

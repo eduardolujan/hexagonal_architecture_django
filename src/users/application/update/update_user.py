@@ -10,6 +10,9 @@ from src.users.domain.repository import UserRepository
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UpdateUser:
+    """
+    UpdateUser use case for update user
+    """
     def __init__(self,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
@@ -37,4 +40,3 @@ class UpdateUser:
             user_model_instance = self.repository.update(user_entity)
             uow.session.add(user_model_instance)
             uow.commit()
-

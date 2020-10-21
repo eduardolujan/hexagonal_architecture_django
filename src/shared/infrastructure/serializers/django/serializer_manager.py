@@ -22,7 +22,7 @@ class SerializerManager(AbstractSerializerManager):
         user_serializer = self.serializer(data=data)
         is_valid_serializer = user_serializer.is_valid()
         if not is_valid_serializer:
-            self.log.error(f"Serializer is not valid err:{user_serializer.errors}")
+            self.log.error(f"Serializer, is not valid err:{user_serializer.errors}")
             exception = Exception(f"Not valid data")
             exception.errors = user_serializer.errors
             raise exception

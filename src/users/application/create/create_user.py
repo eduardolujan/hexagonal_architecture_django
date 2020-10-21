@@ -20,9 +20,9 @@ class CreateUser:
         @param password_generator: Password generator instance
         @param unit_of_work: AbstractUnitOfWork
         """
-        self.repository = user_repository
-        self.password_generator = password_generator
-        self.unit_of_work = unit_of_work
+        self.__repository = user_repository
+        self.__password_generator = password_generator
+        self.__unit_of_work = unit_of_work
 
     def __call__(self, id: str = None, username: str = None, password: str = None, email: str = None, **fields):
         user_entity = CreateUserService.create_base_user(
@@ -30,10 +30,10 @@ class CreateUser:
             username,
             password,
             email,
-            self.password_generator
+            self.__password_generator
         )
 
-        with self.unit_of_work as uow:
-            user_model_instance = self.repository.create(user_entity)
+        with self.__unit_of_work as uow:
+            user_model_instance = self.__repository.create(user_entity)
             uow.session.add(user_model_instance)
             uow.commit()

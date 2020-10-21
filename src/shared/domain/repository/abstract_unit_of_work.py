@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 
 from __future__ import annotations
 from abc import ABC, abstractmethod
@@ -39,17 +39,30 @@ class AbstractUnitOfWork(ABC):
         raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
-    def add(self, entity):
+    def add(self, entity) -> None:
+        """
+        Add entity to transactions
+        @param entity:
+        @type entity:
+        @return: None
+        """
         raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
-    def flush(self):
+    def update(self, entity) -> None:
+        """
+        Add entity to transactions
+        @param entity:
+        @type entity:
+        @return:
+        @rtype:
+        """
         raise NotImplementedError("Not implemented yet")
 
-    @property
-    def session(self):
-        class HelperClass:
-            @classmethod
-            def add(cls, entity):
-                self.add(entity)
-        return HelperClass
+    @abstractmethod
+    def flush(self) -> None:
+        """
+        Remove all transactions
+        @return: None
+        """
+        raise NotImplementedError("Not implemented yet")

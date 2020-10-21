@@ -16,8 +16,9 @@ from src.shared.infrastructure.serializers.django.serializer_manager import (
     SerializerManager as DjangoSerializerManager,
 )
 from src.users.infrastructure.serializers.django import (
-    GetUserSerializer as DjangoGetUserSerializer,
     UserSerializer as DjangoUserSerializer,
+    GetUserSerializer as DjangoGetUserSerializer,
+    CreateUserSerializer as DjangoCreateUserSerializer
 )
 from src.users.application.api.v1 import UserGetApi, CreateUserApi
 
@@ -31,7 +32,7 @@ class UserApi(APIView):
         request = DjangoRequest(request)
         response = DjangoRestResponse()
         user_repository = DjangoUserRepository()
-        request_serializer_manager = DjangoSerializerManager(DjangoGetUserSerializer)
+        request_serializer_manager = DjangoSerializerManager(DjangoUser)
         response_serializer_manager = DjangoSerializerManager(DjangoUserSerializer)
         user_get_api = UserGetApi(request,
                                   response,
@@ -42,23 +43,28 @@ class UserApi(APIView):
         return response
 
     def post(self, request, _id: str = None):
+        request = DjangoRequest(request)
+        rest_response = DjangoRestResponse()
+        user_repository = DjangoUserRepository()
+        unit_of_work = DjangoUnitOfWork()
+        password_creator = DjangoPasswordCreator()
+        user_serializer_manager = DjangoSerializerManager(DjangoCreateUserSerializer)
+        create_user_api = CreateUserApi(request,
+                                        rest_response,
+                                        user_serializer_manager,
+                                        user_repository,
+                                        password_creator,
+                                        unit_of_work)
+        response = create_user_api()
+        return response
+
+    def update(self, request, _id: str = None):
         django_request = DjangoRequest(request)
         django_rest_response = DjangoRestResponse()
         django_user_repository = DjangoUserRepository()
         django_unit_of_work = DjangoUnitOfWork()
         django_password_creator = DjangoPasswordCreator()
         django_user_serializer_manager = DjangoSerializerManager(DjangoUserSerializer)
-        create_user_api = CreateUserApi(django_request,
-                                        django_rest_response,
-                                        django_user_serializer_manager,
-                                        django_user_repository,
-                                        django_password_creator,
-                                        django_unit_of_work)
-        response = create_user_api()
-        return response
-
-    def update(self, request, _id: str = None):
-        pass
 
     def put(self, request, _id: str = None):
         pass
