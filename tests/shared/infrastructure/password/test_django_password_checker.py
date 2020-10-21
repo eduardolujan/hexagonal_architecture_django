@@ -4,7 +4,7 @@ import pytest
 
 from unittest.mock import Mock
 
-from src.shared.infrastructure.passwords import DjangoPasswordChecker
+from src.shared.infrastructure.passwords.django import PasswordChecker as DjangoPasswordChecker
 
 
 def test_django_checker_executed():

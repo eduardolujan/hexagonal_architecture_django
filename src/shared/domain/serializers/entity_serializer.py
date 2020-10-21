@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 
 class EntitySerializer(ABC):
     @abstractmethod
-    def get_dto_from_dict(self, data):
+    def get_dto_from_dict(self, data: dict):
         raise NotImplementedError("Not implemented yet")
 
     @abstractmethod

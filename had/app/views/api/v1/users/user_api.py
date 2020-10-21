@@ -12,10 +12,12 @@ from src.shared.infrastructure.passwords.django import PasswordCreator as Django
 from src.users.infrastructure.repository.django import (
     UserRepository as DjangoUserRepository
 )
-from src.shared.infrastructure.serializers.django.serializer_manager import SerializerManager as DjangoSerializerManager
+from src.shared.infrastructure.serializers.django.serializer_manager import (
+    SerializerManager as DjangoSerializerManager,
+)
 from src.users.infrastructure.serializers.django import (
     GetUserSerializer as DjangoGetUserSerializer,
-    UserSerializer as DjangoUserSerializer
+    UserSerializer as DjangoUserSerializer,
 )
 from src.users.application.api.v1 import UserGetApi, CreateUserApi
 
@@ -25,7 +27,7 @@ class UserApi(APIView):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [AllowAny]
 
-    def get(self, request, id):
+    def get(self, request, _id: str = None):
         request = DjangoRequest(request)
         response = DjangoRestResponse()
         user_repository = DjangoUserRepository()
@@ -36,10 +38,10 @@ class UserApi(APIView):
                                   user_repository,
                                   request_serializer_manager,
                                   response_serializer_manager)
-        response = user_get_api(id)
+        response = user_get_api(_id)
         return response
 
-    def post(self, request):
+    def post(self, request, _id: str = None):
         django_request = DjangoRequest(request)
         django_rest_response = DjangoRestResponse()
         django_user_repository = DjangoUserRepository()
@@ -52,8 +54,13 @@ class UserApi(APIView):
                                         django_user_repository,
                                         django_password_creator,
                                         django_unit_of_work)
-
         response = create_user_api()
         return response
+
+    def update(self, request, _id: str = None):
+        pass
+
+    def put(self, request, _id: str = None):
+        pass
 
 

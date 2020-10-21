@@ -6,7 +6,7 @@ app_name = "users"
 
 urlpatterns = [
     re_path(
-        r"^user/(?P<id>[\w-]+)/?$",
+        r"^user(/(?P<_id>[\w-]+))?/?$",
         api_users.UserApi.as_view(),
         name="user_api"
     ),

@@ -5,7 +5,8 @@ import unittest
 import pytest
 from unittest.mock import Mock
 
-from src.users.infrastructure.serializers.django import UserEntitySerializer
+from src.users.infrastructure.serializers.django import UserSerializer
+from src.shared.infrastructure.serializers.django import SerializerManager
 
 
 class StubDjangoUserSerializer:
@@ -32,9 +33,10 @@ class TestUserSerializer(unittest.TestCase):
             "username": "username",
             "password": "password"
         }
-        stub = StubDjangoUserSerializer
-        entity_serializer = UserEntitySerializer(stub)
-        entity_serializer.get_dto(data)
+        entity_serializer = SerializerManager(StubDjangoUserSerializer)
+        user_dto = entity_serializer.get_dto_from_dict(data)
+        pass
+
 
 
 

@@ -14,7 +14,7 @@ from src.users.application.create import CreateUser
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreateUserApi:
+class UpdateUserApi:
     def __init__(self,
                  request: AbstractRequest,
                  response: AbstractResponse,
