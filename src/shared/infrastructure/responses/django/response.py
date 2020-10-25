@@ -2,10 +2,10 @@
 
 from rest_framework.response import Response
 
-from src.shared.domain.responses import AbstractResponse as AbstractResponse
+from src.shared.domain.responses import Response as AbstractResponse
 
 
-class RestResponse(AbstractResponse):
+class RestResponse(Response):
     """
     Django Rest Response
     """
@@ -19,7 +19,7 @@ class RestResponse(AbstractResponse):
 
     def __call__(self, *args, **kwargs) -> Response:
         """
-        Get response
+        Functional magic method call
         @param args: *args
         @type args: list
         @param kwargs: *kwargs

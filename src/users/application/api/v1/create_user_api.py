@@ -4,11 +4,11 @@
 from rest_framework import status as http_status
 
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from src.shared.domain.requests import AbstractRequest
-from src.shared.domain.responses import AbstractResponse
+from src.shared.domain.requests import Request
+from src.shared.domain.responses import Response
 from src.shared.domain.serializers import AbstractSerializerManager
 from src.users.domain.repository import UserRepository
-from src.shared.domain.repository import AbstractUnitOfWork
+from src.shared.domain.repository import UnitOfWork
 from src.shared.domain.passwords import PasswordGenerator
 from src.users.application.create import CreateUser
 
@@ -20,12 +20,12 @@ class CreateUserApi:
     """
 
     def __init__(self,
-                 request: AbstractRequest,
-                 response: AbstractResponse,
+                 request: Request,
+                 response: Response,
                  serializer_manager: AbstractSerializerManager,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
-                 unit_of_work: AbstractUnitOfWork):
+                 unit_of_work: UnitOfWork):
 
         # Http objects
         self.__request = request
@@ -36,7 +36,7 @@ class CreateUserApi:
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
 
-    def __call__(self) -> AbstractResponse:
+    def __call__(self) -> Response:
         """
         Create User API
         @return: Instance -> AbstractResponse

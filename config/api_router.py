@@ -10,9 +10,7 @@ api_v1_patterns = [
     path("", include("had.app.urls.api.v1.users", namespace="api_v1_users")),
 ]
 
-api_v1 = [
-    path(f"{settings.URL_PREFIX}api/v1/", include(api_v1_patterns))
-]
+api_v1 = []
 
 urlpatterns += api_v1
 

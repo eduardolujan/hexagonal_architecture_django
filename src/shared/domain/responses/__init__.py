@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-from .abstract_response import AbstractResponse
+from .response import Response
 
-__all__ = ('AbstractResponse',)
+__all__ = ('Response',)

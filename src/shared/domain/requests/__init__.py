@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-from .abstract_request import AbstractRequest
+from .request import Request
 
-__all__ = ('AbstractRequest',)
+__all__ = ('Request',)

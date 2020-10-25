@@ -2,7 +2,7 @@
 
 
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from src.shared.domain.repository import AbstractUnitOfWork
+from src.shared.domain.repository import UnitOfWork
 from src.shared.domain.passwords import PasswordGenerator
 from src.users.domain.services import CreateUser as CreateUserService
 from src.users.domain.repository import UserRepository
@@ -16,7 +16,7 @@ class UpdateUser:
     def __init__(self,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
-                 unit_of_work: AbstractUnitOfWork):
+                 unit_of_work: UnitOfWork):
         """
         Create User constructor
         @param user_repository: User repository instance

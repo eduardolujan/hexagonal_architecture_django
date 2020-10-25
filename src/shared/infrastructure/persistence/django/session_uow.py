@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 
-from src.shared.domain.repository.abstract_session_unit_of_work import AbstractSessionUnitOfWork
+from src.shared.domain.repository.session_unit_of_work import SessionUnitOfWork
 
 
-class SessionUnitOfWork(AbstractSessionUnitOfWork):
+class SessionUnitOfWork(SessionUnitOfWork):
     """
     SessionUnitOfWork
     """

@@ -3,10 +3,10 @@
 
 from django.http.request import HttpRequest
 
-from src.shared.domain.requests import AbstractRequest
+from src.shared.domain.requests import Request
 
 
-class Request(AbstractRequest):
+class Request(Request):
     def __init__(self, request: HttpRequest):
         self.__request = request
 

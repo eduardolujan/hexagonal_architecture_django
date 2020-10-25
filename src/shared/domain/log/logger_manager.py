@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class LoggerService(ABC):
+class Logger(ABC):
     @abstractmethod
     def info(self, message: str):
         raise NotImplementedError("Not implemented yet")

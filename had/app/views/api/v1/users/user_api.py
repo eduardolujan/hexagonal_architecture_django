@@ -32,7 +32,7 @@ class UserApi(APIView):
         request = DjangoRequest(request)
         response = DjangoRestResponse()
         user_repository = DjangoUserRepository()
-        request_serializer_manager = DjangoSerializerManager(DjangoUser)
+        request_serializer_manager = DjangoSerializerManager(DjangoGetUserSerializer)
         response_serializer_manager = DjangoSerializerManager(DjangoUserSerializer)
         user_get_api = UserGetApi(request,
                                   response,

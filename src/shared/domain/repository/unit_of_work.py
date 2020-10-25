@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import annotations
+# from __future__ import annotations
+from typing import Optional, TypeVar
 from abc import ABC, abstractmethod
 
-from src.shared.domain.repository import AbstractRepository
+
+UnitOfWork = TypeVar('UnitOfWork', bound='UnitOfWork')
 
 
-class AbstractUnitOfWork(ABC):
+class UnitOfWork(ABC):
 
-    def __enter__(self) -> AbstractUnitOfWork:
+    def __enter__(self) -> UnitOfWork:
         """
         Magic method __enter__
         @return:

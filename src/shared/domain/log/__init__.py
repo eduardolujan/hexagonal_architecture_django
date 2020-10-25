@@ -1,4 +1,4 @@
-from .logger_manager_service import LoggerService
+from .logger_manager import Logger
 
 
-__all__ = ('LoggerService',)
+__all__ = ('Logger',)

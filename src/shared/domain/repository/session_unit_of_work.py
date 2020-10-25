@@ -1,9 +1,7 @@
-# -*- utf -*-
-
 from abc import ABC, abstractmethod
 
 
-class AbstractSessionUnitOfWork(ABC):
+class SessionUnitOfWork(ABC):
     @abstractmethod
     def add(self, create_entity):
         raise NotImplementedError("Not implemented yet")

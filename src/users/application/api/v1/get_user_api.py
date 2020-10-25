@@ -4,8 +4,8 @@ from rest_framework import status as http_status
 
 
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from src.shared.domain.requests import AbstractRequest
-from src.shared.domain.responses import AbstractResponse
+from src.shared.domain.requests import Request
+from src.shared.domain.responses import Response
 from src.shared.domain.repository import AbstractRepository
 from src.users.application.get import GetUser as GetUserService
 from src.shared.domain.serializers.serializer_manager import AbstractSerializerManager
@@ -14,8 +14,8 @@ from src.shared.domain.serializers.serializer_manager import AbstractSerializerM
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UserGetApi:
     def __init__(self,
-                 request: AbstractRequest,
-                 response: AbstractResponse,
+                 request: Request,
+                 response: Response,
                  repository: AbstractRepository,
                  request_serializer_manager: AbstractSerializerManager,
                  response_serializer_manager: AbstractSerializerManager):

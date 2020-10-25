@@ -3,7 +3,7 @@
 
 from django.db import transaction
 
-from src.shared.domain.repository import AbstractUnitOfWork, AbstractRepository
+from src.shared.domain.repository import UnitOfWork as AbstractUnitOfWork
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from .session_uow import SessionUnitOfWork
 

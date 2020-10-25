@@ -1,7 +1,6 @@
 
 
 from django.contrib.auth.hashers import check_password as django_check_password_checker
-
 from src.shared.domain.passwords import PasswordChecker
 
 
