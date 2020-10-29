@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-from rest_framework import status as http_status
-
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+from src.shared.domain.http import status as http_status
 from src.shared.domain.requests import Request
 from src.shared.domain.responses import Response
 from src.shared.domain.serializers import AbstractSerializerManager

@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from rest_framework import status as http_status
-
 
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+from src.shared.domain.http import status as http_status
 from src.shared.domain.requests import Request
 from src.shared.domain.responses import Response
+from src.shared.domain.serializers.serializer_manager import AbstractSerializerManager
 from src.users.domain.repository import UserRepository
 from src.users.application.get import GetUser as GetUserService
-from src.shared.domain.serializers.serializer_manager import AbstractSerializerManager
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UserGetApi:
+    """
+    User GET API
+    """
     def __init__(self,
                  request: Request,
                  response: Response,
@@ -26,6 +28,13 @@ class UserGetApi:
         self.response_serializer_manager = response_serializer_manager
 
     def __call__(self, id: str):
+        """
+        Get Uset API
+        @param id: User ID
+        @type id: int
+        @return: Response
+        @rtype: Response
+        """
         try:
             get_user_data = dict(id=id)
             user_dto = self.request_serializer_manager.get_dto_from_dict(get_user_data)
