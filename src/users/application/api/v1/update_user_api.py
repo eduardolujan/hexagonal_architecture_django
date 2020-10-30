@@ -6,7 +6,7 @@ from rest_framework import status as http_status
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from src.shared.domain.requests import Request
 from src.shared.domain.responses import Response
-from src.shared.domain.serializers import AbstractSerializerManager
+from src.shared.domain.serializers import SerializerManager
 from src.users.domain.repository import UserRepository
 from src.shared.domain.repository import UnitOfWork
 from src.shared.domain.passwords import PasswordGenerator
@@ -18,7 +18,7 @@ class UpdateUserApi:
     def __init__(self,
                  request: Request,
                  response: Response,
-                 serializer_manager: AbstractSerializerManager,
+                 serializer_manager: SerializerManager,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
                  unit_of_work: UnitOfWork):

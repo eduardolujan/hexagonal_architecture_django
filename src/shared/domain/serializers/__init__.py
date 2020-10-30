@@ -1,4 +1,4 @@
-from .serializer_manager import AbstractSerializerManager
+from .serializer_manager import SerializerManager
 
 
-__all__ = ('AbstractSerializerManager',)
+__all__ = ('SerializerManager',)

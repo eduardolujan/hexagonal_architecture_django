@@ -79,7 +79,13 @@ class OrmManager:
         return model_instance
 
     def orm_delete(self, **fields):
-        raise NotImplementedError("Not implemented yet")
+        try:
+            items = self.__model.objects.filter(**fields)
+            items.delete()
+        except Exception as err:
+            self.log.exception(f"Error in update model:{self.__model}, fields:{fields}, err:{err}")
+            _exception = Exception("Error when try to update the model")
+            raise _exception
 
     def orm_search(self, **fields):
         raise NotImplementedError("Not implemented yet")

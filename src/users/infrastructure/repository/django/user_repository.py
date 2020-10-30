@@ -24,7 +24,7 @@ class UserRepository(OrmManager, AbstractUserRepository):
         return model_instance
 
     def delete(self, entity):
-        return self.orm_delete(entity)
+        return self.orm_delete(**entity.as_dict())
 
     def all(self):
         return self.orm_all()

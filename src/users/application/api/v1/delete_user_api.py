@@ -5,43 +5,45 @@ from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from src.shared.domain.http import status as http_status
 from src.shared.domain.requests import Request
 from src.shared.domain.responses import Response
-from src.shared.domain.serializers import AbstractSerializerManager
+from src.shared.domain.serializers import SerializerManager
 from src.users.domain.repository import UserRepository
-from src.shared.domain.repository import UnitOfWork
-from src.shared.domain.passwords import PasswordGenerator
-from src.users.application.create import CreateUser
+from src.users.application.delete import DeleteUser as DeleteUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class UpdateUserApi:
+class DeleteUserApi:
+    """
+    Delete User API
+    """
     def __init__(self,
                  request: Request,
                  response: Response,
-                 serializer_manager: AbstractSerializerManager,
-                 user_repository: UserRepository,
-                 password_generator: PasswordGenerator,
-                 unit_of_work: UnitOfWork):
+                 request_serializer_manager: SerializerManager,
+                 user_repository: UserRepository):
 
         # Http objects
-        self.request = request
-        self.response = response
-        self.serializer_manager = serializer_manager
-        # Create  user
-        self.user_repository = user_repository
-        self.password_generator = password_generator
-        self.unit_of_work = unit_of_work
+        self.__request = request
+        self.__response = response
+        self.__request_serializer_manager = request_serializer_manager
+        # Delete user
+        self.__user_repository = user_repository
 
-    def __call__(self):
+    def __call__(self, id: int) -> None:
+        """
+        Delete user by id
+        @param id: user id
+        @type id: int
+        """
         try:
-            user_data = self.request.get_body()
-            user_dto = self.serializer_manager.get_dto_from_dict(user_data)
-            create_user = CreateUser(self.user_repository, self.password_generator, self.unit_of_work)
-            create_user(**user_dto)
+            delete_user_data = dict(id=id)
+            delete_user_dto = self.__request_serializer_manager.get_dto_from_dict(delete_user_data)
+            delete_user = DeleteUserService(self.__user_repository)
+            delete_user(**delete_user_dto)
             response_data = dict(
                 success=True,
                 message='All ok',
             )
-            return self.respose(response_data, status=http_status.HTTP_201_CREATED)
+            return self.__response(response_data, status=http_status.HTTP_200_OK)
 
         except Exception as err:
             self.log.exception(f"Error in {__class__}::post, err:{err}")
@@ -52,4 +54,4 @@ class UpdateUserApi:
             if hasattr(err, 'errors'):
                 response_data.update(errors=err.errors)
 
-            return self.respose(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+            return self.__response(response_data, status=http_status.HTTP_400_BAD_REQUEST)

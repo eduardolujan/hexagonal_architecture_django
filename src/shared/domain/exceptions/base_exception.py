@@ -8,13 +8,24 @@ class BasicException(Exception):
     """
     BasicException
     """
-    def __init__(self, message=None, error=None, errors=None):
+    def __init__(self, message, error=None, errors=None):
+        if not str:
+            raise ValueError("You need assign a message")
+
         if type(message) is not str:
             raise ValueError("Not valid message")
 
-        super(BasicException, self).__init__()
-        self.message = message
-        self.errors = error
-        self.error = errors
+        if not isinstance(error, Exception):
+            raise ValueError("Not valid value error this need to be a Exception instance")
 
+        super(BasicException, self).__init__()
+        self.__message = message
+        self.__error = error
+        self.__errors = errors
+
+    def __str__(self):
+        return self.message
+
+    def __repr__(self):
+        return self.__message
 

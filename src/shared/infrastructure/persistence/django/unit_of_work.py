@@ -3,9 +3,9 @@
 
 from django.db import transaction
 
+from .session_uow import SessionUnitOfWork
 from src.shared.domain.repository import UnitOfWork as AbstractUnitOfWork
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from .session_uow import SessionUnitOfWork
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))

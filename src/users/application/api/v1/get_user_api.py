@@ -5,7 +5,7 @@ from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from src.shared.domain.http import status as http_status
 from src.shared.domain.requests import Request
 from src.shared.domain.responses import Response
-from src.shared.domain.serializers.serializer_manager import AbstractSerializerManager
+from src.shared.domain.serializers.serializer_manager import SerializerManager
 from src.users.domain.repository import UserRepository
 from src.users.application.get import GetUser as GetUserService
 
@@ -19,8 +19,8 @@ class UserGetApi:
                  request: Request,
                  response: Response,
                  user_repository: UserRepository,
-                 request_serializer_manager: AbstractSerializerManager,
-                 response_serializer_manager: AbstractSerializerManager):
+                 request_serializer_manager: SerializerManager,
+                 response_serializer_manager: SerializerManager):
         self.request = request
         self.response = response
         self.repository = user_repository

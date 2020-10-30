@@ -10,6 +10,7 @@ from src.users.domain.repository import UserRepository
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class CreateUser:
+
     def __init__(self,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
@@ -25,6 +26,21 @@ class CreateUser:
         self.__unit_of_work = unit_of_work
 
     def __call__(self, id: str = None, username: str = None, password: str = None, email: str = None, **fields):
+        """
+
+        @param id:
+        @type id:
+        @param username:
+        @type username:
+        @param password:
+        @type password:
+        @param email:
+        @type email:
+        @param fields:
+        @type fields:
+        @return:
+        @rtype:
+        """
         user_entity = CreateUserService.create_base_user(
             id,
             username,
