@@ -20,7 +20,7 @@ from src.shared.infrastructure.passwords.django import PasswordCreator as Django
 from src.users.infrastructure.repository.django import (
     UserRepository as DjangoUserRepository
 )
-from src.users.application.api.v1 import UserGetApi, CreateUserApi, DeleteUserApi
+from src.users.application.api.v1 import GetUserApi, CreateUserApi, UpdateUserApi, DeleteUserApi
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -34,7 +34,7 @@ class UserApi(APIView):
         user_repository = DjangoUserRepository()
         request_serializer_manager = DjangoSerializerManager(DjangoGetUserSerializer)
         response_serializer_manager = DjangoSerializerManager(DjangoUserSerializer)
-        user_get_api = UserGetApi(request,
+        user_get_api = GetUserApi(request,
                                   response,
                                   user_repository,
                                   request_serializer_manager,
@@ -69,20 +69,28 @@ class UserApi(APIView):
 
     def update(self, request, _id: str = None):
         """
-
-        @param request:
-        @type request:
-        @param _id:
-        @type _id:
-        @return:
-        @rtype:
+        Update User
+        @param request: request
+        @type request: response
+        @param _id: user id
+        @type _id: int
+        @return: post response
+        @rtype: Response
         """
-        django_request = DjangoRequest(request)
-        django_rest_response = DjangoRestResponse()
-        django_user_repository = DjangoUserRepository()
-        django_unit_of_work = DjangoUnitOfWork()
-        django_password_creator = DjangoPasswordCreator()
-        django_user_serializer_manager = DjangoSerializerManager(DjangoUserSerializer)
+        request = DjangoRequest(request)
+        response = DjangoRestResponse()
+        user_repository = DjangoUserRepository()
+        unit_of_work = DjangoUnitOfWork()
+        password_creator = DjangoPasswordCreator()
+        user_serializer_manager = DjangoSerializerManager(DjangoCreateUserSerializer)
+        update_user_api = UpdateUserApi(request,
+                                        response,
+                                        user_serializer_manager,
+                                        user_repository,
+                                        password_creator,
+                                        unit_of_work)
+        response = update_user_api()
+        return response
 
     def delete(self, request, _id):
         """

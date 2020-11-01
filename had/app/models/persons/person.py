@@ -4,6 +4,10 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Phone(models.Model):
+    """
+    Phone model
+    """
+    id = models.UUIDField(primary_key=True, unique=True)
     number = models.CharField(max_length=200)
     extension = models.CharField(max_length=200)
 
@@ -12,9 +16,13 @@ class Phone(models.Model):
 
 
 class Address(models.Model):
+    """
+    Address model
+    """
+    id = models.UUIDField(primary_key=True, unique=True)
     street = models.CharField(max_length=200)
     interior_number = models.CharField(max_length=200)
-    exterior_number = models.CharField(max_length=200)
+    outside_number = models.CharField(max_length=200)
     zip_code = models.CharField(max_length=200)
     city = models.CharField(max_length=200)
     borough = models.CharField(max_length=200)
@@ -26,9 +34,11 @@ class Address(models.Model):
 
 
 class Person(models.Model):
-    id = models.UUIDField(primary_key=True)
+    """
+    Person model
+    """
+    id = models.UUIDField(primary_key=True, unique=True)
     name = models.CharField(max_length=200, null=True)
-    last_name = models.CharField(max_length=200, null=True)
     last_name = models.CharField(max_length=200, null=True)
     second_last_name = models.CharField(max_length=200, null=True)
     address = models.ForeignKey(Address, null=True, on_delete=models.CASCADE)
