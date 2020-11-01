@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 
 
@@ -14,6 +13,13 @@ class AddressRepository(OrmManager, AbstractPersonRepository):
     """
 
     def __init__(self, model=AddressModel, entity=AddressEntity):
+        """
+        AddressRepository constructor
+        @param model: model
+        @type model: django.db.Model
+        @param entity:
+        @type entity:
+        """
         super(AddressRepository, self).__init__(model, entity)
 
     def get(self, entity):

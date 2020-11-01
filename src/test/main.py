@@ -23,4 +23,4 @@ class DetectForeignKey:
     def __init__(self):
         pass
 
-    def
+
