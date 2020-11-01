@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod
 
 
 class AddressRepository(ABC):
+    """
+    Address Abstract Repository
+    """
     @abstractmethod
     def create(self, entity):
         raise NotImplementedError("Not implemented error")

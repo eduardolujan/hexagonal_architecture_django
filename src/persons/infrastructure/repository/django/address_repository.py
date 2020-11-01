@@ -1,22 +1,24 @@
 
+# -*- coding: utf-8 -*-
 
-from had.app.models import User as UserModel
+
+from had.app.models import Address as AddressModel
 from src.shared.infrastructure.persistence.django import OrmManager
-from src.users.domain.entities.user import User as AppEntity
-from src.users.domain.repository import UserRepository as AbstractUserRepository
+from src.persons.domain.entities.person import Address as AddressEntity
+from src.persons.domain.repository import PersonRepository as AbstractPersonRepository
 
 
-class UserRepository(OrmManager, AbstractUserRepository):
+class AddressRepository(OrmManager, AbstractPersonRepository):
     """
-    User Repository
+    Person Repository
     """
-    
-    def __init__(self, model=UserModel, entity=AppEntity):
-        super(UserRepository, self).__init__(model, entity)
+
+    def __init__(self, model=AddressModel, entity=AddressEntity):
+        super(AddressRepository, self).__init__(model, entity)
 
     def get(self, entity):
         """
-        Get user
+        Get person
         @param entity: Get entity
         @type entity: Dataclass Entity
         @return: Model Instance (self.__model)
@@ -27,7 +29,7 @@ class UserRepository(OrmManager, AbstractUserRepository):
 
     def create(self, entity):
         """
-        Create user
+        Create person
         @param entity:
         @type entity:
         @return: Model Instance (self.__model)
@@ -38,7 +40,7 @@ class UserRepository(OrmManager, AbstractUserRepository):
 
     def update(self, entity):
         """
-        Update user
+        Update person
         @param entity:
         @type entity:
         @return: Model Instance (self.__model)
@@ -49,7 +51,7 @@ class UserRepository(OrmManager, AbstractUserRepository):
 
     def delete(self, entity):
         """
-        Delete user
+        Delete person
         @param entity:
         @type entity:
         @return: Model Instance (self.__model)
@@ -59,7 +61,7 @@ class UserRepository(OrmManager, AbstractUserRepository):
 
     def all(self):
         """
-        All user
+        All person
         @param entity:
         @type entity:
         @return: Model Instance (self.__model)
