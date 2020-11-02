@@ -21,23 +21,7 @@ class CreatePerson:
                              second_last_name: str,
                              address: AddressEntity = None,
                              phone: PhoneEntity = None):
-        """
-        Create a person entity
-        @param id:
-        @type id:
-        @param name:
-        @type name:
-        @param last_name:
-        @type last_name:
-        @param second_last_name:
-        @type second_last_name:
-        @param address:
-        @type address:
-        @param phone:
-        @type phone:
-        @return:
-        @rtype:
-        """
+
         person_id = person_values.PersonId(id)
         person_name = person_values.Name(name)
         person_last_name = person_values.Name(last_name)
