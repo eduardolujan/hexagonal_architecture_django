@@ -3,40 +3,46 @@
 
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from src.shared.domain.repository import UnitOfWork
-from src.shared.domain.passwords import PasswordGenerator
-from src.users.domain.services import CreateUser as CreateUserService
-from src.users.domain.repository import UserRepository
+from src.persons.domain.services.create import CreateAddress as CreateAddressService
+from src.persons.domain.repository import AddressRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class CreateAddress:
     """
-    Create phone 
+    Create phone
     """
     def __init__(self,
-                 user_repository: UserRepository,
-                 password_generator: PasswordGenerator,
+                 user_repository: AddressRepository,
                  unit_of_work: UnitOfWork):
-        """
-        Create User constructor
-        @param user_repository: User repository instance
-        @param password_generator: Password generator instance
-        @param unit_of_work: AbstractUnitOfWork
-        """
+
         self.__repository = user_repository
-        self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
 
-    def __call__(self, id: str = None, username: str = None, password: str = None, email: str = None, **fields):
-        user_entity = CreateUserService.create_base_user(
-            id,
-            username,
-            password,
-            email,
-            self.__password_generator
+    def __call__(self,
+                 address_id: str,
+                 street: str,
+                 interior_number: str,
+                 outside_number: str,
+                 zip_code: str,
+                 city: str,
+                 borough: str,
+                 state: str,
+                 country: str):
+
+        address_entity = CreateAddressService(
+            address_id,
+            street,
+            interior_number,
+            outside_number,
+            zip_code,
+            city,
+            borough,
+            state,
+            country
         )
 
         with self.__unit_of_work as uow:
-            user_model_instance = self.__repository.create(user_entity)
+            user_model_instance = self.__repository.create(address_entity)
             uow.session.add(user_model_instance)
             uow.commit()

@@ -5,6 +5,9 @@ from src.persons.domain.value_objects import address_values
 
 
 class Address(Entity):
+    """
+    Address ID
+    """
     id: address_values.AddressID
     street: address_values.Street
     interior_number: address_values.InteriorNumber
