@@ -21,9 +21,9 @@ class GetUserApi:
                  user_repository: UserRepository,
                  request_serializer_manager: SerializerManager,
                  response_serializer_manager: SerializerManager):
-        self.request = request
-        self.response = response
-        self.repository = user_repository
+        self.__request = request
+        self.__response = response
+        self.__repository = user_repository
         self.request_serializer_manager = request_serializer_manager
         self.response_serializer_manager = response_serializer_manager
 
@@ -38,7 +38,7 @@ class GetUserApi:
         try:
             get_user_data = dict(id=id)
             user_dto = self.request_serializer_manager.get_dto_from_dict(get_user_data)
-            get_user_service = GetUserService(self.repository)
+            get_user_service = GetUserService(self.__repository)
             user_entity = get_user_service(**user_dto)
             user_entity_serialized = self.response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(
@@ -46,7 +46,7 @@ class GetUserApi:
                 message='All ok',
                 data=user_entity_serialized
             )
-            response = self.response(response_data, status=http_status.HTTP_201_CREATED)
+            response = self.__response(response_data, status=http_status.HTTP_200_OK)
             return response
 
         except Exception as err:
@@ -58,5 +58,5 @@ class GetUserApi:
             if hasattr(err, 'errors'):
                 response_data.update(errors=err.errors)
 
-            respose = self.response(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+            respose = self.__response(response_data, status=http_status.HTTP_400_BAD_REQUEST)
             return respose

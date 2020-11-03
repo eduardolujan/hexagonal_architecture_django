@@ -8,6 +8,9 @@ from django.db import transaction
 from .session_uow import SessionUnitOfWork
 from src.shared.domain.repository import UnitOfWork as AbstractUnitOfWork
 from src.shared.infrastructure.persistence.unit_of_work_entity import UnitOfWorkEntity
+from src.shared.infrastructure.persistence.django.uow import (CreateUnitOfWorkEntity,
+                                                              UpdateUnitOfWorkEntity,
+                                                              DeleteUnitOfWorkEntity)
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 

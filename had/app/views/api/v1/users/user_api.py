@@ -29,6 +29,15 @@ class UserApi(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, _id: str = None):
+        """
+        Get User
+        @param request:
+        @type request:
+        @param _id:
+        @type _id:
+        @return:
+        @rtype:
+        """
         request = DjangoRequest(request)
         response = DjangoRestResponse()
         user_repository = DjangoUserRepository()

@@ -23,9 +23,9 @@ class UpdateUser:
         @param password_generator: Password generator instance
         @param unit_of_work: AbstractUnitOfWork
         """
-        self.repository = user_repository
-        self.password_generator = password_generator
-        self.unit_of_work = unit_of_work
+        self.__repository = user_repository
+        self.__password_generator = password_generator
+        self.__unit_of_work = unit_of_work
 
     def __call__(self, id: str = None, username: str = None, password: str = None, email: str = None, **fields):
         user_entity = CreateUserService.create_base_user(
@@ -37,6 +37,6 @@ class UpdateUser:
         )
 
         with self.unit_of_work as uow:
-            user_model_instance = self.repository.update(user_entity)
+            user_model_instance = self.__repository.update(user_entity)
             uow.session.add(user_model_instance)
             uow.commit()
