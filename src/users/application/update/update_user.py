@@ -27,13 +27,13 @@ class UpdateUser:
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
 
-    def __call__(self, id: str = None, username: str = None, password: str = None, email: str = None, **fields):
+    def __call__(self, _id: str = None, username: str = None, password: str = None, email: str = None, **fields):
         user_entity = CreateUserService.create_base_user(
-            id,
+            _id,
             username,
             password,
             email,
-            self.password_generator
+            self.__password_generator
         )
 
         with self.unit_of_work as uow:

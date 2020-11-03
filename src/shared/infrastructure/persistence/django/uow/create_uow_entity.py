@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 
 from src.shared.domain.repository import UnitOfWorkEntityWrapper as AbstractUnitOfWorkEntity
 from src.shared.infrastructure.persistence.unit_of_work_entity import UnitOfWorkEntity

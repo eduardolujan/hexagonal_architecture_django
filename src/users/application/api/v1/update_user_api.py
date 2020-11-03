@@ -54,7 +54,7 @@ class UpdateUserApi:
         try:
             user_data = self.__request.get_body()
             user_dto = self.__serializer_manager.get_dto_from_dict(user_data)
-            update_user = UpdateUserService(self.user_repository, self.password_generator, self.unit_of_work)
+            update_user = UpdateUserService(self.__user_repository, self.__password_generator, self.__unit_of_work)
             update_user(**user_dto)
             response_data = dict(
                 success=True,
