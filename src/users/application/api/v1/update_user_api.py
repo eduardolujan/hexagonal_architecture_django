@@ -25,27 +25,42 @@ class UpdateUserApi:
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
                  unit_of_work: UnitOfWork):
+        """
+        Update User Api
+        @param request: request implementation
+        @type request: src.shared.domain.requests.Request
+        @param response: response implementation
+        @type response: src.shared.domain.responses.Response
+        @param serializer_manager:
+        @type serializer_manager:
+        @param user_repository:
+        @type user_repository:
+        @param password_generator:
+        @type password_generator:
+        @param unit_of_work:
+        @type unit_of_work:
+        """
 
         # Http objects
-        self.request = request
-        self.response = response
-        self.serializer_manager = serializer_manager
+        self.__request = request
+        self.__response = response
+        self.__serializer_manager = serializer_manager
         # Create  user
-        self.user_repository = user_repository
-        self.password_generator = password_generator
-        self.unit_of_work = unit_of_work
+        self.__user_repository = user_repository
+        self.__password_generator = password_generator
+        self.__unit_of_work = unit_of_work
 
     def __call__(self):
         try:
-            user_data = self.request.get_body()
-            user_dto = self.serializer_manager.get_dto_from_dict(user_data)
+            user_data = self.__request.get_body()
+            user_dto = self.__serializer_manager.get_dto_from_dict(user_data)
             update_user = UpdateUserService(self.user_repository, self.password_generator, self.unit_of_work)
             update_user(**user_dto)
             response_data = dict(
                 success=True,
                 message='All ok',
             )
-            return self.respose(response_data, status=http_status.HTTP_201_CREATED)
+            return self.__response(response_data, status=http_status.HTTP_201_CREATED)
 
         except Exception as err:
             self.log.exception(f"Error in {__class__}::post, err:{err}")
@@ -56,4 +71,4 @@ class UpdateUserApi:
             if hasattr(err, 'errors'):
                 response_data.update(errors=err.errors)
 
-            return self.respose(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+            return self.__response(response_data, status=http_status.HTTP_400_BAD_REQUEST)

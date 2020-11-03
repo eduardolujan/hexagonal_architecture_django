@@ -67,7 +67,7 @@ class UserApi(APIView):
         response = create_user_api()
         return response
 
-    def update(self, request, _id: str = None):
+    def put(self, request, _id: str = None):
         """
         Update User
         @param request: request
