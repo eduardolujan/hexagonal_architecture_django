@@ -2,7 +2,7 @@
 
 
 from mappers import Mapper, Evaluated
-from src.shared.infrastructure.persistence.unit_of_work_wrapper import UnitOfWorkEntity
+from src.shared.infrastructure.persistence.unit_of_work_entity import UnitOfWorkEntity
 
 
 class OrmManager:

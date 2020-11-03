@@ -7,60 +7,8 @@ from django.db import transaction
 
 from .session_uow import SessionUnitOfWork
 from src.shared.domain.repository import UnitOfWork as AbstractUnitOfWork
-from src.shared.infrastructure.persistence.unit_of_work_wrapper import UnitOfWorkEntity
+from src.shared.infrastructure.persistence.unit_of_work_entity import UnitOfWorkEntity
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-
-
-class CreateUnitOfWorkEntity:
-    """
-    Create UoF Entity
-    """
-    def __init__(self, uof_entity: UnitOfWorkEntity):
-        self.__uof_entity = uof_entity
-
-    def execute(self):
-        """
-        Execute for Create UnitOfWorkEntity
-        @return:
-        @rtype:
-        """
-        model_instance = self.__uof_entity.get_entity_model()
-        model_instance.save()
-
-
-class UpdateUnitOfWorkEntity:
-    """
-    Update UoF Entity
-    """
-    def __init__(self, uof_entity: UnitOfWorkEntity):
-        self.__uof_entity = uof_entity
-
-    def execute(self):
-        """
-        Execute for Update UnitOfWorkEntity
-        @return:
-        @rtype:
-        """
-        model_instance = self.__uof_entity.get_entity_model()
-        model_instance.save()
-
-
-class DeleteUnitOfWorkEntity:
-    """
-    Delete UoF Entity
-    """
-
-    def __init__(self, uof_entity: UnitOfWorkEntity):
-        self.__uof_entity = uof_entity
-
-    def execute(self):
-        """
-        Execute for Delete UnitOfWorkEntity
-        @return:
-        @rtype:
-        """
-        model_instance = self.__uof_entity.get_entity_model()
-        model_instance.delete()
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
