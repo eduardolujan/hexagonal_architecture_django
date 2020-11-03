@@ -15,14 +15,14 @@ class CreatePerson:
     """
 
     @staticmethod
-    def create_person_entity(id: str,
+    def create_person_entity(person_id: str,
                              name: str,
                              last_name: str,
                              second_last_name: str,
                              address: AddressEntity = None,
                              phone: PhoneEntity = None):
 
-        person_id = person_values.PersonId(id)
+        person_id = person_values.PersonId(person_id)
         person_name = person_values.Name(name)
         person_last_name = person_values.Name(last_name)
         person_second_last_name = person_values.SecondLastName(second_last_name)

@@ -51,17 +51,6 @@ class UnitOfWork(ABC):
         raise NotImplementedError("Not implemented yet")
 
     @abstractmethod
-    def update(self, entity) -> None:
-        """
-        Add entity to transactions
-        @param entity:
-        @type entity:
-        @return:
-        @rtype:
-        """
-        raise NotImplementedError("Not implemented yet")
-
-    @abstractmethod
     def flush(self) -> None:
         """
         Remove all transactions

@@ -2,9 +2,13 @@
 
 
 from mappers import Mapper, Evaluated
+from src.shared.infrastructure.persistence.unit_of_work_wrapper import UnitOfWorkEntity
 
 
 class OrmManager:
+    """
+    ORM manager
+    """
 
     def __init__(self, model=None, entity=None):
         self.__entity = entity
@@ -45,13 +49,13 @@ class OrmManager:
         model_instance = reader_entity(model_instance)
         return model_instance
 
-    def orm_create(self, **fields):
+    def orm_create(self, **fields) -> UnitOfWorkEntity:
         """
         Create a new entity in db
         @param fields: fields in entity
         @type fields: dict
         @return: model_instance
-        @rtype: type(self.model)
+        @rtype: UnitOfWorkEntity
         """
         model_instance = self.__model()
         for field, value in fields.items():
@@ -60,15 +64,16 @@ class OrmManager:
             else:
                 raise ValueError('Field not found')
 
-        return model_instance
+        wrapped_model_instance = UnitOfWorkEntity(model_instance, UnitOfWorkEntity.options.create.value)
+        return wrapped_model_instance
 
-    def orm_update(self, **fields):
+    def orm_update(self, **fields) -> UnitOfWorkEntity:
         """
-        Create a new entity in db
+        Update a new entity in db
         @param fields: fields in entity
         @type fields: dict
         @return: model_instance
-        @rtype: type(model_instance)
+        @rtype: UnitOfWorkEntity
         """
         model_instance = self.__model()
         for field, value in fields.items():
@@ -76,16 +81,24 @@ class OrmManager:
                 setattr(model_instance, field, value)
             else:
                 raise ValueError('Field not found')
-        return model_instance
+        wrapped_model_instance = UnitOfWorkEntity(model_instance, UnitOfWorkEntity.options.update.value)
+        return wrapped_model_instance
 
-    def orm_delete(self, **fields):
+    def orm_delete(self, **fields) -> UnitOfWorkEntity:
+        """
+        Delete a entity
+        @param fields:
+        @type fields:
+        @return:
+        @rtype:
+        """
         try:
-            items = self.__model.objects.filter(**fields)
-            items.delete()
+            model_instance = self.__model.objects.get(**fields)
+            wrapped_model_instance = UnitOfWorkEntity(model_instance, UnitOfWorkEntity.options.delete.value)
+            return wrapped_model_instance
         except Exception as err:
             self.log.exception(f"Error in update model:{self.__model}, fields:{fields}, err:{err}")
-            _exception = Exception("Error when try to update the model")
-            raise _exception
+            return None
 
     def orm_search(self, **fields):
         raise NotImplementedError("Not implemented yet")
