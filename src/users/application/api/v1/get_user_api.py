@@ -24,8 +24,8 @@ class GetUserApi:
         self.__request = request
         self.__response = response
         self.__repository = user_repository
-        self.request_serializer_manager = request_serializer_manager
-        self.response_serializer_manager = response_serializer_manager
+        self.__request_serializer_manager = request_serializer_manager
+        self.__response_serializer_manager = response_serializer_manager
 
     def __call__(self, id: str):
         """
@@ -37,10 +37,10 @@ class GetUserApi:
         """
         try:
             get_user_data = dict(id=id)
-            user_dto = self.request_serializer_manager.get_dto_from_dict(get_user_data)
+            user_dto = self.__request_serializer_manager.get_dto_from_dict(get_user_data)
             get_user_service = GetUserService(self.__repository)
             user_entity = get_user_service(**user_dto)
-            user_entity_serialized = self.response_serializer_manager.get_dto_from_entity(user_entity)
+            user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(
                 success=True,
                 message='All ok',

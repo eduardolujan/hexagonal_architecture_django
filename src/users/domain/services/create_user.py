@@ -35,7 +35,7 @@ class CreateUser:
         if not password_generator:
             raise ValueError("Not assigned password_generator")
 
-        app_user_id = UserId(_id)
+        app_user_id = UserId(id)
         username = Username(username)
         encrypted_password = password_generator.create(password)
         password = UserPassword(encrypted_password)
