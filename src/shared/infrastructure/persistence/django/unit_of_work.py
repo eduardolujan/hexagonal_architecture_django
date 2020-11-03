@@ -1,68 +1,25 @@
 # -*- coding: utf8 -*-
 
 
+from datetime import datetime
+
 from django.db import transaction
 
 from .session_uow import SessionUnitOfWork
 from src.shared.domain.repository import UnitOfWork as AbstractUnitOfWork
-from src.shared.infrastructure.persistence.unit_of_work_wrapper import UnitOfWorkEntity
+from src.shared.infrastructure.persistence.unit_of_work_entity import UnitOfWorkEntity
+from src.shared.infrastructure.persistence.django.uow import (CreateUnitOfWorkEntity,
+                                                              UpdateUnitOfWorkEntity,
+                                                              DeleteUnitOfWorkEntity)
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-
-
-class CreateUnitOfWorkEntity:
-    """
-    Create UoF Entity
-    """
-    def __init__(self, uof_entity: UnitOfWorkEntity):
-        self.__uof_entity = uof_entity
-
-    def execute(self):
-        """
-
-        @return:
-        @rtype:
-        """
-        model_instance = self.__uof_entity.get_entity_model()
-        model_instance.save()
-
-
-class UpdateUnitOfWorkEntity:
-    """
-    Update UoF Entity
-    """
-    def __init__(self, uof_entity: UnitOfWorkEntity):
-        self.__uof_entity = uof_entity
-
-    def execute(self):
-        """
-
-        @return:
-        @rtype:
-        """
-        model_instance = self.__uof_entity.get_entity_model()
-        model_instance.save()
-
-
-class DeleteUnitOfWorkEntity:
-    """
-    Delete UoF Entity
-    """
-
-    def __init__(self, uof_entity: UnitOfWorkEntity):
-        self.__uof_entity = uof_entity
-
-    def execute(self):
-        """
-
-        @return:
-        @rtype:
-        """
-        model_instance = self.__uof_entity.get_entity_model()
-        model_instance.delete()
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UnitOfWork(AbstractUnitOfWork):
+    """
+    Unit of Work
+    """
+
     def __init__(self, session=None):
         self.__entities = set()
         self.__session = session or SessionUnitOfWork(self)
@@ -78,26 +35,28 @@ class UnitOfWork(AbstractUnitOfWork):
     def commit(self):
         try:
             for entity in self.__entities:
-                if type(entity.type) == 'create':
+                if entity.get_type() == 'create':
                     CreateUnitOfWorkEntity(entity).execute()
 
-                elif type(entity.type) == 'update':
+                elif entity.get_type() == 'update':
                     UpdateUnitOfWorkEntity(entity).execute()
 
-                elif type(entity.type) == 'delete':
+                elif entity.get_type() == 'delete':
                     DeleteUnitOfWorkEntity(entity).execute()
 
                 else:
-                    raise Exception("Option not found")
+                    raise Exception(f"Option not found {entity.get_type()}")
 
         except Exception as err:
+            self.log.exception(f"Error in commit, err:{err}")
             self.rollback()
 
         else:
             transaction.commit()
+            self.log.info(f"Commited transaction Date:{datetime.now()}")
 
         finally:
-            self.log.info(f"Finished transaction")
+            self.log.info(f"Finished transaction Date:{datetime.now()}")
 
     def rollback(self):
         transaction.rollback()

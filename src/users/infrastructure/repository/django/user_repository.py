@@ -2,7 +2,7 @@
 
 from had.app.models import User as UserModel
 from src.shared.infrastructure.persistence.django import OrmManager
-from src.shared.infrastructure.persistence.unit_of_work_wrapper import UnitOfWorkEntity
+from src.shared.infrastructure.persistence.unit_of_work_entity import UnitOfWorkEntity
 from src.users.domain.entities.user import User as AppEntity
 from src.users.domain.repository import UserRepository as AbstractUserRepository
 

@@ -2,7 +2,7 @@
 
 
 from mappers import Mapper, Evaluated
-from src.shared.infrastructure.persistence.unit_of_work_wrapper import UnitOfWorkEntity
+from src.shared.infrastructure.persistence.unit_of_work_entity import UnitOfWorkEntity
 
 
 class OrmManager:
@@ -64,7 +64,8 @@ class OrmManager:
             else:
                 raise ValueError('Field not found')
 
-        wrapped_model_instance = UnitOfWorkEntity(model_instance, UnitOfWorkEntity.options.create.value)
+        wrapped_model_instance = UnitOfWorkEntity(model_instance,
+                                                  UnitOfWorkEntity.options.CREATE.value)
         return wrapped_model_instance
 
     def orm_update(self, **fields) -> UnitOfWorkEntity:
@@ -81,7 +82,8 @@ class OrmManager:
                 setattr(model_instance, field, value)
             else:
                 raise ValueError('Field not found')
-        wrapped_model_instance = UnitOfWorkEntity(model_instance, UnitOfWorkEntity.options.update.value)
+        wrapped_model_instance = UnitOfWorkEntity(model_instance,
+                                                  UnitOfWorkEntity.options.UPDATE.value)
         return wrapped_model_instance
 
     def orm_delete(self, **fields) -> UnitOfWorkEntity:
@@ -94,7 +96,8 @@ class OrmManager:
         """
         try:
             model_instance = self.__model.objects.get(**fields)
-            wrapped_model_instance = UnitOfWorkEntity(model_instance, UnitOfWorkEntity.options.delete.value)
+            wrapped_model_instance = UnitOfWorkEntity(model_instance,
+                                                      UnitOfWorkEntity.options.DELETE.value)
             return wrapped_model_instance
         except Exception as err:
             self.log.exception(f"Error in update model:{self.__model}, fields:{fields}, err:{err}")

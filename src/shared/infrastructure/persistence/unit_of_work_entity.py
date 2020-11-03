@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 from enum import Enum
 
 
@@ -27,7 +30,6 @@ class OperationOptions(Enum):
         """
         return dict(cls.as_tuple())
 
-
     @classmethod
     def as_dict_reverse(cls):
         """
@@ -47,6 +49,13 @@ class UnitOfWorkEntity:
     options = OperationOptions
 
     def __init__(self, entity_model_instance, operation_type=None):
+        """
+        Constructor
+        @param entity_model_instance:
+        @type entity_model_instance:
+        @param operation_type:
+        @type operation_type:
+        """
         if operation_type not in self.options.as_dict_reverse():
             raise ValueError(f"Option not found {operation_type}")
 
@@ -54,7 +63,17 @@ class UnitOfWorkEntity:
         self.__operation_type = operation_type
 
     def get_entity_model(self):
+        """
+        Get entity model
+        @return:
+        @rtype:
+        """
         return self.__entity_model_instance
 
     def get_type(self):
+        """
+        Get type of unit of work
+        @return: ('create', 'update', 'delete', )
+        @rtype: str
+        """
         return self.__operation_type
