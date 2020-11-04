@@ -17,8 +17,8 @@ class QueryBus(ABC):
         """
         QueryBus Ask
         @param query: query
-        @type query:
-        @return:
-        @rtype:
+        @type query: Query
+        @return: Response
+        @rtype: Response
         """
         raise NotImplementedError("Not implemented yet")

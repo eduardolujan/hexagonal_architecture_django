@@ -7,7 +7,7 @@ from src.shared.domain.requests import Request
 from src.shared.domain.responses import Response
 from src.shared.domain.serializers import SerializerManager
 from src.users.domain.repository import UserRepository
-from src.users.application.delete import DeleteUser as DeleteUserService
+from src.users.application.delete import UserDeleter as DeleteUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))

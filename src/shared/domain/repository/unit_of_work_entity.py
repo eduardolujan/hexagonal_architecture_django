@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 class UnitOfWorkEntityWrapper(ABC):
     """
-    UnitOfWorkEntity
+    UnitOfWorkEntity interface
     """
 
     @abstractmethod

@@ -1,4 +1,4 @@
-from .delete_user import DeleteUser
+from .user_deleter import UserDeleter
 
 
-__all__ = ('DeleteUser', )
+__all__ = ('UserDeleter',)

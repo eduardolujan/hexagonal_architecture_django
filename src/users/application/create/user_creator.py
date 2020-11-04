@@ -6,12 +6,13 @@ from src.shared.domain.repository import UnitOfWork
 from src.shared.domain.passwords import PasswordGenerator
 from src.users.domain.services import CreateUser as CreateUserService
 from src.users.domain.repository import UserRepository
+from src.users.domain.value_objects import UserId
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreateUser:
+class UserCreator:
     """
-    Create User
+    CreateUser
     """
 
     def __init__(self,
@@ -28,9 +29,13 @@ class CreateUser:
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
 
-    def __call__(self, **fields):
+    def __call__(self,
+                 id: str = None,
+                 username: str = None,
+                 password: str = None,
+                 email: str = None):
 
-        user_entity = CreateUserService.create_base_user(
+        user_entity = CreateUserService.create_standard_user(
             id,
             username,
             password,
@@ -41,6 +46,4 @@ class CreateUser:
         with self.__unit_of_work as uow:
             user_model_instance = self.__repository.create(user_entity)
             uow.session.add(user_model_instance)
-            uow.commit(
-
-            )
+            uow.commit()

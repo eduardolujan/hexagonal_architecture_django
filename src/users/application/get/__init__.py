@@ -1,3 +1,3 @@
-from .get_user import GetUser
+from .user_getter import UserGetter
 
-__all__ = ('GetUser', )
+__all__ = ('UserGetter',)

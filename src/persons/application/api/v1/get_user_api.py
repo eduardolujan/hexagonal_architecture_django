@@ -7,7 +7,7 @@ from src.shared.domain.requests import Request
 from src.shared.domain.responses import Response
 from src.shared.domain.serializers.serializer_manager import SerializerManager
 from src.users.domain.repository import UserRepository
-from src.users.application.get import GetUser as GetUserService
+from src.users.application.get import UserGetter as GetUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))

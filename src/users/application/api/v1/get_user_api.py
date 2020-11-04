@@ -2,12 +2,12 @@
 
 
 from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+from src.users.application.get import UserGetter as UserGetterService
 from src.shared.domain.http import status as http_status
 from src.shared.domain.requests import Request
 from src.shared.domain.responses import Response
 from src.shared.domain.serializers.serializer_manager import SerializerManager
 from src.users.domain.repository import UserRepository
-from src.users.application.get import GetUser as GetUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -15,12 +15,27 @@ class GetUserApi:
     """
     User GET API
     """
+
     def __init__(self,
                  request: Request,
                  response: Response,
                  user_repository: UserRepository,
                  request_serializer_manager: SerializerManager,
                  response_serializer_manager: SerializerManager):
+        """
+        GetUserAPI
+        @param request:
+        @type request:
+        @param response:
+        @type response:
+        @param user_repository:
+        @type user_repository:
+        @param request_serializer_manager:
+        @type request_serializer_manager:
+        @param response_serializer_manager:
+        @type response_serializer_manager:
+        """
+
         self.__request = request
         self.__response = response
         self.__repository = user_repository
@@ -38,7 +53,7 @@ class GetUserApi:
         try:
             get_user_data = dict(id=id)
             user_dto = self.__request_serializer_manager.get_dto_from_dict(get_user_data)
-            get_user_service = GetUserService(self.__repository)
+            get_user_service = UserGetterService(self.__repository)
             user_entity = get_user_service(**user_dto)
             user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(

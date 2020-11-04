@@ -11,15 +11,15 @@ class CreateUser:
     Name constructors to create User
     """
     @staticmethod
-    def create_base_user(_id: str,
-                         username: str,
-                         password: str,
-                         email: str,
-                         password_generator: PasswordGenerator = None):
+    def create_standard_user(id: str,
+                             username: str,
+                             password: str,
+                             email: str,
+                             password_generator: PasswordGenerator = None):
         """
         Create User
-        @param _id:
-        @type _id:
+        @param id:
+        @type id:
         @param username:
         @type username:
         @param password:
