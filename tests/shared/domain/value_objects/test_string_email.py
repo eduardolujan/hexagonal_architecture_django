@@ -2,7 +2,7 @@
 from unittest.mock import Mock
 
 import pytest
-from src.shared.domain.value_objects import Email
+from modules.shared.domain.value_objects import Email
 
 
 def test_value_object_email_success_happy_path(setup_email_validator_return_mock):

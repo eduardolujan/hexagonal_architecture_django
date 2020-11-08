@@ -2,7 +2,7 @@ from unittest.mock import Mock
 from uuid import uuid4, UUID as uuid_creator
 
 import pytest
-from src.shared.domain.value_objects import Uuid, String
+from modules.shared.domain.value_objects import Uuid, String
 
 
 def test_value_object_uuid_invalid_uuid_v4():

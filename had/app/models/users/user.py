@@ -5,6 +5,10 @@ from django.utils.translation import gettext_lazy as _
 
 
 class User(models.AbstractUser):
+    """
+    User Model
+    """
+
     REQUIRED_FIELDS = []
     """Default user for had."""
     #: First and last name do not cover name patterns around the globe

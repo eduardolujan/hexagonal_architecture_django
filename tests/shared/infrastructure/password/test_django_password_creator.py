@@ -2,7 +2,7 @@
 import pytest
 from unittest.mock import Mock
 
-from src.shared.infrastructure.passwords import DjangoPasswordCreator
+from modules.shared.infrastructure.passwords.django import PasswordCreator as DjangoPasswordCreator
 
 
 @pytest.mark.password_creator

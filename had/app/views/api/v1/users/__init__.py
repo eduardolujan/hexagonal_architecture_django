@@ -1,10 +1,7 @@
-from .all_users_api import ListUsersApi
-from .create_user_api import CreateUserApi
-from .get_user_api import GetUserApi
+from .users_api import ListUsersApi
+from .user_api import UserApi
 
 
 __all__ = (
-    'CreateUserApi',
-    'GetUserApi',
-    'ListUsersApi',
+    'UserApi',
 )
