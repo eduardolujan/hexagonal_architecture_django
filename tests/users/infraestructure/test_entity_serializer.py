@@ -5,8 +5,8 @@ import unittest
 import pytest
 from unittest.mock import Mock
 
-from src.users.infrastructure.serializers.django import UserSerializer
-from src.shared.infrastructure.serializers.django import SerializerManager
+from modules.users.infrastructure.serializers.django import UserSerializer
+from modules.shared.infrastructure.serializers.django import SerializerManager
 
 
 class StubDjangoUserSerializer:

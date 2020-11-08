@@ -1,6 +1,6 @@
 
 import pytest
-from src.shared.domain.value_objects import String
+from modules.shared.domain.value_objects import String
 
 
 def test_string_value_object_success():

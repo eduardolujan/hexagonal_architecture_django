@@ -6,11 +6,11 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 
-from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from src.users.infrastructure.repository.django import UserRepository as DjangoUserRepository
-from src.shared.infrastructure.serializers.django import SerializerManager
-from src.users.infrastructure.serializers.django import UserSerializer as DjangoUserSerializer
-from src.users.application.all import AllUsers as AllUsersService
+from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+from modules.users.infrastructure.repository.django import UserRepository as DjangoUserRepository
+from modules.shared.infrastructure.serializers.django import SerializerManager
+from modules.users.infrastructure.serializers.django import UserSerializer as DjangoUserSerializer
+from modules.users.application.all import AllUsers as AllUsersService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))

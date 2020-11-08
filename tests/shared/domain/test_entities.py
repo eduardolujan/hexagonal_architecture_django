@@ -2,7 +2,7 @@ from uuid import uuid4
 
 import pytest
 
-from src.shared.domain.value_objects import Uuid
+from modules.shared.domain.value_objects import Uuid
 
 
 def test_entity_id_as_string():

@@ -4,23 +4,23 @@
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
-from src.shared.infrastructure.serializers.django.serializer_manager import (
+from modules.shared.infrastructure.serializers.django.serializer_manager import (
     SerializerManager as DjangoSerializerManager,
 )
-from src.users.infrastructure.serializers.django import (
+from modules.users.infrastructure.serializers.django import (
     UserSerializer as DjangoUserSerializer,
     GetUserSerializer as DjangoGetUserSerializer,
     CreateUserSerializer as DjangoCreateUserSerializer,
 )
-from src.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from src.shared.infrastructure.requests.django import Request as DjangoRequest
-from src.shared.infrastructure.responses.django import RestResponse as DjangoRestResponse
-from src.shared.infrastructure.persistence.django import UnitOfWork as DjangoUnitOfWork
-from src.shared.infrastructure.passwords.django import PasswordCreator as DjangoPasswordCreator
-from src.users.infrastructure.repository.django import (
+from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+from modules.shared.infrastructure.requests.django import Request as DjangoRequest
+from modules.shared.infrastructure.responses.django import RestResponse as DjangoRestResponse
+from modules.shared.infrastructure.persistence.django import UnitOfWork as DjangoUnitOfWork
+from modules.shared.infrastructure.passwords.django import PasswordCreator as DjangoPasswordCreator
+from modules.users.infrastructure.repository.django import (
     UserRepository as DjangoUserRepository
 )
-from src.users.application.api.v1 import GetUserApi, CreateUserApi, UpdateUserApi, DeleteUserApi
+from modules.users.application.api.v1 import GetUserApi, CreateUserApi, UpdateUserApi, DeleteUserApi
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
