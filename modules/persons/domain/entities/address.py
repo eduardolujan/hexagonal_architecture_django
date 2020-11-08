@@ -1,12 +1,15 @@
 
+from dataclasses import dataclass
+from typing import Optional
 
 from modules.shared.domain.entities import Entity
 from modules.persons.domain.value_objects import address_values
 
 
+@dataclass(frozen=True)
 class Address(Entity):
     """
-    Address ID
+    Address Entity
     """
     id: address_values.AddressID
     street: address_values.Street
@@ -17,3 +20,11 @@ class Address(Entity):
     borough: address_values.Borough
     state: address_values.State
     country: address_values.Country
+
+
+@dataclass(frozen=True)
+class GetAddress(Entity):
+    """
+    Get Address Entity
+    """
+    id: address_values.AddressID

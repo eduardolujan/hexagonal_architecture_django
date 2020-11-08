@@ -3,16 +3,16 @@
 
 from had.app.models import Address as AddressModel
 from modules.shared.infrastructure.persistence.django import OrmManager
-from modules.persons.domain.entities.address import Address as AddressEntity
-from modules.persons.domain.repository import PersonRepository as AbstractPersonRepository
+from modules.persons.domain.entities.phone import Phone as PhoneEntity
+from modules.persons.domain.repository import PhoneRepository as AbstractPhoneRepository
 
 
-class AddressRepository(OrmManager, AbstractPersonRepository):
+class PhoneRepository(OrmManager, AbstractPhoneRepository):
     """
     Person Repository
     """
 
-    def __init__(self, model=AddressModel, entity=AddressEntity):
+    def __init__(self, model=AddressModel, entity=PhoneEntity):
         """
         AddressRepository constructor
         @param model: model
@@ -20,7 +20,7 @@ class AddressRepository(OrmManager, AbstractPersonRepository):
         @param entity:
         @type entity:
         """
-        super(AddressRepository, self).__init__(model, entity)
+        super(PhoneRepository, self).__init__(model, entity)
 
     def get(self, entity):
         """

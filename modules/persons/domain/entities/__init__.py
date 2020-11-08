@@ -1,9 +1,12 @@
-from .person import Person
-from .address import Address
-from .phone import Phone
+from .person import Person, GetPerson
+from .address import Address, GetAddress
+from .phone import Phone, GetPhone
 
 __all__ = (
     'Person',
+    'GetPerson',
     'Address',
+    'GetAddress',
     'Phone',
+    'GetPhone',
 )

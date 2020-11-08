@@ -19,3 +19,11 @@ class Person(Entity):
     second_last_name: person_values.SecondLastName
     address: Optional[person_values.Address]
     phone: Optional[person_values.Phone]
+
+
+@dataclass(frozen=True)
+class GetPerson(Entity):
+    """
+    Person entity
+    """
+    id: person_values.PersonId
