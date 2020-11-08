@@ -38,8 +38,8 @@ class CreateUserApi:
     def __call__(self) -> Response:
         """
         Create User API
-        @return: Instance -> AbstractResponse
-        @rtype: AbstractResponse implementation
+        @return: Response
+        @rtype: Response
         """
         try:
             user_data = self.__request.get_body()

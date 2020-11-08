@@ -6,32 +6,51 @@ from src.persons.domain.entities import (
     Address as AddressEntity,
     Phone as PhoneEntity,
 )
-from src.persons.domain.value_objects import person_values
+from src.persons.domain.value_objects.person_values import (
+    PersonId,
+    Name,
+    LastName,
+    SecondLastName,
+    Address,
+    Phone
+)
 
 
 class CreatePerson:
     """
-    Name constructors to create Person
+    Nameconstructors for Person
     """
 
     @staticmethod
-    def create_person_entity(person_id: str,
-                             name: str,
-                             last_name: str,
-                             second_last_name: str,
-                             address: AddressEntity = None,
-                             phone: PhoneEntity = None):
+    def create_person_entity(person_id: PersonId,
+                             name: Name,
+                             last_name: LastName,
+                             second_last_name: SecondLastName,
+                             address: Address = None,
+                             phone: Phone = None):
+        """
 
-        person_id = person_values.PersonId(person_id)
-        person_name = person_values.Name(name)
-        person_last_name = person_values.Name(last_name)
-        person_second_last_name = person_values.SecondLastName(second_last_name)
+        @param person_id:
+        @type person_id:
+        @param name:
+        @type name:
+        @param last_name:
+        @type last_name:
+        @param second_last_name:
+        @type second_last_name:
+        @param address:
+        @type address:
+        @param phone:
+        @type phone:
+        @return:
+        @rtype:
+        """
 
         person_entity = PersonEntity(
             id=person_id,
-            name=person_name,
-            last_name=person_last_name,
-            second_last_name=person_second_last_name,
+            name=name,
+            last_name=last_name,
+            second_last_name=second_last_name,
             address=address,
             phone=phone
         )

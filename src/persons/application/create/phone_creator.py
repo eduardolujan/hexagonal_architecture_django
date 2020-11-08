@@ -9,7 +9,10 @@ from src.users.domain.repository import UserRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreatePhone:
+class PhoneCreator:
+    """
+    PhoneCreator
+    """
 
     def __init__(self,
                  user_repository: UserRepository,
