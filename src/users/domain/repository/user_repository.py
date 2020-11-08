@@ -3,13 +3,13 @@ from abc import ABC, abstractmethod
 
 class UserRepository(ABC):
     """
-    Asbtract User Repository
+    Abstract User Repository
     """
 
     @abstractmethod
     def create(self, entity):
         """
-
+        Create entity
         @param entity:
         @type entity:
         @return:
@@ -18,7 +18,7 @@ class UserRepository(ABC):
         raise NotImplementedError("Not implemented error")
 
     @abstractmethod
-    def get(self, entity):
+    def get(self, entity) -> object:
         """
         Get entity
         @param entity:
@@ -29,7 +29,7 @@ class UserRepository(ABC):
         raise NotImplementedError("Not implemented error")
 
     @abstractmethod
-    def update(self, entity):
+    def update(self, entity) -> object:
         """
         Update entity
         @param entity:
@@ -40,7 +40,7 @@ class UserRepository(ABC):
         raise NotImplementedError("Not implemented error")
 
     @abstractmethod
-    def delete(self, entity):
+    def delete(self, entity) -> object:
         """
         Delete entity
         @param entity:
@@ -51,6 +51,11 @@ class UserRepository(ABC):
         raise NotImplementedError("Not implemented error")
 
     @abstractmethod
-    def all(self):
+    def all(self) -> object:
+        """
+        All entities
+        @return:
+        @rtype:
+        """
         raise NotImplementedError("Not implemented error")
 

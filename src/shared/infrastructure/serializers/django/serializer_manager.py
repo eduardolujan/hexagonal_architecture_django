@@ -37,7 +37,8 @@ class SerializerManager(AbstractSerializerManager):
         @return:
         """
         if entity is None:
-            return None
+            raise ValueError(f"Entity is empty {entity}")
+
         user_serializer = self.serializer(entity)
         serialized_data = user_serializer.data
         return serialized_data

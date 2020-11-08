@@ -10,7 +10,7 @@ from src.shared.domain.serializers import SerializerManager
 from src.users.domain.repository import UserRepository
 from src.shared.domain.repository import UnitOfWork
 from src.shared.domain.passwords import PasswordGenerator
-from src.users.application.update import UpdateUser as UpdateUserService
+from src.users.application.update import UserUpdater as UpdateUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))

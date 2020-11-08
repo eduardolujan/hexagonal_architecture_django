@@ -8,7 +8,7 @@ from src.persons.domain.repository import AddressRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreateAddress:
+class AddressCreator:
     """
     Create phone
     """

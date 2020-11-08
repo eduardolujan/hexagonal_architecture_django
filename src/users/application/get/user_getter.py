@@ -9,7 +9,11 @@ from src.users.domain.services import GetUser as GetUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class GetUser:
+class UserGetter:
+    """
+    User getter service
+    """
+
     def __init__(self, user_repository: UserRepository = None):
         """
         Get user service by id uuid v4

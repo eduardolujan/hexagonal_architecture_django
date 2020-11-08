@@ -4,6 +4,20 @@
 from src.shared.domain.value_objects import String, Uuid
 
 
+class Address(Uuid):
+    """
+    Adress UUID
+    """
+    pass
+
+
+class Phone(Uuid):
+    """
+    Phone UUID
+    """
+    pass
+
+
 class PersonId(Uuid):
     """
     Person ID as UUID

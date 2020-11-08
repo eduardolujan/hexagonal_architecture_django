@@ -9,10 +9,11 @@ from src.users.domain.repository import UserRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class UpdateUser:
+class UserUpdater:
     """
     UpdateUser use case for update user
     """
+
     def __init__(self,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,

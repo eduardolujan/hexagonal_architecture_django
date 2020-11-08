@@ -9,7 +9,7 @@ from src.shared.domain.serializers import SerializerManager
 from src.users.domain.repository import UserRepository
 from src.shared.domain.repository import UnitOfWork
 from src.shared.domain.passwords import PasswordGenerator
-from src.users.application.create import CreateUser
+from src.users.application.create import UserCreator
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -44,7 +44,7 @@ class CreateUserApi:
         try:
             user_data = self.__request.get_body()
             user_dto = self.__serializer_manager.get_dto_from_dict(user_data)
-            create_user = CreateUser(self.___user_repository, self.__password_generator, self.__unit_of_work)
+            create_user = UserCreator(self.___user_repository, self.__password_generator, self.__unit_of_work)
             create_user(**user_dto)
             response_data = dict(
                 success=True,

@@ -4,9 +4,6 @@
 from dataclasses import dataclass
 from typing import Optional
 
-
-from .address import Address
-from .phone import Phone
 from src.shared.domain.entities import Entity
 from src.persons.domain.value_objects import person_values
 
@@ -20,5 +17,5 @@ class Person(Entity):
     name: person_values.Name
     last_name: person_values.LastName
     second_last_name: person_values.SecondLastName
-    address: Optional[Address]
-    phone: Optional[Phone]
+    address: Optional[person_values.Address]
+    phone: Optional[person_values.Phone]

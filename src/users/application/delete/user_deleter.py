@@ -7,7 +7,7 @@ from src.users.domain.repository import UserRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class DeleteUser:
+class UserDeleter:
     """
     Delete User
     """

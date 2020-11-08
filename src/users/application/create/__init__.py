@@ -1,5 +1,5 @@
-from .create_user import CreateUser
+from .user_creator import UserCreator
 
 
-__all__ = ('CreateUser', )
+__all__ = ('UserCreator',)
 
