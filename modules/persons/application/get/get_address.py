@@ -25,6 +25,9 @@ class AddressGetter:
         self.__repository = address_repository
 
     def __call__(self, get_address_query: Query):
+        if not isinstance(get_address_query, Query):
+            raise ValueError(f"Parameter get_address_query is not Query {get_address_query}")
+
         address_id = PersonId(get_address_query.id)
         get_address_entity = GetAddressService.create_person_entity(address_id)
         address_entity = self.__repository.get(get_address_entity)

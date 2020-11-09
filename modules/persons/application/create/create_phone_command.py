@@ -11,7 +11,7 @@ class CreatePhoneCommand(Command):
                  number: str,
                  extension: str):
 
-        self.id = id
-        self.number = number
-        self.extension = extension
+        self.__id = id
+        self.__number = number
+        self.__extension = extension
 
