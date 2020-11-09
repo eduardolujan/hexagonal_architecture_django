@@ -18,7 +18,7 @@ class AddressGetter:
 
     def __init__(self, address_repository: AbstractAddressRepository):
         """
-
+        Address Getter constructor
         @param address_repository:
         @type address_repository:
         """

@@ -3,10 +3,9 @@
 
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.repository import UnitOfWork
-from modules.shared.domain.passwords import PasswordGenerator
 from modules.shared.domain.bus.command import Command
 from modules.persons.domain.services.create import CreatePerson as CratePersonService
-from modules.users.domain.repository import UserRepository
+from modules.persons.domain.repository import PersonRepository
 from modules.persons.domain.value_objects.person_values import (
     PersonId,
     Name,
@@ -24,20 +23,16 @@ class PersonCreator:
     """
 
     def __init__(self,
-                 user_repository: UserRepository,
-                 password_generator: PasswordGenerator,
+                 person_repository: PersonRepository,
                  unit_of_work: UnitOfWork):
         """
-
-        @param user_repository:
-        @type user_repository:
-        @param password_generator:
-        @type password_generator:
+        Person Creator
+        @param person_repository:
+        @type person_repository:
         @param unit_of_work:
         @type unit_of_work:
         """
-        self.__repository = user_repository
-        self.__password_generator = password_generator
+        self.__repository = person_repository
         self.__unit_of_work = unit_of_work
 
     def __call__(self, create_person_command: Command) -> None:
@@ -65,8 +60,8 @@ class PersonCreator:
         )
 
         with self.__unit_of_work as uow:
-            user_model_instance = self.__repository.create(person_entity)
-            uow.session.add(user_model_instance)
+            person_model_instance = self.__repository.create(person_entity)
+            uow.session.add(person_model_instance)
             uow.commit()
 
 
