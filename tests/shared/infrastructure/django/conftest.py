@@ -3,7 +3,7 @@
 import pytest
 from unittest.mock import Mock
 
-from src.shared.domain.entities import Entity
+from modules.shared.domain.entities import Entity
 
 
 class TestEntity(Entity):

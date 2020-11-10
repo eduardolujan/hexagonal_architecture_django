@@ -310,3 +310,8 @@ SOCIALACCOUNT_ADAPTER = "had.users.adapters.SocialAccountAdapter"
 # Your stuff...
 # ------------------------------------------------------------------------------
 URL_PREFIX = env.str('URL_PREFIX', default='')
+
+
+SWAGGER_SETTINGS = {
+    'VALIDATOR_URL': 'http://localhost:8080',
+}

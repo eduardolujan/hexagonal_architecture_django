@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import Mock
 
-from src.shared.infrastructure.persistence.django import OrmManager
+from modules.shared.infrastructure.persistence.django import OrmManager
 
 
 def test_orm_manager_get_entity(setup_orm_manager_get, setup_orm_manager_entity):

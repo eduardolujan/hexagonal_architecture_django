@@ -31,6 +31,11 @@ v1_openapi_schema_view = get_schema_view(
 if settings.DEBUG:
 
     urlpatterns += [
+        re_path(
+            rf'^{settings.URL_PREFIX}documentation/swagger/swagger(?P<format>\.json|\.yaml)$',
+            v1_openapi_schema_view.without_ui(cache_timeout=0),
+            name='schema-json'
+        ),
         path(
             f'{settings.URL_PREFIX}documentation/swagger/',
             v1_openapi_schema_view.with_ui('swagger', cache_timeout=0),
