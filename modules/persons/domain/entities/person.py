@@ -4,12 +4,13 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from modules.shared.domain.aggregate import AggregateRoot
 from modules.shared.domain.entities import Entity
 from modules.persons.domain.value_objects import person_values
 
 
 @dataclass(frozen=True)
-class Person(Entity):
+class Person(Entity, AggregateRoot):
     """
     Person entity
     """
@@ -22,7 +23,7 @@ class Person(Entity):
 
 
 @dataclass(frozen=True)
-class GetPerson(Entity):
+class GetPerson(Entity, AggregateRoot):
     """
     Person entity
     """

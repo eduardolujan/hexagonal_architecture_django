@@ -2,12 +2,13 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from modules.shared.domain.aggregate import AggregateRoot
 from modules.shared.domain.entities import Entity
 from modules.persons.domain.value_objects import address_values
 
 
 @dataclass(frozen=True)
-class Address(Entity):
+class Address(Entity, AggregateRoot):
     """
     Address Entity
     """
@@ -23,7 +24,7 @@ class Address(Entity):
 
 
 @dataclass(frozen=True)
-class GetAddress(Entity):
+class GetAddress(Entity, AggregateRoot):
     """
     Get Address Entity
     """

@@ -4,12 +4,13 @@
 from dataclasses import dataclass
 from typing import Optional
 
+from modules.shared.domain.aggregate import AggregateRoot
 from modules.shared.domain.entities import Entity
 from modules.persons.domain.value_objects import phone_values
 
 
 @dataclass(frozen=True)
-class Phone(Entity):
+class Phone(Entity, AggregateRoot):
     """
     Person Entity
     """
@@ -19,7 +20,7 @@ class Phone(Entity):
 
 
 @dataclass(frozen=True)
-class GetPhone(Entity):
+class GetPhone(Entity, AggregateRoot):
     """
     Person Entity
     """
