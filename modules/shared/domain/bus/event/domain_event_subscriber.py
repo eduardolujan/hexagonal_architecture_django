@@ -17,3 +17,4 @@ class DomainEventSuscriber(ABC):
         @rtype: List
         """
         raise NotImplementedError("Not implemented yet")
+
