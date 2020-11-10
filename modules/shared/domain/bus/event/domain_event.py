@@ -4,7 +4,7 @@
 from abc import ABC, abstractmethod
 from uuid import UUID, uuid4
 from datetime import datetime
-from typing import Optional, TypeVar
+from typing import Optional, TypeVar, Dict
 
 
 DomainEventInstance = TypeVar('DomainEvent', bound='DomainEvent')
@@ -41,6 +41,15 @@ class DomainEvent(ABC):
         @param ocurred_on: Datetime in isoformat
         @return: self instance
         @rtype: DomainEvent
+        """
+        raise NotImplementedError("Not implemented yet")
+
+    @abstractmethod
+    def to_primitives(self) -> Dict:
+        """
+        To primitives
+        @return: Primitives dict
+        @rtype: Dict
         """
         raise NotImplementedError("Not implemented yet")
 

@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-
+from typing import Optional
 from modules.persons.domain.entities import (
-    Person as PersonEntity,
-    Address as AddressEntity,
-    Phone as PhoneEntity,
+    Person as PersonEntity
 )
 from modules.persons.domain.value_objects.person_values import (
     PersonId,
@@ -26,10 +24,10 @@ class CreatePerson:
                              name: Name,
                              last_name: LastName,
                              second_last_name: SecondLastName,
-                             address: Address = None,
-                             phone: Phone = None):
+                             address: Optional[Address] = None,
+                             phone: Optional[Phone] = None):
         """
-
+        Create person entity
         @param person_id:
         @type person_id:
         @param name:

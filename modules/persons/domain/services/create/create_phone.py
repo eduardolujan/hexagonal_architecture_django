@@ -38,4 +38,6 @@ class CreatePhone:
             extension=extension
         )
 
+        phone_entity.record()
+
         return phone_entity

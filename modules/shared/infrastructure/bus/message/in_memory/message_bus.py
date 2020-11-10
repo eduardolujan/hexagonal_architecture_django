@@ -5,20 +5,23 @@ from abc import ABC, abstractmethod
 from typing import NoReturn
 
 from modules.shared.domain.bus.event import DomainEvent
+from modules.shared.domain.bus.message import MessageBus
 
 
-class MessageBus(ABC):
+class InMemoryMessageBus(MessageBus):
     """
-    Abstract Message bus
+    Inmemory Message bus
     """
 
-    @abstractmethod
+    def __init__(self, handlers=None):
+        self.__handlers = handlers or tuple()
+
     def dispatch(self, domain_event: DomainEvent) -> NoReturn:
         """
-        Dispatch event
+        Dispatch
         @param domain_event: Domain Event
         @type domain_event: modules.shared.domain.bus.event.DomainEvent
-        @return:
-        @rtype:
+        @return: NoReturn
+        @rtype: NoReturn
         """
         raise NotImplementedError("Not implemented yet")

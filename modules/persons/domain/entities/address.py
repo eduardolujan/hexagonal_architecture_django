@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 
 from dataclasses import dataclass
 from typing import Optional
@@ -8,10 +10,11 @@ from modules.persons.domain.value_objects import address_values
 
 
 @dataclass(frozen=True)
-class Address(Entity, AggregateRoot):
+class Address(Entity):
     """
     Address Entity
     """
+
     id: address_values.AddressID
     street: address_values.Street
     interior_number: address_values.InteriorNumber
@@ -21,11 +24,3 @@ class Address(Entity, AggregateRoot):
     borough: address_values.Borough
     state: address_values.State
     country: address_values.Country
-
-
-@dataclass(frozen=True)
-class GetAddress(Entity, AggregateRoot):
-    """
-    Get Address Entity
-    """
-    id: address_values.AddressID
