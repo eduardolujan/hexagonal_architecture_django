@@ -38,7 +38,7 @@ class DomainEvent(ABC):
         @param aggregate_id: Aggregate id UUID
         @param body: Payload
         @param event_id: Event id
-        @param ocurred_on:
+        @param ocurred_on: Datetime in isoformat
         @return: self instance
         @rtype: DomainEvent
         """
