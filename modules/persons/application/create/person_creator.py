@@ -32,7 +32,7 @@ class PersonCreator:
         @param unit_of_work:
         @type unit_of_work:
         """
-        self.__repository = person_repository
+        self.__person_repository = person_repository
         self.__unit_of_work = unit_of_work
 
     def __call__(self, create_person_command: Command) -> None:
@@ -60,7 +60,7 @@ class PersonCreator:
         )
 
         with self.__unit_of_work as uow:
-            person_model_instance = self.__repository.create(person_entity)
+            person_model_instance = self.__person_repository.create(person_entity)
             uow.session.add(person_model_instance)
             uow.commit()
 

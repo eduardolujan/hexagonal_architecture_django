@@ -2,13 +2,21 @@
 
 
 from abc import ABC, abstractmethod
-from typing import List
 
 
 class AggregateRoot(ABC):
+    """
+    Aggregate Root
+    """
+
     __domain_events = list()
 
     def pull_domain_events(self):
+        """
+        Pull domain events
+        @return:
+        @rtype:
+        """
         domain_events = self.__domain_events
         self.__domain_events = []
         return domain_events

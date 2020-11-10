@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 from modules.shared.domain.bus.command import Command
 
 
