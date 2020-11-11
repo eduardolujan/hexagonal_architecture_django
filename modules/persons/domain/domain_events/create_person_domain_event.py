@@ -8,27 +8,25 @@ from modules.shared.domain.bus.event import DomainEvent
 from modules.shared.domain.bus.event.domain_event import DomainEventInstance
 
 
-class CreatePhoneDomainEvent(DomainEvent):
+class CreatePersonDomainEvent(DomainEvent):
     """
-    Create Phone DomainEvent
+    Create Person DomainEvent
     """
 
     def __init__(self,
                  id: str = None,
-                 number: str = None,
-                 extension: str = None):
-        """
-        Constructor CreatePhoneDomainEvent
-        @param id: Phone ID
-        @type id: str
-        @param number: Phone number
-        @type number: str
-        @param extension: Phone extension
-        @type extension: str
-        """
+                 name: str = None,
+                 last_name: str = None,
+                 second_last_name: str = None,
+                 address: Optional[str] = None,
+                 phone: Optional[str] = None):
+
         self.__id = id
-        self.__number = number
-        self.__extension = extension
+        self.__name = name
+        self.__last_name = last_name
+        self.__second_last_name = second_last_name
+        self.__address = address
+        self.__phone = phone
 
     def event_name(self):
         """
@@ -36,7 +34,7 @@ class CreatePhoneDomainEvent(DomainEvent):
         @return: Event name
         @rtype: str
         """
-        return 'phone.created'
+        return 'person.created'
 
     def from_primitives(self,
                         aggregate_id: UUID,
@@ -66,8 +64,11 @@ class CreatePhoneDomainEvent(DomainEvent):
         """
         domain_event = dict(
             id=self.__id,
-            number=self.__number,
-            extension=self.__extension
+            name=self.__name,
+            last_name=self.__last_name,
+            second_last_name=self.__second_last_name,
+            address=self.__address,
+            phone=self.__phone,
         )
         return domain_event
 
@@ -76,10 +77,17 @@ class CreatePhoneDomainEvent(DomainEvent):
         return self.__id
 
     @property
-    def number(self):
-        return self.__number
+    def name(self):
+        return self.__name
 
     @property
-    def extension(self):
-        return self.__extension
+    def last_name(self):
+        return self.__last_name
 
+    @property
+    def second_last_name(self):
+        return self.__second_last_name
+
+    @property
+    def address(self):
+        return self.__address

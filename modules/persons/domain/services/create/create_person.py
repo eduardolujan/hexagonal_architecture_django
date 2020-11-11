@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
+
 from typing import Optional
-from modules.persons.domain.entities import (
-    Person as PersonEntity
-)
+
+from modules.persons.domain.domain_events import CreatePersonDomainEvent
+from modules.persons.domain.entities import Person as PersonEntity
 from modules.persons.domain.value_objects.person_values import (
     PersonId,
     Name,
@@ -26,23 +27,6 @@ class CreatePerson:
                              second_last_name: SecondLastName,
                              address: Optional[Address] = None,
                              phone: Optional[Phone] = None):
-        """
-        Create person entity
-        @param person_id:
-        @type person_id:
-        @param name:
-        @type name:
-        @param last_name:
-        @type last_name:
-        @param second_last_name:
-        @type second_last_name:
-        @param address:
-        @type address:
-        @param phone:
-        @type phone:
-        @return:
-        @rtype:
-        """
 
         person_entity = PersonEntity(
             id=person_id,
@@ -52,4 +36,16 @@ class CreatePerson:
             address=address,
             phone=phone
         )
+
+        # Create domain event
+        create_person_domain_event = CreatePersonDomainEvent(id=person_id.value,
+                                                             name=name.value,
+                                                             last_name=last_name.value,
+                                                             second_last_name=second_last_name.value,
+                                                             address=address.value,
+                                                             phone=phone.value)
+
+        # Record the event in entity
+        person_entity.record(create_person_domain_event)
+
         return person_entity

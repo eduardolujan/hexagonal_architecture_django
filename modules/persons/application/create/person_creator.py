@@ -64,6 +64,9 @@ class PersonCreator:
             uow.session.add(person_model_instance)
             uow.commit()
 
+        self.__bus.dispatch(person_entity.pull_domain_events())
+
+
 
 
 

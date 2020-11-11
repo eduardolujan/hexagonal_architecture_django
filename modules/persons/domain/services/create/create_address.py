@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-from modules.persons.domain.entities import (
-    Address as AddressEntity,
-)
+from modules.persons.domain.domain_events import CreateAddressDomainEvent
+from modules.persons.domain.entities import Address as AddressEntity
 from modules.persons.domain.value_objects.address_values import (
     AddressID,
     Street,
@@ -32,40 +31,31 @@ class CreateAddress:
                               borough: Borough,
                               state: State,
                               country: Country):
-        """
-        Create Adress Entity
-        @param address_id: Address ID UUID
-        @type address_id: src.persons.domain.value_objects.address_values.AddressID
-        @param street: Street
-        @type street: src.persons.domain.value_objects.address_values.Street
-        @param interior_number: InteriorNumber
-        @type interior_number: src.persons.domain.value_objects.address_values.InteriorNumber
-        @param outside_number: OutsideNumber
-        @type outside_number: src.persons.domain.value_objects.address_values.ExternalNumber
-        @param zip_code: ZipCode
-        @type zip_code: src.persons.domain.value_objects.address_values.ZipCode
-        @param city: City
-        @type city: src.persons.domain.value_objects.address_values.City
-        @param borough: Borough
-        @type borough: src.persons.domain.value_objects.address_values.Borough
-        @param state: State
-        @type state: src.persons.domain.value_objects.address_values.State
-        @param country: Country
-        @type country: src.persons.domain.value_objects.address_values.Country
-        @return: Address Entity
-        @rtype: src.persons.domain.entities.Address
-        """
 
-        address_entity = AddressEntity(
-            id=address_id,
-            street=street,
-            interior_number=interior_number,
-            outside_number=outside_number,
-            zip_code=zip_code,
-            city=city,
-            borough=borough,
-            state=state,
-            country=country
+        address_entity = AddressEntity(id=address_id,
+                                       street=street,
+                                       interior_number=interior_number,
+                                       outside_number=outside_number,
+                                       zip_code=zip_code,
+                                       city=city,
+                                       borough=borough,
+                                       state=state,
+                                       country=country)
+
+        # Create domain event
+        create_address_domain_event = CreateAddressDomainEvent(
+            id=address_id.value,
+            street=street.value,
+            interior_number=interior_number.value,
+            outside_number=outside_number.value,
+            zip_code=zip_code.value,
+            city=city.value,
+            borough=borough.value,
+            state=state.value,
+            country=country.value
         )
+
+        # Record the event in entity
+        address_entity.record(create_address_domain_event)
 
         return address_entity
