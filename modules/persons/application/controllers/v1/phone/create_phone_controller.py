@@ -3,9 +3,11 @@
 
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+
 # Application
-from modules.persons.application.create import AddressCreator
-from modules.persons.application.create.command import CreateAddressCommand
+from modules.persons.application.create import PhoneCreator
+from modules.persons.application.create.command import CreatePhoneCommand
+
 # Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
@@ -17,9 +19,9 @@ from modules.persons.domain.repository import PhoneRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreateAddressController:
+class CreatePhoneController:
     """
-    CreateAddressController
+    CreatePhoneController
     """
 
     def __init__(self,
@@ -42,37 +44,28 @@ class CreateAddressController:
             raise ValueError(f"Paramter unit_of_work:{message_bus} "
                              f"is not instance of MessageBus")
 
-        # Http objects
         self.__request = request
         self.__response = response
         self.__serializer_manager = address_serializer_manager
-
-        # Create  Address
         self.__repository = address_repository
         self.__unit_of_work = unit_of_work
         self.__bus = message_bus
 
     def __call__(self) -> Response:
         try:
-            address_data = self.__request.get_body()
+            phone_data = self.__request.get_body()
 
-            create_address_command = CreateAddressCommand(
-                id=address_data.get('id'),
-                street=address_data.get('street'),
-                interior_number=address_data.get('interior_number'),
-                outside_number=address_data.get('outside_number'),
-                zip_code=address_data.get('zip_code'),
-                city=address_data.get('city'),
-                borough=address_data.get('borough'),
-                state=address_data.get('state'),
-                country=address_data.get('country'))
+            create_phone_command = CreatePhoneCommand(
+                id=phone_data.get('id'),
+                number=phone_data.get('number'),
+                extension=phone_data.get('extension'))
 
-            address_creator = AddressCreator(
+            phone_creator = PhoneCreator(
                 self.__repository,
                 self.__unit_of_work,
                 self.__bus)
 
-            address_creator(create_address_command)
+            phone_creator(create_phone_command)
 
             response_data = dict(
                 success=True,

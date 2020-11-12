@@ -4,21 +4,23 @@
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.infrastructure.bus.message.in_memory import InMemoryMessageBus
 from modules.shared.infrastructure.requests.django import Request as DjangoRequest
 from modules.shared.infrastructure.responses.django import RestResponse as DjangoRestResponse
 from modules.shared.infrastructure.persistence.django import UnitOfWork as DjangoUnitOfWork
+from modules.shared.infrastructure.serializers.django.serializer_manager import SerializerManager
 from modules.persons.infrastructure.serializers.django.phone import GetPhoneSerializer
 from modules.persons.infrastructure.serializers.django.phone import PhoneSerializer
-from modules.shared.infrastructure.serializers.django.serializer_manager import SerializerManager
-from modules.persons.infrastructure.repository.django import AddressRepository
+from modules.persons.infrastructure.repository.django import PhoneRepository
+# Application
 from modules.persons.application.controllers.v1.phone import GetPhoneController
 from modules.persons.application.controllers.v1.phone import CreatePhoneController
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class AddressApi(APIView):
+class PhoneApi(APIView):
     """
     Address API
     """
@@ -53,19 +55,29 @@ class AddressApi(APIView):
         return response
 
     def post(self, request):
+        """
+        POST VERB
+        @param request: request
+        @type request: Request
+        @return: Response
+        @rtype: Response
+        """
+
         request = DjangoRequest(request)
         response = DjangoRestResponse()
-        user_repository = DjangoAddressRepository()
+        phone_repository = PhoneRepository()
         unit_of_work = DjangoUnitOfWork()
-        address_serializer_manager = DjangoSerializerManager(DjangoAddressSerializer)
+        phone_serializer_manager = SerializerManager(PhoneSerializer)
         in_memory_message_bus = InMemoryMessageBus()
-        create_user_controller = CreateAddressController(
+
+        create_user_controller = CreatePhoneController(
             request,
             response,
-            address_serializer_manager,
-            user_repository,
+            phone_serializer_manager,
+            phone_repository,
             unit_of_work,
             in_memory_message_bus)
+
         response = create_user_controller()
         return response
 

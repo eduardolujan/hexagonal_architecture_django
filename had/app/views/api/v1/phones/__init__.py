@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from .phone_api import AddressApi
+from .phone_api import PhoneApi
 
 
-__all__ = ('AddressApi',)
+__all__ = ('PhoneApi',)
