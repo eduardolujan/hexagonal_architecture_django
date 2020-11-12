@@ -9,12 +9,11 @@ from modules.shared.domain.entities import Entity
 from modules.persons.domain.value_objects import address_values
 
 
-@dataclass(frozen=True)
+@dataclass
 class Address(Entity):
     """
     Address Entity
     """
-
     id: address_values.AddressID
     street: address_values.Street
     interior_number: address_values.InteriorNumber

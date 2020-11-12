@@ -2,7 +2,7 @@
 
 
 from abc import ABC, abstractmethod
-from typing import NoReturn
+from typing import NoReturn, List
 
 from modules.shared.domain.bus.event import DomainEvent
 
@@ -13,11 +13,11 @@ class MessageBus(ABC):
     """
 
     @abstractmethod
-    def dispatch(self, domain_event: DomainEvent) -> NoReturn:
+    def dispatch(self, domain_events: List[DomainEvent]) -> NoReturn:
         """
         Dispatch event
-        @param domain_event: Domain Event
-        @type domain_event: modules.shared.domain.bus.event.DomainEvent
+        @param domain_events: Domain Event
+        @type domain_events: modules.shared.domain.bus.event.DomainEvent
         @return:
         @rtype:
         """

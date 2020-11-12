@@ -4,7 +4,7 @@
 from modules.shared.domain.bus.query import Query
 
 
-class GetPersonQuery(Query):
+class PhoneGetterQuery(Query):
     """
     Get Person Query
     """

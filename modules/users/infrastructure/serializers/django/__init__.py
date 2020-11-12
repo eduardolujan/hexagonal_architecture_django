@@ -7,4 +7,6 @@ from .user_serializer import (
     CreateUserSerializer
 )
 
-__all__ = ('UserSerializer', 'GetUserSerializer', 'CreateUserSerializer', )
+__all__ = ('UserSerializer',
+           'GetUserSerializer',
+           'CreateUserSerializer', )

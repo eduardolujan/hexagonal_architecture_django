@@ -1,5 +1,4 @@
 import json
-from abc import ABC, abstractmethod
 from dataclasses import dataclass, asdict
 from uuid import UUID as UUID4
 

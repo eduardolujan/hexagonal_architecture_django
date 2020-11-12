@@ -18,21 +18,21 @@ class Street(String):
     pass
 
 
-class InteriorNumber(Integer):
+class InteriorNumber(String):
     """
     Address interior number
     """
     pass
 
 
-class OutsideNumber(Integer):
+class OutsideNumber(String):
     """
     Address exterior number
     """
     pass
 
 
-class Zipcode(Integer):
+class Zipcode(String):
     """
     Address zipcode
     """

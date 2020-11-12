@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from modules.persons.domain.entities import (
+from modules.persons.domain.entities.address import (
     GetAddress as GetAddressEntity,
 )
 from modules.persons.domain.value_objects.address_values import (

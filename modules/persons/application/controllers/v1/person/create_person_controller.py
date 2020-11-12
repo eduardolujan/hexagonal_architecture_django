@@ -6,16 +6,14 @@ from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
+from modules.users.domain.repository import UserRepository
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.passwords import PasswordGenerator
-
-from modules.persons.domain.repository import PhoneRepository
-from modules.persons.application.create import PhoneCreator
-from modules.persons.application.create import CreatePersonCommand
+from modules.persons.application.create import PersonCreator
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreatePhoneApi:
+class CreatePersonController:
     """
     CreateUserApi
     """
@@ -24,7 +22,8 @@ class CreatePhoneApi:
                  request: Request,
                  response: Response,
                  serializer_manager: SerializerManager,
-                 phone_repository: PhoneRepository,
+                 user_repository: UserRepository,
+                 password_generator: PasswordGenerator,
                  unit_of_work: UnitOfWork):
 
         # Http objects
@@ -32,7 +31,8 @@ class CreatePhoneApi:
         self.__response = response
         self.__serializer_manager = serializer_manager
         # Create  user
-        self.__repository = phone_repository
+        self.___user_repository = user_repository
+        self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
 
     def __call__(self) -> Response:
@@ -44,9 +44,9 @@ class CreatePhoneApi:
         try:
             user_data = self.__request.get_body()
             user_dto = self.__serializer_manager.get_dto_from_dict(user_data)
-            person_creator = PhoneCreator(self.__repository,
-                                          self.__unit_of_work)
-            person_creator()
+            create_user = PersonCreator(self.___user_repository,
+                                        self.__unit_of_work)
+            create_user(**user_dto)
             response_data = dict(
                 success=True,
                 message='All ok',

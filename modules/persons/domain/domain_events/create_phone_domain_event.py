@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+
 
 from typing import Optional, Dict
-from uuid import UUID
+from uuid import UUID, uuid4
+from datetime import datetime
 
 from modules.shared.domain.bus.event import DomainEvent
 from modules.shared.domain.bus.event.domain_event import DomainEventInstance
@@ -12,9 +15,9 @@ class CreatePhoneDomainEvent(DomainEvent):
     """
 
     def __init__(self,
-                 id: str,
-                 number: str,
-                 extension: str):
+                 id: str = None,
+                 number: str = None,
+                 extension: str = None):
         """
         Constructor CreatePhoneDomainEvent
         @param id: Phone ID
@@ -27,6 +30,7 @@ class CreatePhoneDomainEvent(DomainEvent):
         self.__id = id
         self.__number = number
         self.__extension = extension
+
 
     def event_name(self):
         """
