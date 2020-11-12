@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from .get_phone_api import GetPhoneApi
-from .create_phone_api import CreatePhoneApi
+from .get_phone_controller import GetPhoneController
+from .create_phone_controller import CreatePhoneController
 
 
-__all__ = ('GetPhoneApi',
-           'CreatePhoneApi', )
+__all__ = ('GetPhoneController',
+           'CreatePhoneController',)
