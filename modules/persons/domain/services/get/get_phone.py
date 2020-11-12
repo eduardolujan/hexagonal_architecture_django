@@ -11,14 +11,7 @@ class GetPhone:
     """
 
     @staticmethod
-    def create_address_entity(address_id: AddressID):
-        """
-        Create address entity
-        @param address_id:
-        @type address_id:
-        @return:
-        @rtype:
-        """
+    def create_phone_entity(address_id: AddressID):
         get_address_entity = GetAddressEntity(
             id=address_id
         )

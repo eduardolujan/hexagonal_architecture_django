@@ -42,6 +42,7 @@ class GetPhoneController:
         self.__repository = phone_repository
         self.__request_serializer_manager = request_serializer_manager
         self.__response_serializer_manager = response_serializer_manager
+        self.__bus = message_bus
 
     def __call__(self, id: str):
         try:
@@ -68,5 +69,6 @@ class GetPhoneController:
             if hasattr(err, 'errors'):
                 response_data.update(errors=err.errors)
 
-            respose = self.response(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+            respose = self.response(response_data,
+                                    status=http_status.HTTP_400_BAD_REQUEST)
             return respose

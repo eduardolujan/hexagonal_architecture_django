@@ -28,21 +28,13 @@ class PhoneApi(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, id):
-        """
-        Get User
-        @param request:
-        @type request:
-        @param _id:
-        @type _id:
-        @return:
-        @rtype:
-        """
         request = DjangoRequest(request)
         response = DjangoRestResponse()
-        phone_repository = PhoneSerializer()
+        phone_repository = PhoneRepository()
         request_serializer_manager = SerializerManager(GetPhoneSerializer)
         response_serializer_manager = SerializerManager(PhoneSerializer)
         in_memory_message_bus = InMemoryMessageBus()
+
         get_phone_controller = GetPhoneController(
             request,
             response,

@@ -22,7 +22,8 @@ class Uuid:
 
     def __validate(self, value):
         if type(value) is not str:
-            raise ValueError("Value is not string")
+            raise ValueError(f"Parameter value:{value} is not string")
+
         try:
             return self._uuid_generator(value, version=4)
         except Exception as err:
