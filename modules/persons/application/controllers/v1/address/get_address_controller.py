@@ -13,7 +13,6 @@ from modules.shared.domain.serializers.serializer_manager import SerializerManag
 from modules.persons.domain.repository import AddressRepository
 
 
-
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class GetAddressController:
     """
@@ -36,8 +35,8 @@ class GetAddressController:
         self.__request = request
         self.__response = response
         self.__repository = address_repository
-        self.request_serializer_manager = request_serializer_manager
-        self.response_serializer_manager = response_serializer_manager
+        self.__request_serializer_manager = request_serializer_manager
+        self.__response_serializer_manager = response_serializer_manager
         self.__bus = message_bus
 
     def __call__(self, id: str):
@@ -52,7 +51,7 @@ class GetAddressController:
             address_getter_query = AddressGetterQuery(id=id)
             get_address_getter = AddressGetter(self.__repository)
             user_entity = get_address_getter(address_getter_query)
-            user_entity_serialized = self.response_serializer_manager.get_dto_from_entity(user_entity)
+            user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(
                 success=True,
                 message='All ok',
