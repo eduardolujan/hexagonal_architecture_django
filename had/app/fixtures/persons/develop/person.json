@@ -1,0 +1,13 @@
+[
+  {
+    "model": "app.person",
+    "fields": {
+      "id": "46e56435-e427-48ef-8d59-c128b54475b6",
+      "name": "Eduardo",
+      "last_name": "Lujan",
+      "second_last_name": "Perez",
+      "address": "6fdf3c37-7856-444d-bae6-ddf70f285fef",
+      "phone": "6fdf3c37-7856-444d-bae6-ddf70f285fef"
+    }
+  }
+]

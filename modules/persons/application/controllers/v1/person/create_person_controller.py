@@ -13,7 +13,7 @@ from modules.persons.application.create import PersonCreator
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreatePersonApi:
+class CreatePersonController:
     """
     CreateUserApi
     """

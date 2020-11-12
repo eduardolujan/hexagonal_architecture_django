@@ -16,9 +16,12 @@ class OrmManager:
 
     def __get(self, **fields):
         try:
+            # Filter for get is necesary to wrap entities
             model_instance = self.__model.objects.filter(**fields)
+
         except Exception as err:
             model_instance = None
+
         return model_instance
 
     def __all(self):

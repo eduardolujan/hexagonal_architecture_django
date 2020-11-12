@@ -1,0 +1,16 @@
+[
+  {
+    "model": "app.address",
+    "fields": {
+      "id": "6fdf3c37-7856-444d-bae6-ddf70f285fef",
+      "street": "Loma Quemada",
+      "interior_number":"120",
+      "outside_number": "120",
+      "zip_code": "58000",
+      "city": "Morelia",
+      "borough": "Morelia",
+      "state": "Michoacan",
+      "country": "Mexico"
+    }
+  }
+]

@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-from modules.persons.domain.entities import (
-    GetAddress as GetAddressEntity,
-)
-from modules.persons.domain.value_objects.address_values import (
-    AddressID,
-)
+from modules.persons.domain.entities.address import GetAddress as GetAddressEntity
+from modules.persons.domain.value_objects.address_values import AddressID
 
 
 class GetPhone:

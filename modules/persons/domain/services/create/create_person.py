@@ -4,7 +4,7 @@
 from typing import Optional
 
 from modules.persons.domain.domain_events import CreatePersonDomainEvent
-from modules.persons.domain.entities import Person as PersonEntity
+from modules.persons.domain.entities.person import Person as PersonEntity
 from modules.persons.domain.value_objects.person_values import (
     PersonId,
     Name,

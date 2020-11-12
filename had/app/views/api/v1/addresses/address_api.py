@@ -4,23 +4,26 @@
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
-from modules.shared.infrastructure.serializers.django.serializer_manager import (
-    SerializerManager as DjangoSerializerManager,
-)
-from modules.users.infrastructure.serializers.django import (
-    UserSerializer as DjangoUserSerializer,
-    GetUserSerializer as DjangoGetUserSerializer,
-    CreateUserSerializer as DjangoCreateUserSerializer,
-)
+
+
+
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+from modules.shared.infrastructure.bus.message.in_memory import InMemoryMessageBus
 from modules.shared.infrastructure.requests.django import Request as DjangoRequest
 from modules.shared.infrastructure.responses.django import RestResponse as DjangoRestResponse
 from modules.shared.infrastructure.persistence.django import UnitOfWork as DjangoUnitOfWork
 from modules.shared.infrastructure.passwords.django import PasswordCreator as DjangoPasswordCreator
-from modules.users.infrastructure.repository.django import (
-    UserRepository as DjangoUserRepository
+from modules.persons.infrastructure.serializers.django.address import (
+    AddressSerializer as DjangoAddressSerializer,
+    GetAddressSerializer as DjangoGetAddressSerializer,
 )
-from modules.persons.application.api.v1 import
+from modules.shared.infrastructure.serializers.django.serializer_manager import (
+    SerializerManager as DjangoSerializerManager
+)
+from modules.persons.infrastructure.repository.django import AddressRepository as DjangoAddressRepository
+
+from modules.persons.application.controllers.v1.address import GetAddressController
+from modules.persons.application.controllers.v1.address import CreateAddressController
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -31,7 +34,7 @@ class AddressApi(APIView):
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [AllowAny]
 
-    def get(self, request, _id: str = None):
+    def get(self, request, id):
         """
         Get User
         @param request:
@@ -43,40 +46,36 @@ class AddressApi(APIView):
         """
         request = DjangoRequest(request)
         response = DjangoRestResponse()
-        user_repository = DjangoUserRepository()
-        request_serializer_manager = DjangoSerializerManager(DjangoGetUserSerializer)
-        response_serializer_manager = DjangoSerializerManager(DjangoUserSerializer)
-        user_get_api = GetUserApi(request,
-                                  response,
-                                  user_repository,
-                                  request_serializer_manager,
-                                  response_serializer_manager)
-        response = user_get_api(_id)
+        address_repository = DjangoAddressRepository()
+        request_serializer_manager = DjangoSerializerManager(DjangoGetAddressSerializer)
+        response_serializer_manager = DjangoSerializerManager(DjangoAddressSerializer)
+        in_memory_message_bus = InMemoryMessageBus()
+        user_get_api = GetAddressController(
+            request,
+            response,
+            address_repository,
+            request_serializer_manager,
+            response_serializer_manager,
+            in_memory_message_bus)
+
+        response = user_get_api(id)
         return response
 
-    def post(self, request, _id: str = None):
-        """
-        Post User
-        @param request: request
-        @type request: response
-        @param _id: user id
-        @type _id: int
-        @return: post response
-        @rtype: Response
-        """
+    def post(self, request):
         request = DjangoRequest(request)
         response = DjangoRestResponse()
-        user_repository = DjangoUserRepository()
+        user_repository = DjangoAddressRepository()
         unit_of_work = DjangoUnitOfWork()
-        password_creator = DjangoPasswordCreator()
-        user_serializer_manager = DjangoSerializerManager(DjangoCreateUserSerializer)
-        create_user_api = CreateUserApi(request,
-                                        response,
-                                        user_serializer_manager,
-                                        user_repository,
-                                        password_creator,
-                                        unit_of_work)
-        response = create_user_api()
+        address_serializer_manager = DjangoSerializerManager(DjangoAddressSerializer)
+        in_memory_message_bus = InMemoryMessageBus()
+        create_user_controller = CreateAddressController(
+            request,
+            response,
+            address_serializer_manager,
+            user_repository,
+            unit_of_work,
+            in_memory_message_bus)
+        response = create_user_controller()
         return response
 
     def put(self, request, _id: str = None):

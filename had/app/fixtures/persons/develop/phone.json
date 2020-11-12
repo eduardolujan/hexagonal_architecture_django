@@ -1,0 +1,10 @@
+[
+  {
+    "model": "app.phone",
+    "fields": {
+      "id": "6fdf3c37-7856-444d-bae6-ddf70f285fef",
+      "number": "555-5555-555",
+      "extension": "01443"
+    }
+  }
+]

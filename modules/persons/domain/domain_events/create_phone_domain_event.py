@@ -2,7 +2,8 @@
 
 
 from typing import Optional, Dict
-from uuid import UUID
+from uuid import UUID, uuid4
+from datetime import datetime
 
 from modules.shared.domain.bus.event import DomainEvent
 from modules.shared.domain.bus.event.domain_event import DomainEventInstance
@@ -29,6 +30,7 @@ class CreatePhoneDomainEvent(DomainEvent):
         self.__id = id
         self.__number = number
         self.__extension = extension
+
 
     def event_name(self):
         """

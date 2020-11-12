@@ -2,7 +2,7 @@
 
 
 from modules.persons.domain.domain_events import CreatePhoneDomainEvent
-from modules.persons.domain.entities import Phone as PhoneEntity
+from modules.persons.domain.entities.phone import Phone as PhoneEntity
 from modules.persons.domain.value_objects.phone_values import (
     PhoneID,
     Number,

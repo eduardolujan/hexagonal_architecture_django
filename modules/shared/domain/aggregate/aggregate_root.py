@@ -11,7 +11,6 @@ class AggregateRoot(ABC):
     """
     Aggregate Root
     """
-
     __domain_events = list()
 
     def pull_domain_events(self) -> List[DomainEvent]:
@@ -33,9 +32,5 @@ class AggregateRoot(ABC):
         @rtype:
         """
         self.__domain_events.append(domain_event)
-
-    def __setattr__(self, key, value):
-        if '__domain_events' == key:
-            raise ValueError(f"You can't modify the domain events directly {key}")
-
+        pass
 

@@ -4,5 +4,8 @@
 from rest_framework import serializers
 
 
-class GetUserSerializer(serializers.Serializer):
+class GetAddressSerializer(serializers.Serializer):
+    """
+    Get Address Serializer
+    """
     id = serializers.UUIDField(required=True)

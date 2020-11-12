@@ -2,12 +2,14 @@
 
 
 from abc import ABC, abstractmethod
-from typing import NoReturn
+from typing import NoReturn, List
 
+from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.bus.event import DomainEvent
 from modules.shared.domain.bus.message import MessageBus
 
 
+@LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class InMemoryMessageBus(MessageBus):
     """
     Inmemory Message bus
@@ -16,12 +18,15 @@ class InMemoryMessageBus(MessageBus):
     def __init__(self, handlers=None):
         self.__handlers = handlers or tuple()
 
-    def dispatch(self, domain_event: DomainEvent) -> NoReturn:
+    def dispatch(self, domain_events: List[DomainEvent]) -> NoReturn:
         """
         Dispatch
-        @param domain_event: Domain Event
-        @type domain_event: modules.shared.domain.bus.event.DomainEvent
+        @param domain_events: [DomainEvent, DomainEvent, ...]
+        @type domain_events: List[modules.shared.domain.bus.event.DomainEvent]
         @return: NoReturn
         @rtype: NoReturn
         """
-        raise NotImplementedError("Not implemented yet")
+        for domain_event in domain_events:
+            pass
+            self.log.info(f"Domain event {domain_event}")
+            pass

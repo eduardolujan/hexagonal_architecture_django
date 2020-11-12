@@ -2,7 +2,7 @@
 
 
 from modules.persons.domain.domain_events import CreateAddressDomainEvent
-from modules.persons.domain.entities import Address as AddressEntity
+from modules.persons.domain.entities.address import Address as AddressEntity
 from modules.persons.domain.value_objects.address_values import (
     AddressID,
     Street,
