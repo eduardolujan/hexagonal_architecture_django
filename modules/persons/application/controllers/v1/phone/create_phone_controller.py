@@ -3,7 +3,7 @@
 
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-#Application
+# Application
 from modules.persons.application.create import AddressCreator
 from modules.persons.application.create.command import CreateAddressCommand
 # Domain
@@ -13,7 +13,7 @@ from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.message import MessageBus
-from modules.persons.domain.repository import AddressRepository
+from modules.persons.domain.repository import PhoneRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -26,13 +26,13 @@ class CreateAddressController:
                  request: Request,
                  response: Response,
                  address_serializer_manager: SerializerManager,
-                 address_repository: AddressRepository,
+                 address_repository: PhoneRepository,
                  unit_of_work: UnitOfWork,
                  message_bus=MessageBus):
 
-        if not isinstance(address_repository, AddressRepository):
+        if not isinstance(address_repository, PhoneRepository):
             raise ValueError(f"Parameter address_repository: {address_repository} "
-                             f"is not instance of AddressRepository")
+                             f"is not instance of PhoneRepository")
 
         if not isinstance(unit_of_work, UnitOfWork):
             raise ValueError(f"Paramter unit_of_work:{unit_of_work} "
