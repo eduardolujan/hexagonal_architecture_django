@@ -2,9 +2,10 @@
 
 
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-
+# Application
 from modules.persons.application.get import AddressGetter
 from modules.persons.application.get.query.address import AddressGetterQuery
+# Domain
 from modules.shared.domain.bus.message import MessageBus
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
