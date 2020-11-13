@@ -3,7 +3,10 @@
 
 from modules.users.domain.entities import User as UserEntity
 from modules.users.domain.domain_events import CreateUserDomainEvent
-from modules.users.domain.value_objects import UserId, Username, Password, Email
+from modules.users.domain.value_objects import (UserId,
+                                                Username,
+                                                Password,
+                                                Email,)
 
 
 class CreateUserService:

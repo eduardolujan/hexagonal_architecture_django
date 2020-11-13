@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+# Application
+from modules.persons.application.create import PersonCreator
+# Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
 from modules.users.domain.repository import UserRepository
 from modules.shared.domain.repository import UnitOfWork
+from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.passwords import PasswordGenerator
-from modules.persons.application.create import PersonCreator
+
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -24,7 +29,8 @@ class CreatePersonController:
                  serializer_manager: SerializerManager,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
-                 unit_of_work: UnitOfWork):
+                 unit_of_work: UnitOfWork,
+                 event_bus: EventBus):
 
         # Http objects
         self.__request = request
@@ -34,6 +40,7 @@ class CreatePersonController:
         self.___user_repository = user_repository
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
+        self.__event_bus = event_bus
 
     def __call__(self) -> Response:
         """
@@ -45,7 +52,8 @@ class CreatePersonController:
             user_data = self.__request.get_body()
             user_dto = self.__serializer_manager.get_dto_from_dict(user_data)
             create_user = PersonCreator(self.___user_repository,
-                                        self.__unit_of_work)
+                                        self.__unit_of_work,
+                                        self.__event_bus)
             create_user(**user_dto)
             response_data = dict(
                 success=True,

@@ -12,8 +12,9 @@ from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
 from modules.users.domain.repository import UserRepository
-from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.passwords import PasswordGenerator
+from modules.shared.domain.repository import UnitOfWork
+from modules.shared.domain.bus.event import EventBus
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -28,7 +29,8 @@ class CreateUserController:
                  serializer_manager: SerializerManager,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
-                 unit_of_work: UnitOfWork):
+                 unit_of_work: UnitOfWork,
+                 event_bus: EventBus):
 
         # Http objects
         self.__request = request
@@ -37,7 +39,8 @@ class CreateUserController:
         # Create  user
         self.__repository = user_repository
         self.__password_generator = password_generator
-        self.__unit_of_work = unit_of_work
+        self.__unit_of_work = unit_of_work,
+        self.__event_bus = event_bus
 
     def __call__(self) -> Response:
         """
@@ -55,7 +58,8 @@ class CreateUserController:
             )
             create_user = UserCreator(self.__repository,
                                       self.__password_generator,
-                                      self.__unit_of_work)
+                                      self.__unit_of_work,
+                                      self.__event_bus)
             create_user(create_user_command)
             response_data = dict(
                 success=True,

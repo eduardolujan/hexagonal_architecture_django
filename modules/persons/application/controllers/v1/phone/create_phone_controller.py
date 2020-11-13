@@ -3,18 +3,16 @@
 
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-
 # Application
 from modules.persons.application.create import PhoneCreator
 from modules.persons.application.create.command import CreatePhoneCommand
-
 # Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
 from modules.shared.domain.repository import UnitOfWork
-from modules.shared.domain.bus.message import MessageBus
+from modules.shared.domain.bus.event import EventBus
 from modules.persons.domain.repository import PhoneRepository
 
 
@@ -30,7 +28,7 @@ class CreatePhoneController:
                  address_serializer_manager: SerializerManager,
                  address_repository: PhoneRepository,
                  unit_of_work: UnitOfWork,
-                 message_bus=MessageBus):
+                 event_bus: EventBus):
 
         if not isinstance(address_repository, PhoneRepository):
             raise ValueError(f"Parameter address_repository: {address_repository} "
@@ -40,8 +38,8 @@ class CreatePhoneController:
             raise ValueError(f"Paramter unit_of_work:{unit_of_work} "
                              f"is not instance of UnitOfWork")
 
-        if not isinstance(message_bus, MessageBus):
-            raise ValueError(f"Paramter unit_of_work:{message_bus} "
+        if not isinstance(event_bus, EventBus):
+            raise ValueError(f"Parameter unit_of_work:{event_bus} "
                              f"is not instance of MessageBus")
 
         self.__request = request
@@ -49,7 +47,7 @@ class CreatePhoneController:
         self.__serializer_manager = address_serializer_manager
         self.__repository = address_repository
         self.__unit_of_work = unit_of_work
-        self.__bus = message_bus
+        self.__event_bus = event_bus
 
     def __call__(self) -> Response:
         try:
@@ -63,7 +61,7 @@ class CreatePhoneController:
             phone_creator = PhoneCreator(
                 self.__repository,
                 self.__unit_of_work,
-                self.__bus)
+                self.__event_bus)
 
             phone_creator(create_phone_command)
 

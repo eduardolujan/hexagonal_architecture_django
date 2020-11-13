@@ -3,10 +3,12 @@
 
 from typing import NoReturn
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+# Domain
 from modules.shared.domain.bus.command import Command
-from modules.shared.domain.bus.message import MessageBus
 from modules.shared.domain.repository import UnitOfWork
+from modules.shared.domain.bus.event import EventBus
 from modules.persons.domain.services.create import CreatePhone as CreatePhoneService
 from modules.persons.domain.repository import PhoneRepository
 from modules.persons.domain.value_objects.phone_values import (
@@ -25,7 +27,7 @@ class PhoneCreator:
     def __init__(self,
                  phone_repository: PhoneRepository,
                  unit_of_work: UnitOfWork,
-                 message_bus: MessageBus):
+                 event_bus: EventBus):
         """
         Phone Creator
         @param phone_repository: Phone repository
@@ -37,7 +39,7 @@ class PhoneCreator:
         """
         self.__repository = phone_repository
         self.__unit_of_work = unit_of_work
-        self.__bus = message_bus
+        self.__event_bus = event_bus
 
     def __call__(self, create_phone_command: Command) -> NoReturn:
         """
@@ -62,4 +64,4 @@ class PhoneCreator:
             uow.session.add(phone_model_instance)
             uow.commit()
 
-        self.__bus.dispatch(phone_number_entity.pull_domain_events())
+        self.__event_bus.publish(phone_number_entity.pull_domain_events())

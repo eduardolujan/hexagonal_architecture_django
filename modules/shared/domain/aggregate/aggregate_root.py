@@ -32,5 +32,4 @@ class AggregateRoot(ABC):
         @rtype:
         """
         self.__domain_events.append(domain_event)
-        pass
 

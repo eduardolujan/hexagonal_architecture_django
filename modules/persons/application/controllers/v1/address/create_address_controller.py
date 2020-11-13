@@ -12,7 +12,7 @@ from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
 from modules.shared.domain.repository import UnitOfWork
-from modules.shared.domain.bus.message import MessageBus
+from modules.shared.domain.bus.event import EventBus
 from modules.persons.domain.repository import AddressRepository
 
 
@@ -28,7 +28,7 @@ class CreateAddressController:
                  address_serializer_manager: SerializerManager,
                  address_repository: AddressRepository,
                  unit_of_work: UnitOfWork,
-                 message_bus=MessageBus):
+                 event_bus=EventBus):
 
         if not isinstance(address_repository, AddressRepository):
             raise ValueError(f"Parameter address_repository: {address_repository} "
@@ -38,9 +38,9 @@ class CreateAddressController:
             raise ValueError(f"Paramter unit_of_work:{unit_of_work} "
                              f"is not instance of UnitOfWork")
 
-        if not isinstance(message_bus, MessageBus):
-            raise ValueError(f"Paramter unit_of_work:{message_bus} "
-                             f"is not instance of MessageBus")
+        if not isinstance(event_bus, EventBus):
+            raise ValueError(f"Parameter event_bus:{event_bus} "
+                             f"is not instance of EventBus")
 
         # Http objects
         self.__request = request
@@ -50,7 +50,7 @@ class CreateAddressController:
         # Create  Address
         self.__repository = address_repository
         self.__unit_of_work = unit_of_work
-        self.__bus = message_bus
+        self.__event_bus = event_bus
 
     def __call__(self) -> Response:
         try:
@@ -70,7 +70,7 @@ class CreateAddressController:
             address_creator = AddressCreator(
                 self.__repository,
                 self.__unit_of_work,
-                self.__bus)
+                self.__event_bus)
 
             address_creator(create_address_command)
 

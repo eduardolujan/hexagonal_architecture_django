@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
+from typing import List, NoReturn
 from abc import ABC, abstractmethod
-from typing import NoReturn
-
+# Domain
 from .domain_event import DomainEvent
 
 
@@ -13,7 +13,7 @@ class EventBus(ABC):
     """
 
     @abstractmethod
-    def publish(self, domain_event: DomainEvent) -> NoReturn:
+    def publish(self, domain_event: List[DomainEvent]) -> NoReturn:
         """
         Publish event bus
         @param domain_event:

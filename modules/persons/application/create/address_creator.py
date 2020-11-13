@@ -3,13 +3,13 @@
 from typing import NoReturn
 
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+# Domain
 from modules.shared.domain.repository import UnitOfWork
-from modules.shared.domain.bus.message import MessageBus
+from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.bus.command import Command
 from modules.persons.domain.services.get import GetAddressService
 from modules.persons.domain.services.create import CreateAddressService
 from modules.persons.domain.repository import AddressRepository
-from modules.persons.domain.entities.address import GetAddress
 from modules.persons.domain.value_objects.address_values import (
     AddressID,
     Street,
@@ -31,12 +31,11 @@ class AddressCreator:
     def __init__(self,
                  address_repository: AddressRepository,
                  unit_of_work: UnitOfWork,
-                 message_bus: MessageBus):
+                 event_bus: EventBus):
 
         self.__repository = address_repository
         self.__unit_of_work = unit_of_work
-        self.__bus = message_bus
-        pass
+        self.__event_bus = event_bus
 
     def __call__(self, create_address_command: Command) -> NoReturn:
         """
@@ -78,5 +77,5 @@ class AddressCreator:
             uow.session.add(user_model_instance)
             uow.commit()
 
-        self.__bus.dispatch(address_entity.pull_domain_events())
+        self.__event_bus.publish(address_entity.pull_domain_events())
 
