@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-from modules.shared.domain.passwords import PasswordGenerator
-from modules.users.domain.entities import User
+from modules.users.domain.entities import User as UserEntity
+from modules.users.domain.domain_events import CreateUserDomainEvent
 from modules.users.domain.value_objects import UserId, Username, Password, Email
 
 
@@ -33,13 +33,22 @@ class CreateUserService:
             raise ValueError(f"Parameter email: {email} "
                              f"is not instance of Email")
 
-        app_user = User(
+        user_entity = UserEntity(
             id=id,
             username=username,
             password=password,
             email=email
         )
-        return app_user
+
+        create_user_domain_event = CreateUserDomainEvent(
+            id=id.value,
+            username=username.value,
+            password=password.value,
+            email=email.value)
+
+        user_entity.record(create_user_domain_event)
+
+        return user_entity
 
 
 
