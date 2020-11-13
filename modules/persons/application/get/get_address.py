@@ -4,7 +4,7 @@
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.bus.query import Query
 from modules.persons.domain.repository import AddressRepository
-from modules.persons.domain.services.get import GetAddress as GetAddressService
+from modules.persons.domain.services.get import GetAddressService as GetAddressService
 from modules.persons.domain.value_objects.address_values import (
     AddressID
 )

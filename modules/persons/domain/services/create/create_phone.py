@@ -21,14 +21,16 @@ class CreatePhone:
                             extension: Extension):
 
         # Create entity
-        phone_entity = PhoneEntity(id=phone_id,
-                                   number=number,
-                                   extension=extension)
+        phone_entity = PhoneEntity(
+            id=phone_id,
+            number=number,
+            extension=extension)
 
         # Create domain event
-        create_phone_domain_event = CreatePhoneDomainEvent(phone_id.value,
-                                                           number.value,
-                                                           extension.value)
+        create_phone_domain_event = CreatePhoneDomainEvent(
+            id=phone_id.value,
+            number=number.value,
+            extension=extension.value)
 
         # Record the event in entity
         phone_entity.record(create_phone_domain_event)

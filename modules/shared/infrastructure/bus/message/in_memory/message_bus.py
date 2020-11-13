@@ -27,6 +27,4 @@ class InMemoryMessageBus(MessageBus):
         @rtype: NoReturn
         """
         for domain_event in domain_events:
-            pass
             self.log.info(f"Domain event {domain_event}")
-            pass

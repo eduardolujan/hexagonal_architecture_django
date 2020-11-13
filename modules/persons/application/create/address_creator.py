@@ -6,8 +6,10 @@ from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.message import MessageBus
 from modules.shared.domain.bus.command import Command
-from modules.persons.domain.services.create import CreateAddress as CreateAddressService
+from modules.persons.domain.services.get import GetAddressService
+from modules.persons.domain.services.create import CreateAddressService
 from modules.persons.domain.repository import AddressRepository
+from modules.persons.domain.entities.address import GetAddress
 from modules.persons.domain.value_objects.address_values import (
     AddressID,
     Street,
@@ -44,8 +46,13 @@ class AddressCreator:
         @return: No Return
         @rtype: NoReturn
         """
-
         address_id = AddressID(create_address_command.id)
+
+        # Check if exists
+        get_address_entity = GetAddressService.create_address_entity(address_id=address_id)
+        if self.__repository.get(get_address_entity):
+            raise Exception(f"Address with id {address_id} already exists")
+
         street = Street(create_address_command.street)
         interior_number = InteriorNumber(create_address_command.interior_number)
         outside_number = OutsideNumber(create_address_command.outside_number)

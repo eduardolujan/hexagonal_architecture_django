@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-
+# Application
 from modules.persons.application.create import AddressCreator
 from modules.persons.application.create.command import CreateAddressCommand
-
+# Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
