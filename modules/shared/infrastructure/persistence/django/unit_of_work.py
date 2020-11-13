@@ -34,12 +34,15 @@ class UnitOfWork(AbstractUnitOfWork):
         super().__exit__(*args)
         # transaction.set_autocommit(True)
 
+    @transaction.atomic
     def commit(self):
         """
         Commit
         @return:
         @rtype:
         """
+        save_point = transaction.savepoint()
+        pass
         try:
             for entity in self.__entities:
                 if entity.get_type() == 'create':
@@ -59,15 +62,15 @@ class UnitOfWork(AbstractUnitOfWork):
             self.rollback()
 
         else:
-            transaction.savepoint_commit(self.__save_point)
-            self.log.info(f"Commited transaction {self.__save_point} Date:{datetime.now()}")
+            transaction.savepoint_commit(save_point)
+            self.log.info(f"Commited transaction Date:{datetime.now()}")
 
         finally:
-            self.log.info(f"Finished transaction {self.__save_point} Date:{datetime.now()}")
+            self.log.info(f"Finished transaction Date:{datetime.now()}")
 
-    def rollback(self):
-        transaction.savepoint_rollback(self.__save_point)
-        self.log.info(f"Rollback transaction {self.__save_point} Date:{datetime.now()}")
+    def rollback(self, save_point):
+        transaction.savepoint_rollback(save_point)
+        self.log.info(f"Rollback transaction Date:{datetime.now()}")
 
     def add(self, uof_entity: UnitOfWorkEntity):
         if type(self.__entities) is tuple:

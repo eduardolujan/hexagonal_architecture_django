@@ -24,7 +24,7 @@ class UnitOfWork(ABC):
         @param exc_val:
         @param exc_tb:
         """
-        self.rollback()
+        pass
 
     @abstractmethod
     def commit(self):
