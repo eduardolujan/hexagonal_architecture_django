@@ -1,12 +1,12 @@
 from .use_id import UserId
 from .username import Username
-from .userpassword import UserPassword
-from .useremail import UserEmail
+from .password import Password
+from .email import Email
 
 __all__ = (
     'UserId',
     'Username',
-    'UserPassword',
-    'UserEmail',
+    'Password',
+    'Email',
 )
 

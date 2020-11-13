@@ -4,7 +4,7 @@
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.passwords import PasswordGenerator
-from modules.users.domain.services import CreateUser as CreateUserService
+from modules.users.domain.services import CreateUserService
 from modules.users.domain.repository import UserRepository
 
 

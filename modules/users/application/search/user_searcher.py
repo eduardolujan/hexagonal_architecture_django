@@ -6,7 +6,7 @@ from uuid import UUID
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 from modules.users.domain.repository import UserRepository
-from modules.users.domain.services import GetUser as GetUserService
+from modules.users.domain.services import GetUserService as GetUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))

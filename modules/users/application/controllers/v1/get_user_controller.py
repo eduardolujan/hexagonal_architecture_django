@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
-
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from modules.users.application.get import UserGetter as UserGetterService
+# Application
+from modules.users.application.get import UserGetter
+from modules.users.application.get.query import UserGetterQuery
+# Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
@@ -11,7 +14,7 @@ from modules.users.domain.repository import UserRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class GetUserApi:
+class GetUserController:
     """
     User GET API
     """
@@ -51,10 +54,9 @@ class GetUserApi:
         @rtype: Response
         """
         try:
-            get_user_data = dict(id=id)
-            user_dto = self.__request_serializer_manager.get_dto_from_dict(get_user_data)
-            get_user_service = UserGetterService(self.__repository)
-            user_entity = get_user_service(**user_dto)
+            user_getter_query = UserGetterQuery(id=id)
+            get_user_service = UserGetter(self.__repository)
+            user_entity = get_user_service(user_getter_query)
             user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(
                 success=True,

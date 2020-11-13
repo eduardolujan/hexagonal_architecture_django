@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+# Application
+from modules.users.application.create import UserCreator
+from modules.users.application.create.command import CreateUserCommand
+# Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
@@ -9,11 +14,10 @@ from modules.shared.domain.serializers import SerializerManager
 from modules.users.domain.repository import UserRepository
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.passwords import PasswordGenerator
-from modules.users.application.create import UserCreator
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreateUserApi:
+class CreateUserController:
     """
     CreateUserApi
     """
@@ -31,7 +35,7 @@ class CreateUserApi:
         self.__response = response
         self.__serializer_manager = serializer_manager
         # Create  user
-        self.___user_repository = user_repository
+        self.__repository = user_repository
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
 
@@ -43,9 +47,16 @@ class CreateUserApi:
         """
         try:
             user_data = self.__request.get_body()
-            user_dto = self.__serializer_manager.get_dto_from_dict(user_data)
-            create_user = UserCreator(self.___user_repository, self.__password_generator, self.__unit_of_work)
-            create_user(**user_dto)
+            create_user_command = CreateUserCommand(
+                id=user_data.get('id'),
+                username=user_data.get('username'),
+                password=user_data.get('password'),
+                email=user_data.get('email')
+            )
+            create_user = UserCreator(self.__repository,
+                                      self.__password_generator,
+                                      self.__unit_of_work)
+            create_user(create_user_command)
             response_data = dict(
                 success=True,
                 message='All ok',

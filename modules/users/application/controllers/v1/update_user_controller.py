@@ -14,7 +14,7 @@ from modules.users.application.update import UserUpdater as UpdateUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class UpdateUserApi:
+class UpdateUserController:
     """
     Update User Api
     """

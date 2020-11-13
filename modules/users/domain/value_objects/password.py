@@ -4,5 +4,5 @@
 from modules.shared.domain.value_objects import String
 
 
-class UserPassword(String):
+class Password(String):
     pass
