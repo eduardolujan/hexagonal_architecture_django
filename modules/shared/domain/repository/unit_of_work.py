@@ -9,34 +9,14 @@ UnitOfWork = TypeVar('UnitOfWork', bound='UnitOfWork')
 
 
 class UnitOfWork(ABC):
-
-    def __enter__(self) -> UnitOfWork:
-        """
-        Magic method __enter__
-        @return:
-        """
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        """
-        Magic method __exit__
-        @param exc_type:
-        @param exc_val:
-        @param exc_tb:
-        """
-        pass
+    """
+    Unit of work
+    """
 
     @abstractmethod
     def commit(self):
         """
         Commit transaction
-        """
-        raise NotImplementedError("Not implemented yet")
-
-    @abstractmethod
-    def rollback(self):
-        """
-        Rollback transaction
         """
         raise NotImplementedError("Not implemented yet")
 

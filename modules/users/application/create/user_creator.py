@@ -6,6 +6,7 @@ from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.command import Command
 from modules.shared.domain.passwords import PasswordGenerator
+from modules.shared.domain.bus.message import MessageBus
 from modules.users.domain.services import CreateUserService as CreateUserService
 from modules.users.domain.repository import UserRepository
 from modules.users.domain.value_objects import (UserId,
@@ -23,7 +24,8 @@ class UserCreator:
     def __init__(self,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
-                 unit_of_work: UnitOfWork):
+                 unit_of_work: UnitOfWork,
+                 message_bus: MessageBus):
         """
         Create User constructor
         @param user_repository: User repository instance
@@ -33,6 +35,7 @@ class UserCreator:
         self.__repository = user_repository
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
+        self.__bus = message_bus
 
     def __call__(self, create_user_command: Command):
 

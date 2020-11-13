@@ -55,7 +55,7 @@ class CreateUserCommand(Command):
         @return: username
         @rtype: str
         """
-        return self.__id
+        return self.__username
 
     @username.setter
     def username_setter(self, value):
