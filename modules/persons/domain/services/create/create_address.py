@@ -16,7 +16,7 @@ from modules.persons.domain.value_objects.address_values import (
 )
 
 
-class CreateAddress:
+class CreateAddressService:
     """
     Name constructors to create Person
     """

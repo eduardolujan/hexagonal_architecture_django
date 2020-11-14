@@ -13,7 +13,7 @@ from modules.persons.domain.value_objects.person_values import (
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class PersonGetter:
+class PersonFinder:
     """
     Person Getter
     """

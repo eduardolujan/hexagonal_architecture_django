@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from had.app.models import Address as AddressModel
+from had.app.models import Phone as PhoneModel
 from modules.shared.infrastructure.persistence.django import OrmManager
 from modules.persons.domain.entities.phone import Phone as PhoneEntity
 from modules.persons.domain.repository import PhoneRepository as AbstractPhoneRepository
@@ -12,7 +12,7 @@ class PhoneRepository(OrmManager, AbstractPhoneRepository):
     Person Repository
     """
 
-    def __init__(self, model=AddressModel, entity=PhoneEntity):
+    def __init__(self, model=PhoneModel, entity=PhoneEntity):
         """
         AddressRepository constructor
         @param model: model

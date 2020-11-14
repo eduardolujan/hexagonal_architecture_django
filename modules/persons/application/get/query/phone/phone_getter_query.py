@@ -14,7 +14,7 @@ class PhoneGetterQuery(Query):
 
     @property
     def id(self):
-        self.__id
+        return self.__id
 
     @id.setter
     def id(self):

@@ -8,7 +8,8 @@ from rest_framework.permissions import AllowAny
 
 
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from modules.shared.infrastructure.bus.message.in_memory import InMemoryMessageBus
+from modules.persons.infrastructure.repository.django import AddressRepository as DjangoAddressRepository
+from modules.shared.infrastructure.bus.event import InMemoryEventBus
 from modules.shared.infrastructure.requests.django import Request as DjangoRequest
 from modules.shared.infrastructure.responses.django import RestResponse as DjangoRestResponse
 from modules.shared.infrastructure.persistence.django import UnitOfWork as DjangoUnitOfWork
@@ -20,7 +21,6 @@ from modules.persons.infrastructure.serializers.django.address import (
 from modules.shared.infrastructure.serializers.django.serializer_manager import (
     SerializerManager as DjangoSerializerManager
 )
-from modules.persons.infrastructure.repository.django import AddressRepository as DjangoAddressRepository
 
 from modules.persons.application.controllers.v1.address import GetAddressController
 from modules.persons.application.controllers.v1.address import CreateAddressController
@@ -49,14 +49,15 @@ class AddressApi(APIView):
         address_repository = DjangoAddressRepository()
         request_serializer_manager = DjangoSerializerManager(DjangoGetAddressSerializer)
         response_serializer_manager = DjangoSerializerManager(DjangoAddressSerializer)
-        in_memory_message_bus = InMemoryMessageBus()
+        in_memory_event_bus = InMemoryEventBus()
+
         user_get_api = GetAddressController(
             request,
             response,
             address_repository,
             request_serializer_manager,
             response_serializer_manager,
-            in_memory_message_bus)
+            in_memory_event_bus)
 
         response = user_get_api(id)
         return response
@@ -67,14 +68,15 @@ class AddressApi(APIView):
         user_repository = DjangoAddressRepository()
         unit_of_work = DjangoUnitOfWork()
         address_serializer_manager = DjangoSerializerManager(DjangoAddressSerializer)
-        in_memory_message_bus = InMemoryMessageBus()
+        in_memory_event_bus = InMemoryEventBus()
+
         create_user_controller = CreateAddressController(
             request,
             response,
             address_serializer_manager,
             user_repository,
             unit_of_work,
-            in_memory_message_bus)
+            in_memory_event_bus)
         response = create_user_controller()
         return response
 

@@ -4,7 +4,7 @@ from uuid import UUID
 
 from modules.shared.domain.passwords import PasswordGenerator
 from modules.users.domain.entities import DeleteUser as DeleteUserEntity
-from modules.users.domain.value_objects import UserId, Username, UserPassword, UserEmail
+from modules.users.domain.value_objects import UserId, Username, Password, Email
 
 
 class DeleteUser:

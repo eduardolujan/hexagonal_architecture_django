@@ -4,6 +4,7 @@
 from abc import ABC, abstractmethod
 from typing import NoReturn, List
 
+from .bus_suscribers import BUS_SUBSCRIBERS
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.bus.event import DomainEvent
 from modules.shared.domain.bus.message import MessageBus
@@ -16,17 +17,15 @@ class InMemoryMessageBus(MessageBus):
     """
 
     def __init__(self, handlers=None):
-        self.__handlers = handlers or tuple()
+        self.__handlers = handlers or BUS_SUBSCRIBERS
 
-    def dispatch(self, domain_events: List[DomainEvent]) -> NoReturn:
+    def dispatch(self, domain_event: DomainEvent) -> NoReturn:
         """
         Dispatch
-        @param domain_events: [DomainEvent, DomainEvent, ...]
-        @type domain_events: List[modules.shared.domain.bus.event.DomainEvent]
+        @param domain_event: DomainEvent
+        @type domain_event: modules.shared.domain.bus.event.DomainEvent
         @return: NoReturn
         @rtype: NoReturn
         """
-        for domain_event in domain_events:
-            pass
-            self.log.info(f"Domain event {domain_event}")
-            pass
+        handlers = self.__handlers.get(domain_event.__class__.__name__)
+        map(lambda handler: handler(domain_event), handlers)

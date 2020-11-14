@@ -2,11 +2,17 @@
 
 
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from modules.shared.domain.repository import UnitOfWork
+# Domain
+from modules.shared.domain.bus.command import Command
 from modules.shared.domain.passwords import PasswordGenerator
-from modules.users.domain.services import CreateUser as CreateUserService
+from modules.shared.domain.repository import UnitOfWork
+from modules.shared.domain.bus.event import EventBus
+from modules.users.domain.services import CreateUserService as CreateUserService
 from modules.users.domain.repository import UserRepository
-from modules.users.domain.value_objects import UserId
+from modules.users.domain.value_objects import (UserId,
+                                                Username,
+                                                Password,
+                                                Email,)
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -18,7 +24,8 @@ class UserCreator:
     def __init__(self,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
-                 unit_of_work: UnitOfWork):
+                 unit_of_work: UnitOfWork,
+                 event_bus: EventBus):
         """
         Create User constructor
         @param user_repository: User repository instance
@@ -28,22 +35,27 @@ class UserCreator:
         self.__repository = user_repository
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
+        self.__event_bus = event_bus
 
-    def __call__(self,
-                 id: str = None,
-                 username: str = None,
-                 password: str = None,
-                 email: str = None):
+    def __call__(self, create_user_command: Command):
 
-        user_entity = CreateUserService.create_standard_user(
-            id,
-            username,
-            password,
-            email,
-            self.__password_generator
+        user_id = UserId(create_user_command.id)
+        username = Username(create_user_command.username)
+        password_encrypted = self.__password_generator.create(create_user_command.password)
+        password = Password(password_encrypted)
+        email = Email(create_user_command.email)
+
+        user_entity = CreateUserService.create_user_entity(
+            id=user_id,
+            username=username,
+            password=password,
+            email=email
         )
 
         with self.__unit_of_work as uow:
             user_model_instance = self.__repository.create(user_entity)
             uow.session.add(user_model_instance)
             uow.commit()
+
+        self.__event_bus.publish(user_entity.pull_domain_events())
+

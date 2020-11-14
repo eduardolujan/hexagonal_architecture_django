@@ -2,12 +2,12 @@
 
 
 from .create_person import CreatePerson
-from .create_address import CreateAddress
+from .create_address import CreateAddressService
 from .create_phone import CreatePhone
 
 
 __all__ = (
     'CreatePerson',
-    'CreateAddress',
+    'CreateAddressService',
     'CreatePhone',
 )

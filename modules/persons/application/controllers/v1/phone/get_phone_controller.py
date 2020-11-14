@@ -4,7 +4,7 @@
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
-from modules.persons.application.get import PhoneGetter
+from modules.persons.application.get import PhoneFinder
 from modules.persons.application.get.query.phone import PhoneGetterQuery
 # Domain
 from modules.shared.domain.bus.message import MessageBus
@@ -42,19 +42,20 @@ class GetPhoneController:
         self.__repository = phone_repository
         self.__request_serializer_manager = request_serializer_manager
         self.__response_serializer_manager = response_serializer_manager
+        self.__bus = message_bus
 
     def __call__(self, id: str):
         try:
             phone_getter_query = PhoneGetterQuery(id=id)
-            phone_getter = PhoneGetter(self.__repository)
+            phone_getter = PhoneFinder(self.__repository)
             phone_entity = phone_getter(phone_getter_query)
-            phone_entity_serialized = self.response_serializer_manager.get_dto_from_entity(phone_entity)
+            phone_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(phone_entity)
             response_data = dict(
                 success=True,
                 message='All ok',
                 data=phone_entity_serialized
             )
-            response = self.response(response_data,
+            response = self.__response(response_data,
                                      status=http_status.HTTP_201_CREATED)
 
             return response
@@ -68,5 +69,6 @@ class GetPhoneController:
             if hasattr(err, 'errors'):
                 response_data.update(errors=err.errors)
 
-            respose = self.response(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+            respose = self.__response(response_data,
+                                    status=http_status.HTTP_400_BAD_REQUEST)
             return respose

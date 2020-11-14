@@ -4,12 +4,18 @@
 from dataclasses import dataclass
 
 from modules.shared.domain.entities import Entity
-from modules.users.domain.value_objects import (UserId, Username, UserPassword, UserEmail)
+from modules.users.domain.value_objects import (UserId,
+                                                Username,
+                                                Password,
+                                                Email)
 
 
-@dataclass(frozen=True)
+@dataclass
 class User(Entity):
+    """
+    User Entity
+    """
     id: UserId
     username: Username
-    password: UserPassword
-    email: UserEmail
+    password: Password
+    email: Email

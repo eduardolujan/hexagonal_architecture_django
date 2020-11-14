@@ -31,7 +31,6 @@ class CreatePhoneDomainEvent(DomainEvent):
         self.__number = number
         self.__extension = extension
 
-
     def event_name(self):
         """
         Return event name

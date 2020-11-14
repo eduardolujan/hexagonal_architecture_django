@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
+from typing import NoReturn
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+# Domain
 from modules.shared.domain.repository import UnitOfWork
+from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.bus.command import Command
 from modules.persons.domain.services.create import CreatePerson as CratePersonService
 from modules.persons.domain.repository import PersonRepository
@@ -24,7 +28,8 @@ class PersonCreator:
 
     def __init__(self,
                  person_repository: PersonRepository,
-                 unit_of_work: UnitOfWork):
+                 unit_of_work: UnitOfWork,
+                 event_bus: EventBus):
         """
         Person Creator
         @param person_repository:
@@ -34,8 +39,9 @@ class PersonCreator:
         """
         self.__person_repository = person_repository
         self.__unit_of_work = unit_of_work
+        self.__event_bus = event_bus
 
-    def __call__(self, create_person_command: Command) -> None:
+    def __call__(self, create_person_command: Command) -> NoReturn:
         """
         Create Person
         @param create_person_command: Create person command
@@ -64,7 +70,7 @@ class PersonCreator:
             uow.session.add(person_model_instance)
             uow.commit()
 
-        self.__bus.dispatch(person_entity.pull_domain_events())
+        self.__event_bus.publish(person_entity.pull_domain_events())
 
 
 

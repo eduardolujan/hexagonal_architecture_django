@@ -17,10 +17,11 @@ from modules.shared.infrastructure.requests.django import Request as DjangoReque
 from modules.shared.infrastructure.responses.django import RestResponse as DjangoRestResponse
 from modules.shared.infrastructure.persistence.django import UnitOfWork as DjangoUnitOfWork
 from modules.shared.infrastructure.passwords.django import PasswordCreator as DjangoPasswordCreator
-from modules.users.infrastructure.repository.django import (
-    UserRepository as DjangoUserRepository
-)
-from modules.users.application.api.v1 import GetUserApi, CreateUserApi, UpdateUserApi, DeleteUserApi
+from modules.users.infrastructure.repository.django import UserRepository
+from modules.users.application.controllers.v1 import (GetUserController,
+                                                      CreateUserController,
+                                                      UpdateUserController,
+                                                      DeleteUserController)
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -40,14 +41,14 @@ class UserApi(APIView):
         """
         request = DjangoRequest(request)
         response = DjangoRestResponse()
-        user_repository = DjangoUserRepository()
+        user_repository = UserRepository()
         request_serializer_manager = DjangoSerializerManager(DjangoGetUserSerializer)
         response_serializer_manager = DjangoSerializerManager(DjangoUserSerializer)
-        user_get_api = GetUserApi(request,
-                                  response,
-                                  user_repository,
-                                  request_serializer_manager,
-                                  response_serializer_manager)
+        user_get_api = GetUserController(request,
+                                         response,
+                                         user_repository,
+                                         request_serializer_manager,
+                                         response_serializer_manager)
         response = user_get_api(_id)
         return response
 
@@ -63,16 +64,16 @@ class UserApi(APIView):
         """
         request = DjangoRequest(request)
         response = DjangoRestResponse()
-        user_repository = DjangoUserRepository()
+        user_repository = UserRepository()
         unit_of_work = DjangoUnitOfWork()
         password_creator = DjangoPasswordCreator()
         user_serializer_manager = DjangoSerializerManager(DjangoCreateUserSerializer)
-        create_user_api = CreateUserApi(request,
-                                        response,
-                                        user_serializer_manager,
-                                        user_repository,
-                                        password_creator,
-                                        unit_of_work)
+        create_user_api = CreateUserController(request,
+                                               response,
+                                               user_serializer_manager,
+                                               user_repository,
+                                               password_creator,
+                                               unit_of_work)
         response = create_user_api()
         return response
 
@@ -88,16 +89,16 @@ class UserApi(APIView):
         """
         request = DjangoRequest(request)
         response = DjangoRestResponse()
-        user_repository = DjangoUserRepository()
+        user_repository = UserRepository()
         unit_of_work = DjangoUnitOfWork()
         password_creator = DjangoPasswordCreator()
         user_serializer_manager = DjangoSerializerManager(DjangoCreateUserSerializer)
-        update_user_api = UpdateUserApi(request,
-                                        response,
-                                        user_serializer_manager,
-                                        user_repository,
-                                        password_creator,
-                                        unit_of_work)
+        update_user_api = UpdateUserController(request,
+                                               response,
+                                               user_serializer_manager,
+                                               user_repository,
+                                               password_creator,
+                                               unit_of_work)
         response = update_user_api()
         return response
 
@@ -113,12 +114,12 @@ class UserApi(APIView):
         """
         request = DjangoRequest(request)
         response = DjangoRestResponse()
-        user_repository = DjangoUserRepository()
+        user_repository = UserRepository()
         request_serializer_manager = DjangoSerializerManager(DjangoGetUserSerializer)
-        delete_user_api = DeleteUserApi(request,
-                                        response,
-                                        request_serializer_manager,
-                                        user_repository)
+        delete_user_api = DeleteUserController(request,
+                                               response,
+                                               request_serializer_manager,
+                                               user_repository)
         response = delete_user_api(_id)
         return response
 

@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+# Application
+from modules.persons.application.get import PersonFinder
+# Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
-from modules.shared.domain.serializers.serializer_manager import SerializerManager
 from modules.persons.domain.repository import PersonRepository
-from modules.persons.application.get import PersonGetter
+from modules.shared.domain.serializers.serializer_manager import SerializerManager
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class GetUserController:
+class PersonFinderController:
     """
     User GET API
     """
@@ -39,7 +42,7 @@ class GetUserController:
         try:
             get_user_data = dict(id=id)
             user_dto = self.request_serializer_manager.get_dto_from_dict(get_user_data)
-            get_user_service = PersonGetter(self.repository)
+            get_user_service = PersonFinder(self.repository)
             user_entity = get_user_service(**user_dto)
             user_entity_serialized = self.response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(

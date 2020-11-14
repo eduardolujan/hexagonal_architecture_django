@@ -2,7 +2,6 @@ from modules.users.domain.entities.user import (
     User as AppUserEntity,
     UserId as AppUserIdEntity
 )
-from modules.shared.domain.repository import AbstractRepository
 
 
 class GetAppUserService:
@@ -21,6 +20,9 @@ if __name__ == '__main__':
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
     django.setup()
     from modules.users.infrastructure.repository import AppUserRepository
+    from had.app.models import Person
+    pass
+
     repository = AppUserRepository()
     app_user_id = AppUserIdEntity('f0aa2fd1-8d1a-4042-869e-03e03f9e2012')
     app_user = AppUserEntity(id=app_user_id, username='root', password='password', email='eduardo.lujan.p@gmail.com')

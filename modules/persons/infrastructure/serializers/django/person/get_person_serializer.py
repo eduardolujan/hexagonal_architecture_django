@@ -4,5 +4,8 @@
 from rest_framework import serializers
 
 
-class DeleteUserSerializer(serializers.Serializer):
+class GetPersonSerializer(serializers.Serializer):
+    """
+    Get Address Serializer
+    """
     id = serializers.UUIDField(required=True)

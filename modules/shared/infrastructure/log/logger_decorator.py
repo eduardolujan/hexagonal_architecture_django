@@ -6,6 +6,10 @@ from modules.shared.domain.log import Logger
 
 
 class LoggerDecorator:
+    """
+    Logger Decorator
+    """
+
     def __init__(self, logger):
         """
         Logger class decorator

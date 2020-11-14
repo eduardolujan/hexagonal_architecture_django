@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
-from .create_person_controller import CreatePersonController
-from .get_person_controller import GetUserController
+from .person_creator_controller import PersonCreatorController
+from .person_finder_controller import PersonFinderController
 
 
-__all__ = ('GetUserController',
-           'CreatePersonController',)
+__all__ = ('PersonFinderController',
+           'PersonCreatorController',)

@@ -2,16 +2,16 @@
 
 
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-
-from modules.persons.application.get import AddressGetter
+# Application
+from modules.persons.application.get import AddressFinder
 from modules.persons.application.get.query.address import AddressGetterQuery
+# Domain
 from modules.shared.domain.bus.message import MessageBus
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers.serializer_manager import SerializerManager
 from modules.persons.domain.repository import AddressRepository
-
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -36,8 +36,8 @@ class GetAddressController:
         self.__request = request
         self.__response = response
         self.__repository = address_repository
-        self.request_serializer_manager = request_serializer_manager
-        self.response_serializer_manager = response_serializer_manager
+        self.__request_serializer_manager = request_serializer_manager
+        self.__response_serializer_manager = response_serializer_manager
         self.__bus = message_bus
 
     def __call__(self, id: str):
@@ -50,9 +50,9 @@ class GetAddressController:
         """
         try:
             address_getter_query = AddressGetterQuery(id=id)
-            get_address_getter = AddressGetter(self.__repository)
+            get_address_getter = AddressFinder(self.__repository)
             user_entity = get_address_getter(address_getter_query)
-            user_entity_serialized = self.response_serializer_manager.get_dto_from_entity(user_entity)
+            user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(
                 success=True,
                 message='All ok',

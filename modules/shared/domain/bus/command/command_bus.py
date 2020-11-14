@@ -1,6 +1,8 @@
 
 
 from abc import ABC, abstractmethod
+from typing import NoReturn
+
 from .command import Command
 
 
@@ -10,7 +12,7 @@ class CommandBus(ABC):
     """
 
     @abstractmethod
-    def dispatch(self, command: Command) -> None:
+    def dispatch(self, command: Command) -> NoReturn:
         """
         Dispatch command
         @param command: command instance

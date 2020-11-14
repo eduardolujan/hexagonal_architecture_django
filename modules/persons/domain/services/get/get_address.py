@@ -9,7 +9,7 @@ from modules.persons.domain.value_objects.address_values import (
 )
 
 
-class GetAddress:
+class GetAddressService:
     """
     Name constructors to create Person
     """
