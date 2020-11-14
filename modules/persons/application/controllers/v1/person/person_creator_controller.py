@@ -5,15 +5,16 @@
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
 from modules.persons.application.create import PersonCreator
+from modules.persons.application.create.command import CreatePersonCommand
 # Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
-from modules.users.domain.repository import UserRepository
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.passwords import PasswordGenerator
+from modules.persons.domain.repository import PersonRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -26,8 +27,7 @@ class PersonCreatorController:
                  request: Request,
                  response: Response,
                  serializer_manager: SerializerManager,
-                 user_repository: UserRepository,
-                 password_generator: PasswordGenerator,
+                 person_repository: PersonRepository,
                  unit_of_work: UnitOfWork,
                  event_bus: EventBus):
 
@@ -37,8 +37,7 @@ class PersonCreatorController:
         self.__serializer_manager = serializer_manager
 
         # Create  Person
-        self.___user_repository = user_repository
-        self.__password_generator = password_generator
+        self.__person_repository = person_repository
         self.__unit_of_work = unit_of_work
         self.__event_bus = event_bus
 
@@ -49,12 +48,20 @@ class PersonCreatorController:
         @rtype: AbstractResponse implementation
         """
         try:
-            user_data = self.__request.get_body()
-            user_dto = self.__serializer_manager.get_dto_from_dict(user_data)
-            create_user = PersonCreator(self.___user_repository,
+            person_data = self.__request.get_body()
+            create_person_command = CreatePersonCommand(
+                id=person_data.get('id'),
+                name=person_data.get('name'),
+                last_name=person_data.get('last_name'),
+                second_last_name=person_data.get('second_last_name'),
+                phone=person_data.get('phone'),
+                address=person_data.get('address'),
+            )
+            person_creator = PersonCreator(self.__person_repository,
                                         self.__unit_of_work,
                                         self.__event_bus)
-            create_user(**user_dto)
+
+            person_creator(create_person_command)
             response_data = dict(
                 success=True,
                 message='All ok',

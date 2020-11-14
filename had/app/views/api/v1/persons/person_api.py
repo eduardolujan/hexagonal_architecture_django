@@ -44,15 +44,13 @@ class PersonApi(APIView):
         address_repository = PersonRepository()
         request_serializer_manager = SerializerManager(GetPersonSerializer)
         response_serializer_manager = SerializerManager(PersonSerializer)
-        in_memory_event_bus = InMemoryEventBus()
 
         person_finder_controller = PersonFinderController(
             request,
             response,
             address_repository,
             request_serializer_manager,
-            response_serializer_manager,
-            in_memory_event_bus)
+            response_serializer_manager)
 
         response = person_finder_controller(id)
         return response
@@ -60,20 +58,20 @@ class PersonApi(APIView):
     def post(self, request):
         request = DjangoRequest(request)
         response = RestResponse()
-        user_repository = PersonRepository()
+        person_repository = PersonRepository()
         unit_of_work = UnitOfWork()
         person_serializer_manager = SerializerManager(PersonSerializer)
         in_memory_event_bus = InMemoryEventBus()
 
-        create_user_controller = PersonCreatorController(
+        person_creator_controller = PersonCreatorController(
             request,
             response,
             person_serializer_manager,
-            user_repository,
+            person_repository,
             unit_of_work,
             in_memory_event_bus)
 
-        response = create_user_controller()
+        response = person_creator_controller()
         return response
 
     def put(self, request, _id: str = None):
