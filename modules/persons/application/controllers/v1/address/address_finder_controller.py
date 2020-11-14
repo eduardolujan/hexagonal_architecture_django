@@ -6,7 +6,7 @@ from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.persons.application.get import AddressFinder
 from modules.persons.application.get.query.address import AddressGetterQuery
 # Domain
-from modules.shared.domain.bus.message import MessageBus
+from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
@@ -15,7 +15,7 @@ from modules.persons.domain.repository import AddressRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class GetAddressController:
+class AddressFinderController:
     """
     User GET API
     """
@@ -25,20 +25,20 @@ class GetAddressController:
                  address_repository: AddressRepository,
                  request_serializer_manager: SerializerManager,
                  response_serializer_manager: SerializerManager,
-                 message_bus: MessageBus):
+                 event_bus: EventBus):
 
         if not isinstance(address_repository, (AddressRepository,)):
             raise ValueError(f"Parameter address_repository:{address_repository} is not instance AddressRepository")
 
-        if not isinstance(message_bus, MessageBus):
-            raise ValueError(f"Parameter message_bus:{message_bus} is not instance MessageBus")
+        if not isinstance(event_bus, EventBus):
+            raise ValueError(f"Parameter event_bus:{event_bus} is not instance EventBus")
 
         self.__request = request
         self.__response = response
         self.__repository = address_repository
         self.__request_serializer_manager = request_serializer_manager
         self.__response_serializer_manager = response_serializer_manager
-        self.__bus = message_bus
+        self.__event_bus = event_bus
 
     def __call__(self, id: str):
         """

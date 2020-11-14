@@ -2,10 +2,6 @@
 
 
 # Person subscribers
-
 PERSON_SUBSCRIBERS = {
-    'CreateAddressDomainEvent': [],
-    'CreatePhoneDomainEvent': [],
-    'CreatePersonDomainEvent': []
+    'CreatePersonDomainEvent': [],
 }
-pass

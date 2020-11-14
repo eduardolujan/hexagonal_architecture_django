@@ -13,7 +13,6 @@ from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.event import EventBus
-from modules.shared.domain.passwords import PasswordGenerator
 from modules.persons.domain.repository import PersonRepository
 
 

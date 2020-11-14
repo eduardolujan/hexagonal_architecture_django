@@ -22,7 +22,7 @@ from modules.shared.infrastructure.serializers.django.serializer_manager import 
     SerializerManager as DjangoSerializerManager
 )
 
-from modules.persons.application.controllers.v1.address import GetAddressController
+from modules.persons.application.controllers.v1.address import AddressFinderController
 from modules.persons.application.controllers.v1.address import CreateAddressController
 
 
@@ -51,7 +51,7 @@ class AddressApi(APIView):
         response_serializer_manager = DjangoSerializerManager(DjangoAddressSerializer)
         in_memory_event_bus = InMemoryEventBus()
 
-        user_get_api = GetAddressController(
+        user_get_api = AddressFinderController(
             request,
             response,
             address_repository,

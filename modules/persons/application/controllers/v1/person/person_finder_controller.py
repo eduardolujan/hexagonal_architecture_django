@@ -9,8 +9,8 @@ from modules.persons.application.get import PersonFinder
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
-from modules.persons.domain.repository import PersonRepository
 from modules.shared.domain.serializers.serializer_manager import SerializerManager
+from modules.persons.domain.repository import PersonRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
