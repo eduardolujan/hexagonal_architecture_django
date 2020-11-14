@@ -56,5 +56,5 @@ class Command(ABC):
     """
     Command Port Interface
     """
-
     pass
+

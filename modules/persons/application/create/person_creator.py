@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from typing import NoReturn
+
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Domain

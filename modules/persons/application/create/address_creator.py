@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+
 from typing import NoReturn
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Domain
 from modules.shared.domain.repository import UnitOfWork
@@ -49,8 +51,8 @@ class AddressCreator:
 
         # Check if exists
         get_address_entity = GetAddressService.create_address_entity(address_id=address_id)
-        if self.__repository.get(get_address_entity):
-            raise Exception(f"Address with id {address_id} already exists")
+        # if self.__repository.get(get_address_entity):
+        #     raise Exception(f"Address with id {address_id} already exists")
 
         street = Street(create_address_command.street)
         interior_number = InteriorNumber(create_address_command.interior_number)

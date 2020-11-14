@@ -1,7 +1,8 @@
 
 
-from typing import NoReturn
 from abc import ABC, abstractmethod
+from typing import NoReturn
+
 from .command import Command
 
 

@@ -8,6 +8,5 @@ class CommandHandler(ABC):
     """
     Command handler
     """
-
     pass
 
