@@ -5,7 +5,7 @@ from modules.persons.domain.entities.phone import GetPhone as GetPhoneEntity
 from modules.persons.domain.value_objects.address_values import AddressID
 
 
-class GetPhone:
+class PhoneFinderService:
     """
     Nameconstructors to get Phone
     """

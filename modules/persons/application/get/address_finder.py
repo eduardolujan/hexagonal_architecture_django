@@ -11,7 +11,7 @@ from modules.persons.domain.value_objects.address_values import (
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class AddressGetter:
+class AddressFinder:
     """
     Address Getter
     """

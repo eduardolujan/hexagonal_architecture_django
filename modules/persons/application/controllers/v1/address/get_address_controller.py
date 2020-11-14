@@ -3,7 +3,7 @@
 
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
-from modules.persons.application.get import AddressGetter
+from modules.persons.application.get import AddressFinder
 from modules.persons.application.get.query.address import AddressGetterQuery
 # Domain
 from modules.shared.domain.bus.message import MessageBus
@@ -50,7 +50,7 @@ class GetAddressController:
         """
         try:
             address_getter_query = AddressGetterQuery(id=id)
-            get_address_getter = AddressGetter(self.__repository)
+            get_address_getter = AddressFinder(self.__repository)
             user_entity = get_address_getter(address_getter_query)
             user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(

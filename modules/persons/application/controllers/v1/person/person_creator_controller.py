@@ -16,9 +16,8 @@ from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.passwords import PasswordGenerator
 
 
-
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class CreatePersonController:
+class PersonCreatorController:
     """
     CreateUserApi
     """

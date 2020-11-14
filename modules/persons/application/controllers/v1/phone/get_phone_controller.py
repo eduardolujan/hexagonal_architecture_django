@@ -4,7 +4,7 @@
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
-from modules.persons.application.get import PhoneGetter
+from modules.persons.application.get import PhoneFinder
 from modules.persons.application.get.query.phone import PhoneGetterQuery
 # Domain
 from modules.shared.domain.bus.message import MessageBus
@@ -47,7 +47,7 @@ class GetPhoneController:
     def __call__(self, id: str):
         try:
             phone_getter_query = PhoneGetterQuery(id=id)
-            phone_getter = PhoneGetter(self.__repository)
+            phone_getter = PhoneFinder(self.__repository)
             phone_entity = phone_getter(phone_getter_query)
             phone_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(phone_entity)
             response_data = dict(

@@ -1,9 +1,9 @@
-from .get_person import PersonGetter
-from .get_address import AddressGetter
-from .get_phone import PhoneGetter
+from .person_finder import PersonFinder
+from .address_finder import AddressFinder
+from .phone_finder import PhoneFinder
 
 __all__ = (
-    'PersonGetter',
-    'AddressGetter',
-    'PhoneGetter',
+    'PersonFinder',
+    'AddressFinder',
+    'PhoneFinder',
 )
