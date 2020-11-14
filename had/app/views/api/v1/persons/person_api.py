@@ -5,28 +5,24 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
 
-#Infra
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from modules.persons.infrastructure.repository.django import AddressRepository as DjangoAddressRepository
+from modules.persons.infrastructure.repository.django import PersonRepository
 from modules.shared.infrastructure.bus.event import InMemoryEventBus
 from modules.shared.infrastructure.requests.django import Request as DjangoRequest
-from modules.shared.infrastructure.responses.django import RestResponse as DjangoRestResponse
-from modules.shared.infrastructure.persistence.django import UnitOfWork as DjangoUnitOfWork
-from modules.shared.infrastructure.passwords.django import PasswordCreator as DjangoPasswordCreator
-from modules.persons.infrastructure.serializers.django.address import (
-    AddressSerializer as DjangoAddressSerializer,
-    GetAddressSerializer as DjangoGetAddressSerializer,
-)
-from modules.shared.infrastructure.serializers.django.serializer_manager import (
-    SerializerManager as DjangoSerializerManager
-)
+from modules.shared.infrastructure.responses.django import RestResponse
+from modules.shared.infrastructure.persistence.django import UnitOfWork
+from modules.shared.infrastructure.passwords.django import PasswordCreator
+from modules.persons.infrastructure.serializers.django.person import PersonSerializer
+from modules.persons.infrastructure.serializers.django.person import GetPersonSerializer
+from modules.shared.infrastructure.serializers.django.serializer_manager import SerializerManager
 # Application
 from modules.persons.application.controllers.v1.person import PersonFinderController
 from modules.persons.application.controllers.v1.person import PersonCreatorController
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class AddressApi(APIView):
+class PersonApi(APIView):
     """
     Address API
     """
@@ -44,10 +40,10 @@ class AddressApi(APIView):
         @rtype:
         """
         request = DjangoRequest(request)
-        response = DjangoRestResponse()
-        address_repository = DjangoAddressRepository()
-        request_serializer_manager = DjangoSerializerManager(DjangoGetAddressSerializer)
-        response_serializer_manager = DjangoSerializerManager(DjangoAddressSerializer)
+        response = RestResponse()
+        address_repository = PersonRepository()
+        request_serializer_manager = SerializerManager(GetPersonSerializer)
+        response_serializer_manager = SerializerManager(PersonSerializer)
         in_memory_event_bus = InMemoryEventBus()
 
         person_finder_controller = PersonFinderController(
@@ -63,19 +59,20 @@ class AddressApi(APIView):
 
     def post(self, request):
         request = DjangoRequest(request)
-        response = DjangoRestResponse()
-        user_repository = DjangoAddressRepository()
-        unit_of_work = DjangoUnitOfWork()
-        address_serializer_manager = DjangoSerializerManager(DjangoAddressSerializer)
+        response = RestResponse()
+        user_repository = PersonRepository()
+        unit_of_work = UnitOfWork()
+        person_serializer_manager = SerializerManager(PersonSerializer)
         in_memory_event_bus = InMemoryEventBus()
 
-        create_user_controller = CreateAddressController(
+        create_user_controller = PersonCreatorController(
             request,
             response,
-            address_serializer_manager,
+            person_serializer_manager,
             user_repository,
             unit_of_work,
             in_memory_event_bus)
+
         response = create_user_controller()
         return response
 

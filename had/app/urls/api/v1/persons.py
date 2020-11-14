@@ -9,7 +9,7 @@ urlpatterns = []
 urlpatterns = [
     re_path(
         r"^person(/(?P<id>[\w-]+))?/?$",
-        api_persons.UserApi.as_view(),
+        api_persons.PersonApi.as_view(),
         name="user_api"
     ),
     # re_path(

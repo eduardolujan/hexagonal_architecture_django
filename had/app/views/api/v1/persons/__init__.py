@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-from .person_api import AddressApi
+from .person_api import PersonApi
 
 
-__all__ = ('AddressApi',)
+__all__ = ('PersonApi',)
 

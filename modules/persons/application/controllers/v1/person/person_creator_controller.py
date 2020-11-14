@@ -35,7 +35,8 @@ class PersonCreatorController:
         self.__request = request
         self.__response = response
         self.__serializer_manager = serializer_manager
-        # Create  user
+
+        # Create  Person
         self.___user_repository = user_repository
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work
@@ -43,8 +44,8 @@ class PersonCreatorController:
 
     def __call__(self) -> Response:
         """
-        Create User API
-        @return: Instance -> AbstractResponse
+        Create Person API
+        @return: Instance of Response
         @rtype: AbstractResponse implementation
         """
         try:
