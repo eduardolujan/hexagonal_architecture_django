@@ -5,3 +5,4 @@
 PHONE_SUBSCRIBERS = {
     'CreatePhoneDomainEvent': [],
 }
+

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
-from .person import Person
-from .get_person_entity import GetPerson
+from .person_entity import Person
+from .person_finder_entity import PersonFinder
 
 
 __all__ = ('Person',
-           'GetPerson', )
+           'PersonFinder',)

@@ -8,8 +8,8 @@ from modules.shared.domain.entities import Entity
 from modules.persons.domain.value_objects import address_values
 
 
-@dataclass(frozen=True)
-class GetAddress(Entity):
+@dataclass
+class AddressFinder(Entity):
     """
     Address Entity
     """

@@ -1,6 +1,6 @@
 from .address_entity import Address
-from .get_address_entity import GetAddress
+from .address_finder_entity import AddressFinder
 
 
 __all__ = ('Address',
-           'GetAddress', )
+           'AddressFinder',)

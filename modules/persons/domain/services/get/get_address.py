@@ -2,7 +2,7 @@
 
 
 from modules.persons.domain.entities.address import (
-    GetAddress as GetAddressEntity,
+    AddressFinder as GetAddressEntity,
 )
 from modules.persons.domain.value_objects.address_values import (
     AddressID,

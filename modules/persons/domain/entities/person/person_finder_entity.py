@@ -8,7 +8,7 @@ from modules.persons.domain.value_objects import person_values
 
 
 @dataclass
-class Person(Entity):
+class PersonFinder(Entity):
     """
     Person entity
     """

@@ -7,8 +7,8 @@ from modules.shared.domain.entities import Entity
 from modules.persons.domain.value_objects import person_values
 
 
-@dataclass(frozen=True)
-class GetPerson(Entity):
+@dataclass
+class Person(Entity):
     """
     Person entity
     """

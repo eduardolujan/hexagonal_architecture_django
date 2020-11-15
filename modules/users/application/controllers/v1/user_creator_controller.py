@@ -32,11 +32,9 @@ class UserCreatorController:
                  unit_of_work: UnitOfWork,
                  event_bus: EventBus):
 
-        # Http objects
         self.__request = request
         self.__response = response
         self.__serializer_manager = serializer_manager
-        # Create  user
         self.__repository = user_repository
         self.__password_generator = password_generator
         self.__unit_of_work = unit_of_work,
@@ -50,17 +48,21 @@ class UserCreatorController:
         """
         try:
             user_data = self.__request.get_body()
+
             create_user_command = CreateUserCommand(
                 id=user_data.get('id'),
                 username=user_data.get('username'),
                 password=user_data.get('password'),
-                email=user_data.get('email')
-            )
-            create_user = UserCreator(self.__repository,
-                                      self.__password_generator,
-                                      self.__unit_of_work,
-                                      self.__event_bus)
+                email=user_data.get('email'))
+
+            create_user = UserCreator(
+                self.__repository,
+                self.__password_generator,
+                self.__unit_of_work,
+                self.__event_bus)
+
             create_user(create_user_command)
+
             response_data = dict(
                 success=True,
                 message='All ok',
