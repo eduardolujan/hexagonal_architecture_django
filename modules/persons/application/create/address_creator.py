@@ -47,9 +47,7 @@ class AddressCreator:
         @rtype: NoReturn
         """
         address_id = AddressID(create_address_command.id)
-
-        # Check if exists
-        get_address_entity = GetAddressService.create_address_entity(address_id=address_id)
+        address_entity = AddressFinderService.create_address_entity(address_id=address_id)
         # if self.__repository.get(get_address_entity):
         #     raise Exception(f"Address with id {address_id} already exists")
 

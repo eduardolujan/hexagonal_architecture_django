@@ -24,6 +24,7 @@ class CreateAddressDomainEvent(DomainEvent):
                  state: str = None,
                  country: str = None):
 
+        super(CreateAddressDomainEvent, self).__init__(id)
         self.__id = id
         self.__street = street
         self.__interior_number = interior_number
@@ -33,6 +34,7 @@ class CreateAddressDomainEvent(DomainEvent):
         self.__borough = borough
         self.__state = state
         self.__country = country
+
 
     def event_name(self):
         """

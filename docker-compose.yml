@@ -4,6 +4,7 @@ services:
   postgres:
     env_file:
       - .env
+    hostname: had_postgres
     container_name: had_postgres
     build:
       context: .
@@ -24,5 +25,20 @@ services:
     command: redis-server --appendonly yes
     volumes:
       - ${REDIS_DATA}:/data
+
+  rabbitmq:
+    env_file: .env
+    hostname: ${RABBITMQ_HOST}
+    container_name: ${RABBITMQ_HOST}
+    image: rabbitmq:3.8.9-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS}
+      - RABBITMQ_DEFAULT_VHOST=${RABBITMQ_VHOST}
+    ports:
+      - "${RABBITMQ_MANAGEMENT_PORT}:15672"
+      - "${RABBITMQ_PORT}:5672"
+    volumes:
+      - "${RABBITMQ_DIR}:/var/lib/rabbitmq"
 
 
