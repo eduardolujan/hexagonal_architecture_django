@@ -1,61 +1,66 @@
 # -*- coding: utf-8 -*-
 
 
-from rest_framework import status as http_status
-
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+# Application
+from modules.users.application.create import UserCreator
+from modules.users.application.create.command import CreateUserCommand
+# Domain
+from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
 from modules.users.domain.repository import UserRepository
-from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.passwords import PasswordGenerator
-from modules.users.application.update import UserUpdater as UpdateUserService
+from modules.shared.domain.repository import UnitOfWork
+from modules.shared.domain.bus.event import EventBus
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class UpdateUserController:
+class UserCreatorController:
     """
-    Update User Api
+    CreateUserApi
     """
+
     def __init__(self,
                  request: Request,
                  response: Response,
                  serializer_manager: SerializerManager,
                  user_repository: UserRepository,
                  password_generator: PasswordGenerator,
-                 unit_of_work: UnitOfWork):
-        """
-        Update User Api
-        @param request: request implementation
-        @type request: src.shared.domain.requests.Request
-        @param response: response implementation
-        @type response: src.shared.domain.responses.Response
-        @param serializer_manager:
-        @type serializer_manager:
-        @param user_repository:
-        @type user_repository:
-        @param password_generator:
-        @type password_generator:
-        @param unit_of_work:
-        @type unit_of_work:
-        """
+                 unit_of_work: UnitOfWork,
+                 event_bus: EventBus):
 
         # Http objects
         self.__request = request
         self.__response = response
         self.__serializer_manager = serializer_manager
         # Create  user
-        self.__user_repository = user_repository
+        self.__repository = user_repository
         self.__password_generator = password_generator
-        self.__unit_of_work = unit_of_work
+        self.__unit_of_work = unit_of_work,
+        self.__event_bus = event_bus
 
-    def __call__(self):
+    def __call__(self) -> Response:
+        """
+        Create User API
+        @return: Response
+        @rtype: Response
+        """
         try:
             user_data = self.__request.get_body()
-            user_dto = self.__serializer_manager.get_dto_from_dict(user_data)
-            update_user = UpdateUserService(self.__user_repository, self.__password_generator, self.__unit_of_work)
-            update_user(**user_dto)
+            create_user_command = CreateUserCommand(
+                id=user_data.get('id'),
+                username=user_data.get('username'),
+                password=user_data.get('password'),
+                email=user_data.get('email')
+            )
+            create_user = UserCreator(self.__repository,
+                                      self.__password_generator,
+                                      self.__unit_of_work,
+                                      self.__event_bus)
+            create_user(create_user_command)
             response_data = dict(
                 success=True,
                 message='All ok',

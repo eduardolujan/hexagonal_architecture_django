@@ -26,7 +26,7 @@ class DomainEvent(ABC):
         self.__event_id = event_id if event_id else uuid4()
         self.__ocurred_on = ocurred_on if ocurred_on else datetime.now().isoformat()
 
-    @abstractmethod
+    @staticmethod
     def from_primitives(self,
                         aggregate_id: UUID,
                         body: dict = {},

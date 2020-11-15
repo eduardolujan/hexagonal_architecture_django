@@ -11,7 +11,7 @@ from modules.users.application.delete import UserDeleter as DeleteUserService
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class DeleteUserController:
+class UserDeleterController:
     """
     Delete User API
     """

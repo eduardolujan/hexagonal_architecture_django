@@ -14,7 +14,7 @@ from modules.users.domain.repository import UserRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class GetUserController:
+class UserFinderController:
     """
     User GET API
     """
