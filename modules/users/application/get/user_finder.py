@@ -12,7 +12,7 @@ from modules.users.application.get.query import UserFinderQuery
 from modules.shared.domain.bus.query.query import Query
 from modules.users.domain.entities import User as UserEntity
 from modules.users.domain.repository import UserRepository
-from modules.users.domain.services import GetUserService
+from modules.users.domain.services import UserFinderService
 from modules.users.domain.value_objects import UserId
 
 
@@ -36,7 +36,7 @@ class UserFinder:
 
     def __call__(self, user_finder_query: Query) -> UserEntity:
         user_id = UserId(user_finder_query.id)
-        user_getter_entity = GetUserService.get_user_entity(user_id)
+        user_getter_entity = UserFinderService.get_user_entity(user_id)
         user_entity = self.__repository.get(user_getter_entity)
         return user_entity
 

@@ -4,7 +4,7 @@ from modules.users.domain.entities import GetUser as GetUserEntity
 from modules.users.domain.value_objects import UserId
 
 
-class GetUserService:
+class UserFinderService:
     """
     Get user entity creator service
     """
