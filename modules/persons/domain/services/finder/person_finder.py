@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 
-from modules.persons.domain.entities.address import GetAddress as GetAddressEntity
+from modules.persons.domain.entities.address import AddressFinder as GetAddressEntity
 from modules.persons.domain.value_objects.person_values import (
     PersonId,
 )
 
 
-class GetPerson:
+class PersonFinderService:
     """
     Name constructors to create Person
     """

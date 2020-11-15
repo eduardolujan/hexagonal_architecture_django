@@ -61,7 +61,7 @@ POSTGRES_DB=hexagonal_django
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=password
 POSTGRES_DATA=~/Documents/Projects/docker/hexagonal_django/postgres
-POSTGRES_BACKUPS=~/Documents/Projects/docker/reports_bi/postgres_backups
+POSTGRES_BACKUPS=~/Documents/projects/docker/hexagonal_django/postgres_backups
 POSTGRES_EXTERNAL_PORT=5432
 POSTGRES_LOCALHOST=127.0.0.1
 
@@ -72,11 +72,20 @@ REDIS_PORT=6379
 REDIS_HOST=localhost
 REDIS_DATABASE=0
 REDIS_URL=redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DATABASE}
-REDIS_DATA=~/Documents/Projects/docker/reports_bi/redis
+REDIS_DATA=~/Documents/projects/docker/hexagonal_django/redis
 
 
 # Celery
 CELERY_BROKER_URL=redis://localhost:6379/0
+
+# Rabbitmq
+RABBITMQ_HOST=had_rabbitmq
+RABBITMQ_USER=rabbitmq
+RABBITMQ_PASS=password
+RABBITMQ_VHOST=app
+RABBITMQ_MANAGEMENT_PORT=15672
+RABBITMQ_PORT=5672
+RABBITMQ_DIR=~/Documents/projects/docker/hexagonal_django/rabbitmq
 ```
 
 

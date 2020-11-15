@@ -1,44 +1,36 @@
 # -*- coding: utf-8 -*-
 
-
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
-from modules.persons.application.get import AddressFinder
-from modules.persons.application.get.query.address import AddressGetterQuery
+from modules.users.application.get import UserFinder
+from modules.users.application.get.query import UserFinderQuery
 # Domain
-from modules.shared.domain.bus.message import MessageBus
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers.serializer_manager import SerializerManager
-from modules.persons.domain.repository import AddressRepository
+from modules.users.domain.repository import UserRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class GetAddressController:
+class UserFinderController:
     """
     User GET API
     """
+
     def __init__(self,
                  request: Request,
                  response: Response,
-                 address_repository: AddressRepository,
+                 user_repository: UserRepository,
                  request_serializer_manager: SerializerManager,
-                 response_serializer_manager: SerializerManager,
-                 message_bus: MessageBus):
-
-        if not isinstance(address_repository, (AddressRepository,)):
-            raise ValueError(f"Parameter address_repository:{address_repository} is not instance AddressRepository")
-
-        if not isinstance(message_bus, MessageBus):
-            raise ValueError(f"Parameter message_bus:{message_bus} is not instance MessageBus")
+                 response_serializer_manager: SerializerManager):
 
         self.__request = request
         self.__response = response
-        self.__repository = address_repository
+        self.__repository = user_repository
         self.__request_serializer_manager = request_serializer_manager
         self.__response_serializer_manager = response_serializer_manager
-        self.__bus = message_bus
 
     def __call__(self, id: str):
         """
@@ -49,16 +41,16 @@ class GetAddressController:
         @rtype: Response
         """
         try:
-            address_getter_query = AddressGetterQuery(id=id)
-            get_address_getter = AddressFinder(self.__repository)
-            user_entity = get_address_getter(address_getter_query)
+            user_getter_query = UserFinderQuery(id=id)
+            get_user_service = UserFinder(self.__repository)
+            user_entity = get_user_service(user_getter_query)
             user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(
                 success=True,
                 message='All ok',
                 data=user_entity_serialized
             )
-            response = self.__response(response_data, status=http_status.HTTP_201_CREATED)
+            response = self.__response(response_data, status=http_status.HTTP_200_OK)
             return response
 
         except Exception as err:

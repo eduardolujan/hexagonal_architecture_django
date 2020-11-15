@@ -3,7 +3,7 @@
 
 from had.app.models import Person as PersonModel
 from modules.shared.infrastructure.persistence.django import OrmManager
-from modules.persons.domain.entities.person.person import Person as PersonEntity
+from modules.persons.domain.entities.person.person_entity import Person as PersonEntity
 from modules.persons.domain.repository import PersonRepository as AbstractPersonRepository
 
 

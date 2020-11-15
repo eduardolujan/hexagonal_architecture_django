@@ -27,7 +27,7 @@ class Uuid:
         try:
             return self._uuid_generator(value, version=4)
         except Exception as err:
-            raise ValueError("Is invalid UUID v4")
+            raise ValueError(f"Is invalid UUID v4, value:{value} err:{err}")
 
     @property
     def value(self):

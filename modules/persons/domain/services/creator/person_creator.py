@@ -15,7 +15,7 @@ from modules.persons.domain.value_objects.person_values import (
 )
 
 
-class CreatePerson:
+class PersonCreatorService:
     """
     Nameconstructors for Person
     """
@@ -38,12 +38,13 @@ class CreatePerson:
         )
 
         # Create domain event
-        create_person_domain_event = CreatePersonDomainEvent(id=person_id.value,
-                                                             name=name.value,
-                                                             last_name=last_name.value,
-                                                             second_last_name=second_last_name.value,
-                                                             address=address.value,
-                                                             phone=phone.value)
+        create_person_domain_event = CreatePersonDomainEvent(
+            id=person_id.value,
+            name=name.value,
+            last_name=last_name.value,
+            second_last_name=second_last_name.value,
+            address=address.value,
+            phone=phone.value)
 
         # Record the event in entity
         person_entity.record(create_person_domain_event)

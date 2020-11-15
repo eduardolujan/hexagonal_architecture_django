@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-from modules.persons.domain.entities.phone import GetPhone as GetPhoneEntity
+from modules.persons.domain.entities.phone import PhoneFinder as GetPhoneEntity
 from modules.persons.domain.value_objects.address_values import AddressID
 
 

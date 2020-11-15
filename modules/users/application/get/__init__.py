@@ -1,3 +1,3 @@
-from .user_getter import UserGetter
+from .user_finder import UserFinder
 
-__all__ = ('UserGetter',)
+__all__ = ('UserFinder',)

@@ -23,3 +23,4 @@ class Address(Entity):
     borough: address_values.Borough
     state: address_values.State
     country: address_values.Country
+

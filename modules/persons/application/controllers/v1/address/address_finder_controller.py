@@ -1,49 +1,45 @@
 # -*- coding: utf-8 -*-
 
+
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
-from modules.users.application.get import UserGetter
-from modules.users.application.get.query import UserGetterQuery
+from modules.persons.application.get import AddressFinder
+from modules.persons.application.get.query.address import AddressGetterQuery
 # Domain
+from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
 from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers.serializer_manager import SerializerManager
-from modules.users.domain.repository import UserRepository
+from modules.persons.domain.repository import AddressRepository
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class GetUserController:
+class AddressFinderController:
     """
     User GET API
     """
-
     def __init__(self,
                  request: Request,
                  response: Response,
-                 user_repository: UserRepository,
+                 address_repository: AddressRepository,
                  request_serializer_manager: SerializerManager,
-                 response_serializer_manager: SerializerManager):
-        """
-        GetUserAPI
-        @param request:
-        @type request:
-        @param response:
-        @type response:
-        @param user_repository:
-        @type user_repository:
-        @param request_serializer_manager:
-        @type request_serializer_manager:
-        @param response_serializer_manager:
-        @type response_serializer_manager:
-        """
+                 response_serializer_manager: SerializerManager,
+                 event_bus: EventBus):
+
+        if not isinstance(address_repository, (AddressRepository,)):
+            raise ValueError(f"Parameter address_repository:{address_repository} is not instance AddressRepository")
+
+        if not isinstance(event_bus, EventBus):
+            raise ValueError(f"Parameter event_bus:{event_bus} is not instance EventBus")
 
         self.__request = request
         self.__response = response
-        self.__repository = user_repository
+        self.__repository = address_repository
         self.__request_serializer_manager = request_serializer_manager
         self.__response_serializer_manager = response_serializer_manager
+        self.__event_bus = event_bus
 
     def __call__(self, id: str):
         """
@@ -54,16 +50,17 @@ class GetUserController:
         @rtype: Response
         """
         try:
-            user_getter_query = UserGetterQuery(id=id)
-            get_user_service = UserGetter(self.__repository)
-            user_entity = get_user_service(user_getter_query)
+            address_getter_query = AddressGetterQuery(id=id)
+            get_address_getter = AddressFinder(self.__repository)
+            user_entity = get_address_getter(address_getter_query)
             user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(
                 success=True,
                 message='All ok',
                 data=user_entity_serialized
             )
-            response = self.__response(response_data, status=http_status.HTTP_200_OK)
+            response = self.__response(response_data,
+                                       status=http_status.HTTP_200_OK)
             return response
 
         except Exception as err:
@@ -75,5 +72,6 @@ class GetUserController:
             if hasattr(err, 'errors'):
                 response_data.update(errors=err.errors)
 
-            respose = self.__response(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+            respose = self.__response(response_data,
+                                      status=http_status.HTTP_400_BAD_REQUEST)
             return respose

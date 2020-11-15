@@ -18,11 +18,12 @@ class CreateUserDomainEvent(DomainEvent):
                  username: str = None,
                  password: str = None,
                  email: str = None):
-
+        super(CreateUserDomainEvent, self).__init__(self.__id)
         self.__id = id
         self.__username = username
         self.__password = password
         self.__email = email
+
 
     def event_name(self):
         """
@@ -32,6 +33,7 @@ class CreateUserDomainEvent(DomainEvent):
         """
         return 'user.created'
 
+    @staticmethod
     def from_primitives(self,
                         aggregate_id: UUID,
                         body: dict = {},

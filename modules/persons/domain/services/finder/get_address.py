@@ -2,14 +2,14 @@
 
 
 from modules.persons.domain.entities.address import (
-    GetAddress as GetAddressEntity,
+    AddressFinder as GetAddressEntity,
 )
 from modules.persons.domain.value_objects.address_values import (
     AddressID,
 )
 
 
-class GetAddressService:
+class AddressFinderService:
     """
     Name constructors to create Person
     """

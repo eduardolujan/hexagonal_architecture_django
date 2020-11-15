@@ -7,12 +7,11 @@ from rest_framework.permissions import AllowAny
 
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-from modules.persons.infrastructure.repository.django import PersonRepository
 from modules.shared.infrastructure.bus.event import InMemoryEventBus
 from modules.shared.infrastructure.requests.django import Request as DjangoRequest
 from modules.shared.infrastructure.responses.django import RestResponse
 from modules.shared.infrastructure.persistence.django import UnitOfWork
-from modules.shared.infrastructure.passwords.django import PasswordCreator
+from modules.persons.infrastructure.repository.django import PersonRepository
 from modules.persons.infrastructure.serializers.django.person import PersonSerializer
 from modules.persons.infrastructure.serializers.django.person import GetPersonSerializer
 from modules.shared.infrastructure.serializers.django.serializer_manager import SerializerManager

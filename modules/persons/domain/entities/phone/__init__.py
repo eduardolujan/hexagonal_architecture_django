@@ -2,8 +2,8 @@
 
 
 from .phone_entity import Phone
-from .get_phone_entity import GetPhone
+from .phone_finder_entity import PhoneFinder
 
 __all__ = ('Phone',
-           'GetPhone')
+           'PhoneFinder')
 

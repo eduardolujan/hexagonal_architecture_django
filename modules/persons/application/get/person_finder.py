@@ -6,7 +6,7 @@ from uuid import UUID
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.bus.query import Query
 from modules.persons.domain.repository import PersonRepository
-from modules.persons.domain.services.get import GetPerson as GetPersonService
+from modules.persons.domain.services.finder import PersonFinderService as GetPersonService
 from modules.persons.domain.value_objects.person_values import (
     PersonId
 )

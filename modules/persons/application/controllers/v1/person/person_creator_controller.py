@@ -13,7 +13,6 @@ from modules.shared.domain.responses import Response
 from modules.shared.domain.serializers import SerializerManager
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.event import EventBus
-from modules.shared.domain.passwords import PasswordGenerator
 from modules.persons.domain.repository import PersonRepository
 
 
@@ -57,9 +56,10 @@ class PersonCreatorController:
                 phone=person_data.get('phone'),
                 address=person_data.get('address'),
             )
-            person_creator = PersonCreator(self.__person_repository,
-                                        self.__unit_of_work,
-                                        self.__event_bus)
+            person_creator = PersonCreator(
+                self.__person_repository,
+                self.__unit_of_work,
+                self.__event_bus)
 
             person_creator(create_person_command)
             response_data = dict(
