@@ -4,7 +4,7 @@
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
 from modules.users.application.get import UserFinder
-from modules.users.application.get.query import UserGetterQuery
+from modules.users.application.get.query import UserFinderQuery
 # Domain
 from modules.shared.domain.http import status as http_status
 from modules.shared.domain.requests import Request
@@ -41,7 +41,7 @@ class UserFinderController:
         @rtype: Response
         """
         try:
-            user_getter_query = UserGetterQuery(id=id)
+            user_getter_query = UserFinderQuery(id=id)
             get_user_service = UserFinder(self.__repository)
             user_entity = get_user_service(user_getter_query)
             user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)

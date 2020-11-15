@@ -6,7 +6,7 @@ from typing import NoReturn
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 
 # Application
-from modules.users.application.get.query import UserGetterQuery
+from modules.users.application.get.query import UserFinderQuery
 
 # Domain
 from modules.shared.domain.bus.query.query import Query

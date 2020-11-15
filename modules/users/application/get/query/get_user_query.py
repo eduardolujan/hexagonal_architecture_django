@@ -4,7 +4,7 @@
 from modules.shared.domain.bus.query import Query
 
 
-class UserGetterQuery(Query):
+class UserFinderQuery(Query):
     """
     Get Person Query
     """
