@@ -8,16 +8,14 @@ from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.bus.command import Command
-from modules.persons.domain.services.create import CreatePerson as CratePersonService
+from modules.persons.domain.services.creator import PersonCreatorService
 from modules.persons.domain.repository import PersonRepository
-from modules.persons.domain.value_objects.person_values import (
-    PersonId,
-    Name,
-    LastName,
-    SecondLastName,
-    Address,
-    Phone
-)
+from modules.persons.domain.value_objects.person_values import PersonId
+from modules.persons.domain.value_objects.person_values import Name
+from modules.persons.domain.value_objects.person_values import LastName
+from modules.persons.domain.value_objects.person_values import SecondLastName
+from modules.persons.domain.value_objects.person_values import Address
+from modules.persons.domain.value_objects.person_values import Phone
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -56,7 +54,7 @@ class PersonCreator:
         address = Address(create_person_command.address)
         phone = Phone(create_person_command.phone)
 
-        person_entity = CratePersonService.create_person_entity(
+        person_entity = PersonCreatorService.create_person_entity(
             person_id,
             name,
             last_name,

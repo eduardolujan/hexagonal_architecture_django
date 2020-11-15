@@ -3,7 +3,7 @@
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
-from modules.users.application.get import UserGetter
+from modules.users.application.get import UserFinder
 from modules.users.application.get.query import UserGetterQuery
 # Domain
 from modules.shared.domain.http import status as http_status
@@ -25,19 +25,6 @@ class UserFinderController:
                  user_repository: UserRepository,
                  request_serializer_manager: SerializerManager,
                  response_serializer_manager: SerializerManager):
-        """
-        GetUserAPI
-        @param request:
-        @type request:
-        @param response:
-        @type response:
-        @param user_repository:
-        @type user_repository:
-        @param request_serializer_manager:
-        @type request_serializer_manager:
-        @param response_serializer_manager:
-        @type response_serializer_manager:
-        """
 
         self.__request = request
         self.__response = response
@@ -55,7 +42,7 @@ class UserFinderController:
         """
         try:
             user_getter_query = UserGetterQuery(id=id)
-            get_user_service = UserGetter(self.__repository)
+            get_user_service = UserFinder(self.__repository)
             user_entity = get_user_service(user_getter_query)
             user_entity_serialized = self.__response_serializer_manager.get_dto_from_entity(user_entity)
             response_data = dict(

@@ -9,13 +9,11 @@ from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.bus.command import Command
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.event import EventBus
-from modules.persons.domain.services.create import CreatePhone as CreatePhoneService
+from modules.persons.domain.services.creator import PhoneCreatorService
 from modules.persons.domain.repository import PhoneRepository
-from modules.persons.domain.value_objects.phone_values import (
-    PhoneID,
-    Number,
-    Extension,
-)
+from modules.persons.domain.value_objects.phone_values import PhoneID
+from modules.persons.domain.value_objects.phone_values import Number
+from modules.persons.domain.value_objects.phone_values import Extension
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
@@ -53,7 +51,7 @@ class PhoneCreator:
         number = Number(create_phone_command.number)
         extension = Extension(create_phone_command.extension)
 
-        phone_number_entity = CreatePhoneService.create_phone_entity(
+        phone_number_entity = PhoneCreatorService.create_phone_entity(
             phone_id,
             number,
             extension

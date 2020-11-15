@@ -9,20 +9,19 @@ from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.bus.command import Command
-from modules.persons.domain.services.get import GetAddressService
-from modules.persons.domain.services.create import CreateAddressService
+from modules.persons.domain.services.finder import AddressFinderService
+from modules.persons.domain.services.creator import CreateAddressService
 from modules.persons.domain.repository import AddressRepository
-from modules.persons.domain.value_objects.address_values import (
-    AddressID,
-    Street,
-    InteriorNumber,
-    OutsideNumber,
-    Zipcode,
-    City,
-    Borough,
-    State,
-    Country
-)
+from modules.persons.domain.value_objects.address_values import AddressID
+from modules.persons.domain.value_objects.address_values import Street
+from modules.persons.domain.value_objects.address_values import InteriorNumber
+from modules.persons.domain.value_objects.address_values import OutsideNumber
+from modules.persons.domain.value_objects.address_values import Zipcode
+from modules.persons.domain.value_objects.address_values import City
+from modules.persons.domain.value_objects.address_values import Borough
+from modules.persons.domain.value_objects.address_values import State
+from modules.persons.domain.value_objects.address_values import Country
+
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))

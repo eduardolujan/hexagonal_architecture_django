@@ -17,7 +17,7 @@ from modules.users.domain.value_objects import UserId
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class UserGetter:
+class UserFinder:
     """
     User getter service
     """

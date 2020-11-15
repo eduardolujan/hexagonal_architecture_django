@@ -7,7 +7,7 @@ from modules.persons.domain.value_objects.person_values import (
 )
 
 
-class GetPerson:
+class PersonFinderService:
     """
     Name constructors to create Person
     """

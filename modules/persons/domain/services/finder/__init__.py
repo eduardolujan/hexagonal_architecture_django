@@ -1,12 +1,12 @@
-from .get_address import GetAddressService
+from .get_address import AddressFinderService
 from .phone_finder import PhoneFinderService
-from .get_person import GetPerson
+from .person_finder import PersonFinderService
 
 
 __all__ = (
-    'GetAddressService',
+    'AddressFinderService',
     'PhoneFinderService',
-    'GetPerson'
+    'PersonFinderService'
 )
 
 

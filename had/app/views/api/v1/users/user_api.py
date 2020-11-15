@@ -46,11 +46,12 @@ class UserApi(APIView):
         request_serializer_manager = SerializerManager(GetUserSerializer)
         response_serializer_manager = SerializerManager(UserSerializer)
 
-        user_finder_controller = UserFinderController(request,
-                                            response,
-                                            user_repository,
-                                            request_serializer_manager,
-                                            response_serializer_manager)
+        user_finder_controller = UserFinderController(
+            request,
+            response,
+            user_repository,
+            request_serializer_manager,
+            response_serializer_manager)
         response = user_finder_controller(_id)
         return response
 
