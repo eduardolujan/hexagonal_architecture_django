@@ -10,7 +10,7 @@ from modules.persons.domain.value_objects.phone_values import (
 )
 
 
-class CreatePhone:
+class PhoneCreatorService:
     """
     Name constructors to create Person
     """
