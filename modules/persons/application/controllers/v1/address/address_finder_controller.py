@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+# Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Application
 from modules.persons.application.get import AddressFinder
@@ -58,7 +59,8 @@ class AddressFinderController:
                 message='All ok',
                 data=user_entity_serialized
             )
-            response = self.__response(response_data, status=http_status.HTTP_201_CREATED)
+            response = self.__response(response_data,
+                                       status=http_status.HTTP_200_OK)
             return response
 
         except Exception as err:
@@ -70,5 +72,6 @@ class AddressFinderController:
             if hasattr(err, 'errors'):
                 response_data.update(errors=err.errors)
 
-            respose = self.__response(response_data, status=http_status.HTTP_400_BAD_REQUEST)
+            respose = self.__response(response_data,
+                                      status=http_status.HTTP_400_BAD_REQUEST)
             return respose
