@@ -18,10 +18,11 @@ services:
 
   redis:
     env_file: .env
-    container_name: had_redis
-    image: redis:5.0
+    hostname: ${REDIS_HOST}
+    container_name: ${REDIS_HOST}
+    image: library/redis:6.0
     ports:
-      - "6379:6379"
+      - "${REDIS_PORT}:6379"
     command: redis-server --appendonly yes
     volumes:
       - ${REDIS_DATA}:/data
@@ -30,7 +31,7 @@ services:
     env_file: .env
     hostname: ${RABBITMQ_HOST}
     container_name: ${RABBITMQ_HOST}
-    image: rabbitmq:3.8.9-management
+    image: library/rabbitmq:3.8.9-management
     environment:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS}

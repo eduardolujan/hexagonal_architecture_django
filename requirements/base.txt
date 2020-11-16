@@ -34,3 +34,9 @@ py3-validate-email==0.2.9
 
 # Mappers
 mappers==2.1.0
+
+# Kombu
+kombu==5.0.2
+
+# Django filter
+django-filter==2.4.0
