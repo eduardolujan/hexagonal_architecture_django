@@ -6,11 +6,11 @@ from typing import NoReturn
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Domain
+from modules.shared.domain.bus.command import Command
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.event import EventBus
-from modules.shared.domain.bus.command import Command
-from modules.persons.domain.services.finder import AddressFinderService
 from modules.persons.domain.services.creator import CreateAddressService
+from modules.persons.domain.services.finder import AddressFinderService
 from modules.persons.domain.repository import AddressRepository
 from modules.persons.domain.value_objects.address_values import AddressID
 from modules.persons.domain.value_objects.address_values import Street
