@@ -270,12 +270,11 @@ if USE_TZ:
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
 
 
-# REDIS_HOST = env("REDIS_HOST", default="localhost")
-# REDIS_PORT = env("REDIS_PORT", default="6379")
-# REDIS_DATABASE = env("REDIS_DATABASE", default="0")
-# REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/0")
+REDIS_HOST = env.str("REDIS_HOST", default="localhost")
+REDIS_PORT = env.str("REDIS_PORT", default="6379")
+CELERY_DATABASE = env("CELERY_DATABASE", default="0")
+CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_DATABASE}"
 
-CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://localhost:6379/0")
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-accept_content

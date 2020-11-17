@@ -1,9 +1,63 @@
 version: '3'
 
 services:
-  postgres:
+
+  had_app: &had_app
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: had_app
+    hostname: had_app
+    container_name: had_app
+    depends_on:
+      - had_postgres
+      - had_redis
+      - had_rabbitmq
+    volumes:
+      - .:/app:z
     env_file:
       - .env
+    ports:
+      - "8000:8000"
+    command: /start
+
+  had_celeryworker:
+    <<: *had_app
+    image: had_celeryworker
+    hostname: had_celeryworker
+    container_name: had_celeryworker
+    depends_on:
+      - had_postgres
+      - had_redis
+      - had_rabbitmq
+    ports: [ ]
+    command: /start-celeryworker
+
+  had_celerybeat:
+    <<: *had_app
+    image: had_celerybeat
+    hostname: had_celerybeat
+    container_name: had_celerybeat
+    depends_on:
+      - had_postgres
+      - had_redis
+      - had_rabbitmq
+    ports: [ ]
+    command: /start-celerybeat
+
+  had_flower:
+    <<: *had_app
+    image: had_flower
+    hostname: had_flower
+    container_name: had_flower
+    depends_on:
+      - had_redis
+    ports:
+      - "5555:5555"
+    command: /start-flower
+
+
+  had_postgres:
     hostname: had_postgres
     container_name: had_postgres
     build:
@@ -13,10 +67,12 @@ services:
     volumes:
       - ${POSTGRES_DATA}:/var/lib/postgresql/data
       - ${POSTGRES_BACKUPS}:/backups
+    env_file:
+      - .env
     ports:
       - "${POSTGRES_EXTERNAL_PORT}:5432"
 
-  redis:
+  had_redis:
     env_file: .env
     hostname: ${REDIS_HOST}
     container_name: ${REDIS_HOST}
@@ -27,7 +83,7 @@ services:
     volumes:
       - ${REDIS_DATA}:/data
 
-  rabbitmq:
+  had_rabbitmq:
     env_file: .env
     hostname: ${RABBITMQ_HOST}
     container_name: ${RABBITMQ_HOST}
@@ -41,5 +97,4 @@ services:
       - "${RABBITMQ_PORT}:5672"
     volumes:
       - "${RABBITMQ_DIR}:/var/lib/rabbitmq"
-
 
