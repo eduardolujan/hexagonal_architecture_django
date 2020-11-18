@@ -6,11 +6,11 @@ from typing import NoReturn
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 # Domain
+from modules.shared.domain.bus.command import Command
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.bus.event import EventBus
-from modules.shared.domain.bus.command import Command
-from modules.persons.domain.services.finder import AddressFinderService
 from modules.persons.domain.services.creator import CreateAddressService
+from modules.persons.domain.services.finder import AddressFinderService
 from modules.persons.domain.repository import AddressRepository
 from modules.persons.domain.value_objects.address_values import AddressID
 from modules.persons.domain.value_objects.address_values import Street
@@ -23,7 +23,6 @@ from modules.persons.domain.value_objects.address_values import State
 from modules.persons.domain.value_objects.address_values import Country
 
 
-
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class AddressCreator:
     """
@@ -33,6 +32,15 @@ class AddressCreator:
                  address_repository: AddressRepository,
                  unit_of_work: UnitOfWork,
                  event_bus: EventBus):
+
+        if isinstance(address_repository, AddressFinderService):
+            raise ValueError(f"Parameter address_repository:{address_repository} is not instance of AddressFinderService")
+
+        if isinstance(unit_of_work, UnitOfWork):
+            raise ValueError(f"Parameter unit_of_work:{unit_of_work} is not instance of UnitOfWork")
+
+        if isinstance(event_bus, EventBus):
+            raise ValueError(f"Parameter event_bus:{event_bus} is not instance of EventBus")
 
         self.__repository = address_repository
         self.__unit_of_work = unit_of_work

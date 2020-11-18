@@ -4,7 +4,7 @@ Pillow==7.2.0  # https://github.com/python-pillow/Pillow
 argon2-cffi==20.1.0  # https://github.com/hynek/argon2_cffi
 redis==3.5.3  # https://github.com/andymccurdy/redis-py
 hiredis==1.1.0  # https://github.com/redis/hiredis-py
-celery==4.4.6  # pyup: < 5.0,!=4.4.7  # https://github.com/celery/celery
+celery==4.4.7 # pyup: < 5.0,!=4.4.7  # https://github.com/celery/celery
 django-celery-beat==2.0.0  # https://github.com/celery/django-celery-beat
 flower==0.9.5  # https://github.com/mher/flower
 
@@ -34,3 +34,9 @@ py3-validate-email==0.2.9
 
 # Mappers
 mappers==2.1.0
+
+# Kombu
+kombu==4.6.10
+
+# Django filter
+django-filter==2.4.0
