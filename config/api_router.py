@@ -8,7 +8,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 urlpatterns = []
 api_v1_patterns = [
     path("", include("had.app.urls.api.v1.users", namespace="api_v1_users")),
-    path("", include("had.app.urls.api.v1.persons", namespace="api_v1_address")),
+    path("", include("had.app.urls.api.v1.persons", namespace="api_v1_persons")),
     path("", include("had.app.urls.api.v1.addresses", namespace="api_v1_address")),
     path("", include("had.app.urls.api.v1.phones", namespace="api_v1_phone")),
 ]
