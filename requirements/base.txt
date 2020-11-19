@@ -40,3 +40,6 @@ kombu==4.6.10
 
 # Django filter
 django-filter==2.4.0
+
+# Mailjet
+mailjet_rest==1.3.4

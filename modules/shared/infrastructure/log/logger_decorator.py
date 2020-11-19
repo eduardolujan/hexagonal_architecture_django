@@ -10,11 +10,14 @@ class LoggerDecorator:
     Logger Decorator
     """
 
-    def __init__(self, logger):
+    def __init__(self, logger=None):
         """
         Logger class decorator
-        @param file_path: File path to log
+        @param logger: File path to log
         """
+        if logger is None:
+            raise ValueError(f"Parameter logger is null is not allowed")
+
         if not issubclass(logger.__class__, (Logger,)):
             raise ValueError(f"Logger instance is not subclass of LoggerService")
 
