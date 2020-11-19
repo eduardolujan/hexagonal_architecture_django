@@ -8,25 +8,27 @@ from mailjet_rest import Client
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.shared.infrastructure.environ import DjangoEnviron
 # Domain
-from modules.shared.domain.email import SendEmail
+from modules.shared.domain.email import EmailSender
 
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
-class MailjetSendEmail(SendEmail):
+class MailjetEmailSender(EmailSender):
     """
     Mailjet Send Email
     """
 
-    def __init__(self, client=None, environ=DjangoEnviron()):
-        self.__environ = environ
+    def __init__(self, client=None, environ=None):
+        self.__environ = environ or DjangoEnviron()
         mailjet_apikey_public = self.__environ.get('MAILJET_APIKEY_PUBLIC')
         mailjet_apikey_private = self.__environ.get('MAILJET_APIKEY_PRIVATE')
 
         if mailjet_apikey_private is None:
-            raise Exception(f"MAILJET_APIKEY_PUBLIC is not set {mailjet_apikey_public}")
+            raise Exception(f"MAILJET_APIKEY_PUBLIC is not "
+                            f"properly configured {mailjet_apikey_public}")
 
         if mailjet_apikey_private is None:
-            raise Exception(f"MAILJET_APIKEY_PRIVATE is not set {mailjet_apikey_private}")
+            raise Exception(f"MAILJET_APIKEY_PRIVATE is not "
+                            f"properly configured {mailjet_apikey_private}")
 
         auth = (
             mailjet_apikey_public,
@@ -48,23 +50,18 @@ class MailjetSendEmail(SendEmail):
         @return: NoReturn
         @rtype: NoReturn
         """
-        try:
-            mail_data = dict(
-                Messages=[
-                    dict(
-                        From=dict(
-                            Email=f"{sender_email}",
-                            Name=f"{sender_email}"
-                        ),
-                        To=dict(
-                            Email=f"{sender_email}",
-                            Name=f"{sender_email}"
-                        ),
-                        Subject=subject,
-                        HTMLPart=message
-                    )
-                ]
-            )
-            self.__mailjet_client.send.create(data=mail_data)
-        except Exception as err:
-            self.log.exception(f"Error in Mailjet::send, err:{err}")
+        mail_data = {
+            'FromEmail': sender_email,
+            'FromName': sender_email,
+            'Subject': subject,
+            'Html-part': message,
+            'Recipients': [{'Email': recipient_email}]
+        }
+        response = self.__mailjet_client.send.create(data=mail_data)
+        if response.status_code not in [200]:
+            raise Exception(f"The mailjet response without status 200, verify {response.content.decode('utf-8')}")
+
+        self.log.info(f"Sent email response: {response.content.decode('utf-8')}")
+
+
+

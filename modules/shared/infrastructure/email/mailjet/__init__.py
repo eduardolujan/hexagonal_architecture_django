@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 
-from .mailjet_send_email import MailjetSendEmail
+from .mailjet_send_email import MailjetEmailSender
 
 
-__all__ = ('MailjetSendEmail', )
+__all__ = ('MailjetEmailSender',)
 

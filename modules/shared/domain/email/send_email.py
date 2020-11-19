@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from typing import NoReturn
 
 
-class SendEmail(ABC):
+class EmailSender(ABC):
     """
     Send email
     """

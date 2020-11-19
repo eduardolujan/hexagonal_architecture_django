@@ -1,4 +1,4 @@
-from .send_email import SendEmail
+from .send_email import EmailSender
 
 
-__all__ = ('SendEmail', )
+__all__ = ('EmailSender',)

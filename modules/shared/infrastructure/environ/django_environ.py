@@ -9,7 +9,7 @@ class DjangoEnviron(Environ):
     """
     Environ
     """
-    def __init__(self, environ):
+    def __init__(self, environ=None):
         self.__environ = environ or Env()
 
     def get(self, key, default=None):
