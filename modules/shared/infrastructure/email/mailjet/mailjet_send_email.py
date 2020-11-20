@@ -1,7 +1,6 @@
 
 from typing import NoReturn
 
-from environ import Env
 from mailjet_rest import Client
 
 # Infra

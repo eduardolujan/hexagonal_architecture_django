@@ -1,5 +1,5 @@
 
-from environ import Env
+import environ
 
 # Domain
 from modules.shared.domain.environ import Environ
@@ -9,8 +9,14 @@ class DjangoEnviron(Environ):
     """
     Environ
     """
+
     def __init__(self, environ=None):
-        self.__environ = environ or Env()
+        """
+        Constructor
+        @param environ:
+        @type environ:
+        """
+        self.__environ = environ or environ.Env()
 
     def get(self, key, default=None):
         """
