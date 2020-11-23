@@ -1,10 +1,10 @@
-
 from typing import NoReturn
 
 from mailjet_rest import Client
 
 # Infra
-from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+from modules.shared.infrastructure.log import LoggerDecorator
+from modules.shared.infrastructure.log import PyLoggerService
 from modules.shared.infrastructure.environ import DjangoEnviron
 # Domain
 from modules.shared.domain.email import EmailSender

@@ -7,6 +7,7 @@ services:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
     hostname: had_app
+    image: had_app
     container_name: had_app
     depends_on:
       - had_postgres
@@ -22,6 +23,7 @@ services:
 
   had_celeryworker:
     <<: *had_app
+    image: had_celeryworker
     hostname: had_celeryworker
     container_name: had_celeryworker
     depends_on:
@@ -33,6 +35,7 @@ services:
 
   had_celerybeat:
     <<: *had_app
+    image: had_celerybeat
     hostname: had_celerybeat
     container_name: had_celerybeat
     depends_on:

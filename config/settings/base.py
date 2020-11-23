@@ -5,8 +5,9 @@ Base settings to build other settings files upon.
 import os
 from pathlib import Path
 
-
 import environ
+from celery.schedules import crontab
+
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # hexagonal_architecture_django/
@@ -90,7 +91,6 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "had.app.apps.AppConfig",
-    # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -158,7 +158,9 @@ STATIC_ROOT = str(ROOT_DIR / "staticfiles")
 STATIC_URL = env.str('DJANGO_STATIC_URL', default='/static/')
 
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = [str(APPS_DIR.joinpath('static'))]
+STATICFILES_DIRS = [
+    str(ROOT_DIR.joinpath('had/static'))
+]
 
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
@@ -306,7 +308,14 @@ CELERY_TASK_TIME_LIMIT = 5 * 60
 CELERY_TASK_SOFT_TIME_LIMIT = 60
 
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#beat-scheduler
-CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+# CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+CELERY_BEAT_SCHEDULE = {
+    'test': {
+        'task': 'had.app.tasks.beat.test_beat.test_beat',
+        'schedule': crontab(minute='*'),
+    },
+}
 
 # django-allauth
 # ------------------------------------------------------------------------------
