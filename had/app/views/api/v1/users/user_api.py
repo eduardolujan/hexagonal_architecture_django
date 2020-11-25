@@ -2,16 +2,14 @@
 
 
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 # Infra
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
-
 from modules.shared.infrastructure.requests.django import Request
 from modules.shared.infrastructure.responses.django import RestResponse
 from modules.shared.infrastructure.persistence.django import UnitOfWork
 from modules.shared.infrastructure.passwords.django import PasswordCreator
-
 from modules.shared.infrastructure.serializers.django.serializer_manager import SerializerManager
 from modules.shared.infrastructure.bus.event.in_memory_event_bus import EventBus
 from modules.users.infrastructure.serializers.django import UserSerializer
@@ -27,6 +25,10 @@ from modules.users.application.controllers.v1 import UserDeleterController
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UserApi(APIView):
+    """
+    User Api
+    """
+
     # authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [AllowAny]
 
