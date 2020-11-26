@@ -7,6 +7,6 @@ from modules.shared.domain.entities import Entity
 from modules.users.domain.value_objects import (UserId)
 
 
-@dataclass(frozen=True)
+@dataclass
 class DeleteUser(Entity):
     id: UserId
