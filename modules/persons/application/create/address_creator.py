@@ -33,13 +33,13 @@ class AddressCreator:
                  unit_of_work: UnitOfWork,
                  event_bus: EventBus):
 
-        if isinstance(address_repository, AddressFinderService):
+        if not isinstance(address_repository, AddressFinderService):
             raise ValueError(f"Parameter address_repository:{address_repository} is not instance of AddressFinderService")
 
-        if isinstance(unit_of_work, UnitOfWork):
+        if not isinstance(unit_of_work, UnitOfWork):
             raise ValueError(f"Parameter unit_of_work:{unit_of_work} is not instance of UnitOfWork")
 
-        if isinstance(event_bus, EventBus):
+        if not isinstance(event_bus, EventBus):
             raise ValueError(f"Parameter event_bus:{event_bus} is not instance of EventBus")
 
         self.__repository = address_repository

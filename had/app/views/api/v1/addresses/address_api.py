@@ -6,7 +6,6 @@ from rest_framework.permissions import AllowAny
 
 
 
-
 from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
 from modules.persons.infrastructure.repository.django import AddressRepository as DjangoAddressRepository
 from modules.shared.infrastructure.bus.event import InMemoryEventBus
