@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 
 
-from modules.shared.infrastructure.log import LoggerDecorator, PyLoggerService
+# Infra
+from modules.shared.infrastructure.log import LoggerDecorator
+from modules.shared.infrastructure.log import PyLoggerService
+# Domain
 from modules.shared.domain.repository import UnitOfWork
 from modules.shared.domain.passwords import PasswordGenerator
-from modules.users.domain.services import CreateUser as CreateUserService
+from modules.users.domain.services import CreateUserService
 from modules.users.domain.repository import UserRepository
 
+
+from decimal import Decimal
 
 @LoggerDecorator(logger=PyLoggerService(file_path=__file__))
 class UpdateUser:

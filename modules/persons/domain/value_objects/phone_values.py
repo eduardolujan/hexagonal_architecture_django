@@ -22,3 +22,4 @@ class Extension(String):
     """
     Extension
     """
+    pass

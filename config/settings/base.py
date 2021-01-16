@@ -5,8 +5,9 @@ Base settings to build other settings files upon.
 import os
 from pathlib import Path
 
-
 import environ
+from celery.schedules import crontab
+
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # hexagonal_architecture_django/
@@ -25,6 +26,10 @@ if READ_DOT_ENV_FILE or os.path.exists(ENV_PATH):
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = env.bool("DJANGO_DEBUG", False)
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="R1Eut2L6OkcFpGmPY2WCZtMHAHg5eY3DALdSyPtTEt1bp8aBrHxtktlXy3BUPQkC",)
+
 # Local time zone. Choices are
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # though not all of them may be available with every OS.
@@ -43,10 +48,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
 LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
+
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {}
+DATABASES = {
+    # Add your config here
+}
 
 # URLS
 # ------------------------------------------------------------------------------
@@ -83,7 +91,6 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "had.app.apps.AppConfig",
-    # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -119,9 +126,7 @@ PASSWORD_HASHERS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -140,6 +145,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 # STATIC
@@ -147,12 +153,15 @@ MIDDLEWARE = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 
 STATIC_ROOT = str(ROOT_DIR / "staticfiles")
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
-STATIC_URL = "/static/"
+STATIC_URL = env.str('DJANGO_STATIC_URL', default='/static/')
+
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
 STATICFILES_DIRS = [
-
+    str(ROOT_DIR.joinpath('had/static'))
 ]
+
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -164,7 +173,7 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = str(APPS_DIR / "media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
-MEDIA_URL = "/media/"
+MEDIA_URL = env.str('MEDIA_URL', "/media/")
 
 # TEMPLATES
 # ------------------------------------------------------------------------------
@@ -207,7 +216,9 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 # FIXTURES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#fixture-dirs
-FIXTURE_DIRS = (str(APPS_DIR / "fixtures"),)
+FIXTURE_DIRS = (
+    str(APPS_DIR / "fixtures"),
+)
 
 # SECURITY
 # ------------------------------------------------------------------------------
@@ -232,9 +243,10 @@ EMAIL_TIMEOUT = 5
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL = "admin/"
+ADMIN_URL = env("DJANGO_ADMIN_URL", default="admin")
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Eduardo Lujan""", "eduardo-lujan@example.com")]
+ADMINS = [("""Eduardo Lujan""", "eduardo.lujan.p@gmail.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
@@ -270,31 +282,44 @@ if USE_TZ:
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-broker_url
 
 
-# REDIS_HOST = env("REDIS_HOST", default="localhost")
-# REDIS_PORT = env("REDIS_PORT", default="6379")
-# REDIS_DATABASE = env("REDIS_DATABASE", default="0")
-# REDIS_URL = env("REDIS_URL", default="redis://localhost:6379/0")
+REDIS_HOST = env.str("REDIS_HOST", default="localhost")
+REDIS_PORT = env.str("REDIS_PORT", default="6379")
+CELERY_DATABASE = env("CELERY_DATABASE", default="0")
+CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_DATABASE}"
 
-CELERY_BROKER_URL = env("CELERY_BROKER_URL", default="redis://localhost:6379/0")
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_backend
 CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-accept_content
 CELERY_ACCEPT_CONTENT = ["json"]
+
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-task_serializer
 CELERY_TASK_SERIALIZER = "json"
+
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#std:setting-result_serializer
 CELERY_RESULT_SERIALIZER = "json"
+
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-time-limit
 # TODO: set to whatever value is adequate in your circumstances
 CELERY_TASK_TIME_LIMIT = 5 * 60
+
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#task-soft-time-limit
 # TODO: set to whatever value is adequate in your circumstances
 CELERY_TASK_SOFT_TIME_LIMIT = 60
+
 # http://docs.celeryproject.org/en/latest/userguide/configuration.html#beat-scheduler
-CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+# CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+
+CELERY_BEAT_SCHEDULE = {
+    'test': {
+        'task': 'had.app.tasks.beat.test_beat.test_beat',
+        'schedule': crontab(minute='*'),
+    },
+}
+
 # django-allauth
 # ------------------------------------------------------------------------------
-ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
+ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", False)
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
@@ -310,3 +335,18 @@ SOCIALACCOUNT_ADAPTER = "had.users.adapters.SocialAccountAdapter"
 # Your stuff...
 # ------------------------------------------------------------------------------
 URL_PREFIX = env.str('URL_PREFIX', default='')
+
+
+SWAGGER_SETTINGS = {
+    'VALIDATOR_URL': 'http://localhost:8080',
+}
+
+# Rabbitmq
+RABBITMQ_HOST = env.str('RABBITMQ_HOST')
+RABBITMQ_USER = env.str('RABBITMQ_USER')
+RABBITMQ_PASS = env.str('RABBITMQ_PASS')
+RABBITMQ_PORT = env.str('RABBITMQ_PORT')
+RABBITMQ_VHOST = env.str('RABBITMQ_VHOST')
+
+CORS_ORIGIN_ALLOW_ALL = env.bool('CORS_ORIGIN_ALLOW_ALL', default=True)
+

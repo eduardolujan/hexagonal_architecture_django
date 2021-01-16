@@ -2,7 +2,6 @@
 
 
 from django.http.request import HttpRequest
-
 from modules.shared.domain.requests import Request
 
 

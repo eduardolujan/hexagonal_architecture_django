@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 from modules.shared.domain.bus.command import Command
 
 
@@ -34,7 +37,7 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__id()
+        return self.__id
 
     @property
     def street(self):
@@ -43,7 +46,7 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__street()
+        return self.__street
 
     @property
     def interior_number(self):
@@ -52,7 +55,7 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__interior_number()
+        return self.__interior_number
 
     @property
     def outside_number(self):
@@ -61,7 +64,7 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__outside_number()
+        return self.__outside_number
 
     @property
     def zip_code(self):
@@ -70,7 +73,7 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__zip_code()
+        return self.__zip_code
 
     @property
     def city(self):
@@ -79,7 +82,7 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__city()
+        return self.__city
 
     @property
     def borough(self):
@@ -88,7 +91,7 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__borough()
+        return self.__borough
 
     @property
     def state(self):
@@ -97,7 +100,7 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__state()
+        return self.__state
 
     @property
     def country(self):
@@ -106,4 +109,4 @@ class CreateAddressCommand(Command):
         @return:
         @rtype:
         """
-        return self.__country()
+        return self.__country

@@ -1,0 +1,300 @@
+{
+	"info": {
+		"_postman_id": "e0c4289c-95f9-4a7b-af84-fefcd10f482b",
+		"name": "Hexagonal Architeture",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local}}/api/v1/users",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"46e56435-e427-48ef-8d59-c128b54475b5\",\n    \"username\": \"root\",\n    \"password\": \"argon2$argon2i$v=19$m=512,t=2,p=2$NHhpZ1Y5SHNCanVh$cGIuIqyLZ3ybTJcOQX3JXg\",\n    \"email\": \"\",\n    \"is_superuser\": true,\n    \"is_staff\": true,\n    \"is_active\": true\n}"
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/user/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"46e56435-e427-48ef-8d59-c128b54475b5\",\n    \"username\": \"root\",\n    \"password\": \"argon2$argon2i$v=19$m=512,t=2,p=2$NHhpZ1Y5SHNCanVh$cGIuIqyLZ3ybTJcOQX3JXg\",\n    \"email\": \"\",\n    \"is_superuser\": true,\n    \"is_staff\": true,\n    \"is_active\": true\n}"
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/user/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}"
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/user/46e56435-e427-48ef-8d59-c128b54475b6",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"46e56435-e427-48ef-8d59-c128b54475b6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Persons",
+			"item": [
+				{
+					"name": "Create Person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/person/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"person",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Address",
+			"item": [
+				{
+					"name": "Get Address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Address",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": \"6fdf3c37-7856-444d-bae6-ddf70f285fef\",\n        \"street\": \"Loma Quemada\",\n        \"interior_number\": \"120\",\n        \"outside_number\": \"120\",\n        \"zip_code\": \"58000\",\n        \"city\": \"Morelia\",\n        \"borough\": \"Morelia\",\n        \"state\": \"Michoacan\",\n        \"country\": \"Mexico\"\n    }"
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/address",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"address"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Phone",
+			"item": [
+				{
+					"name": "Get Phone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/phone/6fdf3c37-7856-444d-bae6-ddf70f285fef",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"phone",
+								"6fdf3c37-7856-444d-bae6-ddf70f285fef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Phone",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"id\": \"6fdf3c37-7856-444d-bae6-ddf70f285fef\",\n        \"street\": \"Loma Quemada\",\n        \"interior_number\": \"120\",\n        \"outside_number\": \"120\",\n        \"zip_code\": \"58000\",\n        \"city\": \"Morelia\",\n        \"borough\": \"Morelia\",\n        \"state\": \"Michoacan\",\n        \"country\": \"Mexico\"\n    }"
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/phone",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"phone"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9bb2f9af-ba02-413e-a2aa-946020a40aaf",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "04de7944-5650-45ae-b226-d970bf586f79",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

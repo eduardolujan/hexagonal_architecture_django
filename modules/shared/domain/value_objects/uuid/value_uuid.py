@@ -1,5 +1,6 @@
 # -*- utf-8  -*-
 
+from typing import NoReturn
 
 from uuid import UUID as pyuuid_validator
 
@@ -20,13 +21,15 @@ class Uuid:
     def __repr__(self):
         return str(self._value or 'None')
 
-    def __validate(self, value):
+    def __validate(self, value) -> NoReturn:
+
         if type(value) is not str:
-            raise ValueError("Value is not string")
+            raise ValueError(f"Parameter value:{value} is not string")
+
         try:
-            return self._uuid_generator(value, version=4)
+            self._uuid_generator(value, version=4)
         except Exception as err:
-            raise ValueError("Is invalid UUID v4")
+            raise ValueError(f"Is invalid UUID v4, value:{value} err:{err}")
 
     @property
     def value(self):
@@ -40,9 +43,5 @@ class Uuid:
         _dict = dict()
         _dict[self._field_name] = self._value
         return _dict
-
-
-
-
 
 

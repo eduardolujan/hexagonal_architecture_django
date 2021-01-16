@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
 
+# Third Party
 from mappers import Mapper, Evaluated
+from django.db.models.fields.related_descriptors import ForwardManyToOneDescriptor
+
 from modules.shared.infrastructure.persistence.unit_of_work_entity import UnitOfWorkEntity
 
 
@@ -16,9 +19,12 @@ class OrmManager:
 
     def __get(self, **fields):
         try:
+            # Filter for get is necesary to wrap entities
             model_instance = self.__model.objects.filter(**fields)
+
         except Exception as err:
             model_instance = None
+
         return model_instance
 
     def __all(self):
@@ -27,6 +33,10 @@ class OrmManager:
 
     def __search(self):
         pass
+
+    def __foreign(self, field, value):
+        foreign_instance = None
+        return foreign_instance
 
     def orm_get(self, **fields):
         """
@@ -58,9 +68,15 @@ class OrmManager:
         @rtype: UnitOfWorkEntity
         """
         model_instance = self.__model()
+        model = self.__model
         for field, value in fields.items():
             if hasattr(model_instance, field):
-                setattr(model_instance, field, value)
+                model_field = getattr(model, field)
+                if type(model_field) is ForwardManyToOneDescriptor:
+                    foreign_model_instance = model_field.field.related_model(id=value)
+                    setattr(model_instance, field, foreign_model_instance)
+                else:
+                    setattr(model_instance, field, value)
             else:
                 raise ValueError('Field not found')
 

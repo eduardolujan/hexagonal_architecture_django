@@ -6,10 +6,6 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = env(
-    "DJANGO_SECRET_KEY",
-    default="R1Eut2L6OkcFpGmPY2WCZtMHAHg5eY3DALdSyPtTEt1bp8aBrHxtktlXy3BUPQkC",
-)
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["*"])
 
@@ -19,12 +15,19 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": env.str("POSTGRES_DB"),
         "USER": env.str("POSTGRES_USER"),
-        "PASSWORD": env.str("POSTGRES_PASSWORD", default="5432"),
-        "HOST": env.str("POSTGRES_LOCALHOST", default="127.0.0.1"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD", default="password"),
+        "HOST": env.str("POSTGRES_HOST_LOCAL", default="127.0.0.1"),
         "PORT": env.str("POSTGRES_PORT"),
         "ATOMIC_REQUESTS": env.bool("POSTGRES_ATOMIC_REQUESTS", default=False)
     }
 }
+
+
+REDIS_HOST_LOCAL = env.str("REDIS_HOST_LOCAL", default="localhost")
+REDIS_PORT = env.str("REDIS_PORT", default="6379")
+CELERY_DATABASE = env("CELERY_DATABASE", default="0")
+CELERY_BROKER_URL = f"redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_DATABASE}"
+
 
 # CACHES
 # ------------------------------------------------------------------------------

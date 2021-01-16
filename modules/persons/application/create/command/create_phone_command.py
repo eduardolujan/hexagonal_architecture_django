@@ -11,7 +11,31 @@ class CreatePhoneCommand(Command):
                  number: str,
                  extension: str):
 
-        self.id = id
-        self.number = number
-        self.extension = extension
+        self.__id = id
+        self.__number = number
+        self.__extension = extension
+
+    @property
+    def id(self):
+        return self.__id
+
+    @id.setter
+    def id(self, value):
+        raise Exception(f"You can't assign directly the id")
+
+    @property
+    def number(self):
+        return self.__number
+
+    @number.setter
+    def number(self, value):
+        raise Exception(f"You can't assign directly the number")
+
+    @property
+    def extension(self):
+        return self.__extension
+
+    @extension.setter
+    def extension(self, value):
+        raise Exception(f"You can't assign directly the extension")
 

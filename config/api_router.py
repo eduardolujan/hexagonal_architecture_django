@@ -8,6 +8,9 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 urlpatterns = []
 api_v1_patterns = [
     path("", include("had.app.urls.api.v1.users", namespace="api_v1_users")),
+    path("", include("had.app.urls.api.v1.persons", namespace="api_v1_persons")),
+    path("", include("had.app.urls.api.v1.addresses", namespace="api_v1_address")),
+    path("", include("had.app.urls.api.v1.phones", namespace="api_v1_phone")),
 ]
 
 api_v1 = [
@@ -31,6 +34,11 @@ v1_openapi_schema_view = get_schema_view(
 if settings.DEBUG:
 
     urlpatterns += [
+        re_path(
+            rf'^{settings.URL_PREFIX}documentation/swagger/swagger(?P<format>\.json|\.yaml)$',
+            v1_openapi_schema_view.without_ui(cache_timeout=0),
+            name='schema-json'
+        ),
         path(
             f'{settings.URL_PREFIX}documentation/swagger/',
             v1_openapi_schema_view.with_ui('swagger', cache_timeout=0),

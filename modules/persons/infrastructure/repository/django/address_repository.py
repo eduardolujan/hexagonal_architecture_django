@@ -3,11 +3,11 @@
 
 from had.app.models import Address as AddressModel
 from modules.shared.infrastructure.persistence.django import OrmManager
-from modules.persons.domain.entities.person import Address as AddressEntity
-from modules.persons.domain.repository import PersonRepository as AbstractPersonRepository
+from modules.persons.domain.entities.address import Address as AddressEntity
+from modules.persons.domain.repository import AddressRepository as AbstractAddressRepository
 
 
-class AddressRepository(OrmManager, AbstractPersonRepository):
+class AddressRepository(OrmManager, AbstractAddressRepository):
     """
     Person Repository
     """

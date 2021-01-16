@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
 
 
 from abc import ABC, abstractmethod
 from uuid import UUID, uuid4
 from datetime import datetime
-from typing import Optional, TypeVar
+from typing import Optional, TypeVar, Dict
 
 
 DomainEventInstance = TypeVar('DomainEvent', bound='DomainEvent')
@@ -25,7 +26,7 @@ class DomainEvent(ABC):
         self.__event_id = event_id if event_id else uuid4()
         self.__ocurred_on = ocurred_on if ocurred_on else datetime.now().isoformat()
 
-    @abstractmethod
+    @staticmethod
     def from_primitives(self,
                         aggregate_id: UUID,
                         body: dict = {},
@@ -37,9 +38,18 @@ class DomainEvent(ABC):
         @param aggregate_id: Aggregate id UUID
         @param body: Payload
         @param event_id: Event id
-        @param ocurred_on:
+        @param ocurred_on: Datetime in isoformat
         @return: self instance
         @rtype: DomainEvent
+        """
+        raise NotImplementedError("Not implemented yet")
+
+    @abstractmethod
+    def to_primitives(self) -> Dict:
+        """
+        To primitives
+        @return: Primitives dict
+        @rtype: Dict
         """
         raise NotImplementedError("Not implemented yet")
 

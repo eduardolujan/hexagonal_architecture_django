@@ -1,6 +1,6 @@
-from .create_user import CreateUser
-from .delete_user import DeleteUser
-from .get_user import GetUser
+from .create_user_service import CreateUserService
+from .delete_user_service import DeleteUser
+from .user_finder_service import UserFinderService
 
 
-__all__ = ('CreateUser', 'DeleteUser', 'GetUser', )
+__all__ = ('CreateUserService', 'DeleteUser', 'UserFinderService',)

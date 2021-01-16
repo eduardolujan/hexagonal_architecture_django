@@ -3,11 +3,11 @@ from abc import ABC, abstractmethod
 
 class PersonRepository(ABC):
     @abstractmethod
-    def create(self, entity):
+    def get(self, entity):
         raise NotImplementedError("Not implemented error")
 
     @abstractmethod
-    def get(self, entity):
+    def create(self, entity):
         raise NotImplementedError("Not implemented error")
 
     @abstractmethod

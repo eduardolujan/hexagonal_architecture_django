@@ -23,16 +23,23 @@ class UnitOfWork(AbstractUnitOfWork):
     def __init__(self, session=None):
         self.__entities = set()
         self.__session = session or SessionUnitOfWork(self)
+        self.__save_point = None
 
+    @transaction.atomic
     def __enter__(self):
-        transaction.set_autocommit(False)
-        return super().__enter__()
+        # transaction.set_autocommit(False)
+        self.__save_point = transaction.savepoint()
+        return self
 
     def __exit__(self, *args):
-        super().__exit__(*args)
-        transaction.set_autocommit(True)
+        pass
 
     def commit(self):
+        """
+        Commit
+        @return:
+        @rtype:
+        """
         try:
             for entity in self.__entities:
                 if entity.get_type() == 'create':
@@ -49,17 +56,14 @@ class UnitOfWork(AbstractUnitOfWork):
 
         except Exception as err:
             self.log.exception(f"Error in commit, err:{err}")
-            self.rollback()
+            transaction.savepoint_rollback(self.__save_point)
 
         else:
-            transaction.commit()
-            self.log.info(f"Commited transaction Date:{datetime.now()}")
+            transaction.savepoint_commit(self.__save_point)
+            self.log.info(f"Commited transaction {self.__save_point} Date:{datetime.now()}")
 
         finally:
-            self.log.info(f"Finished transaction Date:{datetime.now()}")
-
-    def rollback(self):
-        transaction.rollback()
+            self.log.info(f"Finished transaction {self.__save_point} Date:{datetime.now()}")
 
     def add(self, uof_entity: UnitOfWorkEntity):
         if type(self.__entities) is tuple:

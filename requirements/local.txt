@@ -37,5 +37,8 @@ pytest-django==3.10.0  # https://github.com/pytest-dev/pytest-django
 pytest-mock==3.3.1
 pytest-subtests==0.3.2
 
+# pytest-sqlalchemy
+pytest-sqlalchemy==0.2.1
+
 
 
