@@ -7,9 +7,9 @@ from .user_updater_controller import UserUpdaterController
 from .user_deleleter_controller import UserDeleterController
 
 
-__all__ = (
+__all__ = [
     'UserFinderController',
     'UserCreatorController',
     'UserUpdaterController',
     'UserDeleterController',
-)
+]

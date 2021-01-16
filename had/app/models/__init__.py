@@ -5,9 +5,9 @@ from had.app.models.persons import (Person,
                                     Phone, )
 
 
-__all__ = (
+__all__ = [
     'User',
     'Person',
     'Address',
     'Phone',
-)
+]

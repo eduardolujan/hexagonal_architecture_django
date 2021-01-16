@@ -6,6 +6,6 @@ from .address_model import Address
 from .person_model import Person
 
 
-__all__ = ('Phone',
+__all__ = ['Phone',
            'Address',
-           'Person', )
+           'Person', ]

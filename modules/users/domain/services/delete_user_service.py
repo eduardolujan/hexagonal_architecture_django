@@ -1,10 +1,7 @@
 
 
-from uuid import UUID
-
-from modules.shared.domain.passwords import PasswordGenerator
-from modules.users.domain.entities import DeleteUser as DeleteUserEntity
-from modules.users.domain.value_objects import UserId, Username, Password, Email
+from modules.users.domain import value_objects
+from modules.users.domain.entities import UserId
 
 
 class DeleteUser:
@@ -24,8 +21,8 @@ class DeleteUser:
         if type(id) is not str:
             raise ValueError("Not assigned password_generator")
 
-        app_user_id = UserId(id)
-        delete_user = DeleteUserEntity(
+        app_user_id = value_objects.UserId(id)
+        delete_user = UserId(
             id=app_user_id,
         )
         return delete_user

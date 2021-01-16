@@ -1,12 +1,10 @@
+
 # -*- coding: utf-8 -*-
 
 
 from modules.users.domain.entities import User as UserEntity
 from modules.users.domain.domain_events import CreateUserDomainEvent
-from modules.users.domain.value_objects import (UserId,
-                                                Username,
-                                                Password,
-                                                Email,)
+from modules.users.domain import value_objects
 
 
 class CreateUserService:
@@ -15,24 +13,24 @@ class CreateUserService:
     """
 
     @staticmethod
-    def create_user_entity(id: UserId = None,
-                           username: Username = None,
-                           password: Password = None,
-                           email: Email = None):
+    def create_user_entity(id: value_objects.UserId = None,
+                           username: value_objects.Username = None,
+                           password: value_objects.Password = None,
+                           email: value_objects.Email = None):
 
-        if not isinstance(id, UserId):
+        if not isinstance(id, value_objects.UserId):
             raise ValueError(f"Parameter id: {id} "
                              f"is not instance of UserId")
 
-        if not isinstance(username, Username):
+        if not isinstance(username, value_objects.Username):
             raise ValueError(f"Parameter username {username} "
                              f"is not instance of Username")
 
-        if not isinstance(password, Password):
+        if not isinstance(password, value_objects.Password):
             raise ValueError(f"Parameter password {password} "
                              f"is not instance of Password")
 
-        if not isinstance(email, Email):
+        if not isinstance(email, value_objects.Email):
             raise ValueError(f"Parameter email: {email} "
                              f"is not instance of Email")
 
