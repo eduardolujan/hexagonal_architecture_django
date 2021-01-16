@@ -7,4 +7,6 @@ urlpatterns += address_urls_patterns
 urlpatterns += persons_urls_patterns
 
 
-__all__ = ('urlpatterns',)
+__all__ = [
+    'urlpatterns',
+]

@@ -3,12 +3,13 @@
 
 from dataclasses import dataclass
 from typing import Optional
-from modules.shared.domain.entities import Entity
+
+from modules.shared.domain.aggregate import AggregateRoot
 from modules.persons.domain.value_objects import person_values
 
 
 @dataclass
-class Person(Entity):
+class Person(AggregateRoot):
     """
     Person entity
     """

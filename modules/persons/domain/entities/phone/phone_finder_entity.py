@@ -4,12 +4,12 @@
 from dataclasses import dataclass
 
 # Domain
-from modules.shared.domain.entities import Entity
+from modules.shared.domain.aggregate import AggregateRoot
 from modules.persons.domain.value_objects import phone_values
 
 
 @dataclass
-class PhoneFinder(Entity):
+class PhoneFinder(AggregateRoot):
     """
     Person Entity
     """
