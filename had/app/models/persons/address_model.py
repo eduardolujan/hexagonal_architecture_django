@@ -9,6 +9,7 @@ class Address(models.Model):
     """
     Address model
     """
+
     id = models.UUIDField(primary_key=True, unique=True)
     street = models.CharField(max_length=200)
     interior_number = models.CharField(max_length=200)

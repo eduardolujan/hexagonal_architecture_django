@@ -1,4 +1,4 @@
-from typing import NoReturn
+from typing import NoReturn, List
 
 from mailjet_rest import Client
 
@@ -35,7 +35,7 @@ class MailjetEmailSender(EmailSender):
         )
         self.__mailjet_client = client or Client(auth=auth)
 
-    def send(self, sender_email: str, recipient_email: str, subject: str = '', message: str = '') -> NoReturn:
+    def send(self, sender_email: str, recipient_email: List[str], subject: str = "", message: str = "") -> NoReturn:
         """
         Send email
         @param sender_email: sender email
@@ -49,6 +49,9 @@ class MailjetEmailSender(EmailSender):
         @return: NoReturn
         @rtype: NoReturn
         """
+        if type(recipient_email) is not List:
+            raise Exception(f"Error recipient_email is not list")
+
         mail_data = {
             'FromEmail': sender_email,
             'FromName': sender_email,
@@ -56,7 +59,9 @@ class MailjetEmailSender(EmailSender):
             'Html-part': message,
             'Recipients': [{'Email': recipient_email}]
         }
+
         response = self.__mailjet_client.send.create(data=mail_data)
+
         if response.status_code not in [200]:
             raise Exception(f"The mailjet response without status 200, verify {response.content.decode('utf-8')}")
 

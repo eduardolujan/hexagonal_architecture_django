@@ -5,4 +5,8 @@ from .entities_serializer import EntitiesSerializer
 
 
 class SerializerManager(EntitySerializer, EntitiesSerializer, ABC):
+    """
+    Serializer manager
+    """
+
     pass

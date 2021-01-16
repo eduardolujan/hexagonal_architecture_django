@@ -33,7 +33,8 @@ nameko==3.0.0rc9
 py3-validate-email==0.2.9
 
 # Mappers
-mappers==2.1.0
+# mappers==2.1.0
+git+https://github.com/eduardolujan/mappers.git@master#egg=mappers
 
 # Kombu
 kombu==4.6.10

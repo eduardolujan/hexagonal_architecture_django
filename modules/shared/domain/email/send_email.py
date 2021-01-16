@@ -1,7 +1,7 @@
 
 
 from abc import ABC, abstractmethod
-from typing import NoReturn
+from typing import NoReturn, List
 
 
 class EmailSender(ABC):
@@ -10,7 +10,7 @@ class EmailSender(ABC):
     """
 
     @abstractmethod
-    def send(self, _from: str, to: str, message: str) -> NoReturn:
+    def send_email(self, _from: str, to: List[str], message: str) -> NoReturn:
         """
         Send email
         @param _from: from email
@@ -23,3 +23,4 @@ class EmailSender(ABC):
         @rtype: NoReturn
         """
         raise NotImplementedError("Not implemented yet")
+

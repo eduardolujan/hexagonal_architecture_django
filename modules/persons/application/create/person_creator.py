@@ -11,6 +11,7 @@ from modules.shared.domain.bus.event import EventBus
 from modules.shared.domain.bus.command import Command
 from modules.persons.domain.services.creator import PersonCreatorService
 from modules.persons.domain.repository import PersonRepository
+from modules.shared.domain.email import EmailSender
 from modules.persons.domain.value_objects.person_values import PersonId
 from modules.persons.domain.value_objects.person_values import Name
 from modules.persons.domain.value_objects.person_values import LastName

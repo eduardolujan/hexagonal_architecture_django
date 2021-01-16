@@ -5,6 +5,7 @@ class AddressRepository(ABC):
     """
     Address Abstract Repository
     """
+
     @abstractmethod
     def create(self, entity):
         """
@@ -52,7 +53,7 @@ class AddressRepository(ABC):
     @abstractmethod
     def all(self):
         """
-        
+
         @return:
         @rtype:
         """
